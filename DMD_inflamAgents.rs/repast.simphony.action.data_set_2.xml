@@ -1,0 +1,58 @@
+<repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
+  <name>Regeneration</name>
+  <type>AGGREGATE</type>
+  <inclTick>true</inclTick>
+  <inclBatchRun>false</inclBatchRun>
+  <inclRandomSeed>false</inclRandomSeed>
+  <scheduleParams>
+    <start>1.0</start>
+    <interval>1.0</interval>
+    <priority>-Infinity</priority>
+    <pType>LAST</pType>
+    <duration>-1.0</duration>
+    <frequency>REPEAT</frequency>
+    <hashCode>-1492368765</hashCode>
+  </scheduleParams>
+  <atEnd>false</atEnd>
+  <methodDataSources class="linked-hash-map">
+    <entry>
+      <string>total size</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>total size</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getTotalSize</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>ECM</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>ECM</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getECMTotal</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>fibers</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>fibers</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getFiberTotal</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>necrosis</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>necrosis</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getNecrosisTotal</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+  </methodDataSources>
+  <countSources class="linked-hash-map"/>
+  <customNADataSources class="linked-hash-map"/>
+  <customAggDataSources class="linked-hash-map"/>
+</repast.simphony.data2.engine.DataSetDescriptor>

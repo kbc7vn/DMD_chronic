@@ -1,0 +1,21 @@
+<repast.simphony.data2.engine.FileSinkDescriptor simphonyVersion="2.7.0">
+  <name>Inflammatory Cells File Sink</name>
+  <dataSet>InflamCells</dataSet>
+  <delimiter>,</delimiter>
+  <format>TABULAR</format>
+  <sourceIds class="linked-hash-set">
+    <string>apopNeutrophils</string>
+    <string>neutrophils</string>
+    <string>totalNeutrophils</string>
+    <string>m1 macs</string>
+    <string>m2 macs </string>
+    <string>resMacs</string>
+    <string>m1ae</string>
+    <string>m1de</string>
+    <string>resMacs ODE</string>
+    <string>tick</string>
+    <string>random_seed</string>
+  </sourceIds>
+  <fileName>ModelOutput_inflamCells.txt</fileName>
+  <addTimeStamp>true</addTimeStamp>
+</repast.simphony.data2.engine.FileSinkDescriptor>
