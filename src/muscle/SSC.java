@@ -19,6 +19,8 @@ import repast.simphony.space.continuous.NdPoint;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.util.ContextUtils;
+import repast.simphony.valueLayer.BufferedGridValueLayer;
+import repast.simphony.valueLayer.GridValueLayer;
 
 /**
  * @author Kelley Virgilio Satellite stem cells
@@ -27,6 +29,8 @@ public class SSC {
 
 	// SSC parameters
 	private static Grid<Object> grid;
+	//private static BufferedGridValueLayer mcpSpatial;
+	private static BufferedGridValueLayer mcpSpatial;
 	public static double sscActivation; // ssc activation pressure
 	public static double sscMigration; // ssc migration pressure
 	public static double sscProliferation; // ssc proliferation pressure
@@ -75,7 +79,7 @@ public class SSC {
 	private static final double sscRecruitScale = 1; // 1 control -- not always the same as sscScale
 //	private static final double sscScaleSat = .05; // control = 1
 
-	public SSC(Grid<Object> grid, int active, int differentiated, int onEdge, int divideTime, int diffTime, int myf5neg,
+	public SSC(BufferedGridValueLayer mcpSpatial, Grid<Object> grid, int active, int differentiated, int onEdge, int divideTime, int diffTime, int myf5neg,
 			int daughter, int sisterAssoc, int proteinAdd, int fiberNeedsRep, int committed, int fiberAssoc,
 			int senescent, int migrationTime) {
 		this.grid = grid;
@@ -99,17 +103,34 @@ public class SSC {
 										// regrowing
 		this.senescent = senescent; // tracks of the SSC is senescent
 		this.migrationTime = migrationTime; // tracks how long the ssc has been migrating to fiber
+		
+		this.mcpSpatial = mcpSpatial; // MCP value layer
+		
 	}
 
 	// SSC BEHAVIORS at each time step/for each ssc agent
 	@ScheduledMethod(start = 2, interval = 1)
 	public void sscStep() {
 		Context context = ContextUtils.getContext(this);
+	    mcpSpatial = (BufferedGridValueLayer) context.getValueLayer("MCP Layer");
 
 		// MOVE
 		// If Active, not onEdge, notSenescent
 		if (this.getActive() >= timeToActive && this.getOnEdge() == 0 && this.senescent == 0) { // migration is tracked
 																								// elsewhere
+			// Active SSCs secrete mcp if the environment is inflammatory
+			double inflamWeight = GrowthFactors.inflamWeight*100;
+			int randomInt = RandomHelper.nextIntFromTo(0, 100);
+			if (randomInt <= inflamWeight) {
+			    GridPoint pt = grid.getLocation(this);
+				mcpSpatial.set(10 + mcpSpatial.get(pt.getX(), pt.getY()), pt.getX(), pt.getY());
+				//System.out.println(" SSC secreted!!");
+			    double mcpHere = mcpSpatial.get(pt.getX(), pt.getY());
+			  //  System.out.println(mcpHere);
+			  //  System.out.println("total: ");
+			  //  System.out.println(mcpSpatial.get());
+			}
+			
 			move();
 		}
 		// MIGRATION- migration chance called from Fiber
@@ -406,7 +427,7 @@ public class SSC {
 							if (Fiber.senescencePa != 1 && RandomHelper.nextIntFromTo(0, chanceMdxAsymm) < 1) {
 								// senescencePa = parameter testing of the effect of senescence
 								// MYOBLAST- ASYMMETRIC DIVISION
-								SSC sscNewAsymm = new SSC(grid, 1, 0, 1, 0, 0, RandomHelper.nextIntFromTo(0, 8),
+								SSC sscNewAsymm = new SSC(mcpSpatial, grid, 1, 0, 1, 0, 0, RandomHelper.nextIntFromTo(0, 8),
 										(this.getDaughter() + 1), 1, 0, 0, 2, this.getFiberAssoc(), 0, 0); // adds an
 																											// active
 																											// SSC
@@ -424,7 +445,7 @@ public class SSC {
 							// Still has a chance normal asymmetric
 							if (RandomHelper.nextIntFromTo(0, chanceMdxAsymm) < 1) {
 								// MYOBLAST- ASYMMETRIC DIVISION
-								SSC sscNewAsymm = new SSC(grid, 1, 0, 1, 0, 0, RandomHelper.nextIntFromTo(0, 8),
+								SSC sscNewAsymm = new SSC(mcpSpatial, grid, 1, 0, 1, 0, 0, RandomHelper.nextIntFromTo(0, 8),
 										(this.getDaughter() + 1), 1, 0, 0, 2, this.getFiberAssoc(), 0, 0); // adds an
 																											// active
 																											// SSC
@@ -442,7 +463,7 @@ public class SSC {
 							// Still has a chance normal asymmetric
 							if (RandomHelper.nextIntFromTo(0, chanceMdxAsymm) < 1) {
 								// MYOBLAST- ASYMMETRIC DIVISION
-								SSC sscNewAsymm = new SSC(grid, 1, 0, 1, 0, 0, RandomHelper.nextIntFromTo(0, 8),
+								SSC sscNewAsymm = new SSC(mcpSpatial, grid, 1, 0, 1, 0, 0, RandomHelper.nextIntFromTo(0, 8),
 										(this.getDaughter() + 1), 1, 0, 0, 2, this.getFiberAssoc(), 0, 0); // adds an
 																											// active
 																											// SSC
@@ -461,7 +482,7 @@ public class SSC {
 						// HEALTHY DIVISION:
 						else if (Fiber.asymmSenescent == 0) { // if a normal state --> asymmetric division
 							// MYOBLAST- ASYMMETRIC DIVISION
-							SSC sscNewAsymm = new SSC(grid, 1, 0, 1, 0, 0, RandomHelper.nextIntFromTo(0, 8),
+							SSC sscNewAsymm = new SSC(mcpSpatial, grid, 1, 0, 1, 0, 0, RandomHelper.nextIntFromTo(0, 8),
 									(this.getDaughter() + 1), 1, 0, 0, 2, this.getFiberAssoc(), 0, 0); // adds an active
 																										// SSC
 							// cell is not differentiated, but committed, can't be myf5- (myf5- == 9)
@@ -472,7 +493,7 @@ public class SSC {
 					} else {
 						// SSC
 						// Diseased (mdx) state also symmetrically divides without issue
-						SSC sscNewSymm = new SSC(grid, 1, 0, 1, 0, 0, RandomHelper.nextIntFromTo(0, 9),
+						SSC sscNewSymm = new SSC(mcpSpatial, grid, 1, 0, 1, 0, 0, RandomHelper.nextIntFromTo(0, 9),
 								(this.getDaughter() + 1), 5, 0, 0, 0, this.getFiberAssoc(), 0, 0); // adds an active SSC
 						context.add((SSC) sscNewSymm); // add to context
 						grid.moveTo(sscNewSymm, pt.getX(), pt.getY()); // add the new ssc to that location
@@ -509,7 +530,7 @@ public class SSC {
 						if (Fiber.asymmSenescent == 2) { // if diseased:
 							// Still has a chance normal asymmetric
 							if (Fiber.senescencePa != 1 && RandomHelper.nextIntFromTo(0, chanceMdxAsymm) < 1) {
-								SSC sscNewAsymm = new SSC(grid, 1, 1, 1, 0, 1, RandomHelper.nextIntFromTo(0, 8),
+								SSC sscNewAsymm = new SSC(mcpSpatial, grid, 1, 1, 1, 0, 1, RandomHelper.nextIntFromTo(0, 8),
 										(this.getDaughter() + 1), 1, 0, 0, 2, this.getFiberAssoc(), 0, 0); // adds an
 																											// active
 																											// SSC
@@ -525,7 +546,7 @@ public class SSC {
 						} else if (Fiber.asymmSenescent == 1) { // if diseased:
 							// Still has a chance normal asymmetric
 							if (RandomHelper.nextIntFromTo(0, chanceMdxAsymm) < 1) {
-								SSC sscNewAsymm = new SSC(grid, 1, 1, 1, 0, 1, RandomHelper.nextIntFromTo(0, 8),
+								SSC sscNewAsymm = new SSC(mcpSpatial, grid, 1, 1, 1, 0, 1, RandomHelper.nextIntFromTo(0, 8),
 										(this.getDaughter() + 1), 1, 0, 0, 2, this.getFiberAssoc(), 0, 0); // adds an
 																											// active
 																											// SSC
@@ -541,7 +562,7 @@ public class SSC {
 						} else if (Fiber.asymmSenescent == 3) { // if diseased:
 							// Still has a chance normal asymmetric
 							if (RandomHelper.nextIntFromTo(0, chanceMdxAsymm) < 1) {
-								SSC sscNewAsymm = new SSC(grid, 1, 1, 1, 0, 1, RandomHelper.nextIntFromTo(0, 8),
+								SSC sscNewAsymm = new SSC(mcpSpatial, grid, 1, 1, 1, 0, 1, RandomHelper.nextIntFromTo(0, 8),
 										(this.getDaughter() + 1), 1, 0, 0, 2, this.getFiberAssoc(), 0, 0); // adds an
 																											// active
 																											// SSC
@@ -556,7 +577,7 @@ public class SSC {
 							}
 						} else if (Fiber.asymmSenescent == 0) {
 							// can't be myf5- (myf5- == 9)
-							SSC sscNewAsymm = new SSC(grid, 1, 1, 1, 0, 1, RandomHelper.nextIntFromTo(0, 8),
+							SSC sscNewAsymm = new SSC(mcpSpatial, grid, 1, 1, 1, 0, 1, RandomHelper.nextIntFromTo(0, 8),
 									(this.getDaughter() + 1), 1, 0, 0, 2, this.getFiberAssoc(), 0, 0); // adds an active
 																										// SSC
 							context.add((SSC) sscNewAsymm); // add to context
@@ -567,7 +588,7 @@ public class SSC {
 					} else {
 						// MYOBLAST
 						// can't be myf5- (myf5- == 9)
-						SSC sscNewSymm = new SSC(grid, 1, 0, 1, 0, 0, RandomHelper.nextIntFromTo(0, 8),
+						SSC sscNewSymm = new SSC(mcpSpatial, grid, 1, 0, 1, 0, 0, RandomHelper.nextIntFromTo(0, 8),
 								(this.getDaughter() + 1), 5, 0, 0, 2, this.getFiberAssoc(), 0, 0); // adds an active SSC
 						context.add((SSC) sscNewSymm); // add to context
 						grid.moveTo(sscNewSymm, pt.getX(), pt.getY()); // add the new ssc to that location
@@ -708,7 +729,7 @@ public class SSC {
 			// Only adds a SC if there is a need; Only migrates if there is not a saturated
 			// number of sscs
 			if (fiberBorderDamaged.size() > 0) {
-				SSC sscNew = new SSC(grid, 0, 0, 0, 0, 0, RandomHelper.nextIntFromTo(0, 9), 0, 0, 0, 0, 0, 0, 0, 1); // adds
+				SSC sscNew = new SSC(mcpSpatial, grid, 0, 0, 0, 0, 0, RandomHelper.nextIntFromTo(0, 9), 0, 0, 0, 0, 0, 0, 0, 1); // adds
 																														// a
 																														// quiescent
 																														// SSC
@@ -736,7 +757,7 @@ public class SSC {
 				grid.moveTo(sscNew, ptECM.getX(), ptECM.getY()); // add the new ssc to that location
 				sscNew.setMigrated(1);
 			} else if (fiberBorderDamaged1.size() > 0) {
-				SSC sscNew = new SSC(grid, 0, 0, 0, 0, 0, RandomHelper.nextIntFromTo(0, 9), 0, 0, 0, 0, 0, 0, 0, 1); // adds
+				SSC sscNew = new SSC(mcpSpatial, grid, 0, 0, 0, 0, 0, RandomHelper.nextIntFromTo(0, 9), 0, 0, 0, 0, 0, 0, 0, 1); // adds
 																														// an
 																														// quiescent
 																														// SSC
@@ -768,7 +789,7 @@ public class SSC {
 																									// on them then pick
 																									// a random one
 				// Chance is dependent on the number of ssc
-				SSC sscNew = new SSC(grid, 0, 0, 0, 0, 0, RandomHelper.nextIntFromTo(0, 9), 0, 0, 0, 0, 0, 0, 0, 1); // adds
+				SSC sscNew = new SSC(mcpSpatial, grid, 0, 0, 0, 0, 0, RandomHelper.nextIntFromTo(0, 9), 0, 0, 0, 0, 0, 0, 0, 1); // adds
 																														// an
 																														// quiescent
 																														// SSC
@@ -799,7 +820,7 @@ public class SSC {
 																									// on them then pick
 																									// a random one
 				// Chance is dependent on the number of ssc
-				SSC sscNew = new SSC(grid, 0, 0, 0, 0, 0, RandomHelper.nextIntFromTo(0, 9), 0, 0, 0, 0, 0, 0, 0, 1); // adds
+				SSC sscNew = new SSC(mcpSpatial, grid, 0, 0, 0, 0, 0, RandomHelper.nextIntFromTo(0, 9), 0, 0, 0, 0, 0, 0, 0, 1); // adds
 																														// an
 																														// quiescent
 																														// SSC
@@ -979,7 +1000,7 @@ public class SSC {
 		// muscle fiber
 		for (int i = 0; i < Math.ceil(origFiberNumber * sscScale * Fiber.pax7Scale); i++) { // less ssc at quiescence
 																							// than fibroblasts
-			context.add(new SSC(grid, 0, 0, 0, 0, 0, RandomHelper.nextIntFromTo(0, 9), 0, 0, 0, 0, 0, 0, 0, 0)); // Add
+			context.add(new SSC(mcpSpatial, grid, 0, 0, 0, 0, 0, RandomHelper.nextIntFromTo(0, 9), 0, 0, 0, 0, 0, 0, 0, 0)); // Add
 																													// the
 																													// set
 																													// number

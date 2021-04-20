@@ -23,6 +23,7 @@ import repast.simphony.space.graph.Network;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.util.ContextUtils;
+import repast.simphony.valueLayer.BufferedGridValueLayer;
 
 /**
  * @author Kelley Virgilio
@@ -32,6 +33,7 @@ public class Fiber {
 	
 	// FIBER PARAMETERS:
 	private Grid<Object> grid;
+	private  BufferedGridValueLayer mcpSpatial;
 	private int mfProtein; // amount of protein
 	public int fiberNumber;	// fiber number-- all fiber agents in same fiber have same fiber number
 	private int border; // 1 == border of fiber/ecm, 0 == not a border fiber elem
@@ -66,13 +68,13 @@ public class Fiber {
 	public static double mdxBaseCollagen = 1; // 1 at healthy -- altered at disease state
 	public static double macDepletion = 0; // 0 at healthy -- 1 at mac depletion **** MAKE SURE = 0 OTHERWISE
 	public static double senescencePa = 0; // 0 at healthy -- 1 at 0% senescence analysis only ** MAKE SURE = 0 OTHERWISE
-	public static double necrosisChronic = 0; // set for chronic damage only
+	public static double necrosisChronic = 1; // set for chronic damage only
 	
 	// MURPHY 2011 SCALING PARAMETER CHECK
 	public static final double pax7Scale = 1;
 	public static final double tcf4Scale = 1;
 
-	public Fiber(Grid<Object> grid, int mfProtein, int fiberNumber, int border, int needsRepair, double needsGrowth, int damaged)
+	public Fiber(BufferedGridValueLayer mcpSpatial, Grid<Object> grid, int mfProtein, int fiberNumber, int border, int needsRepair, double needsGrowth, int damaged)
 	{
 		this.grid = grid;
 		this.setMfProtein(mfProtein); // initialize with base level of muscle protein
@@ -81,19 +83,21 @@ public class Fiber {
 		this.needsRepair = needsRepair;
 		this.needsGrowth = needsGrowth;
 		this.damaged = damaged;
+		this.mcpSpatial = mcpSpatial;
 	}
 	
 	@ScheduledMethod(start = 2, interval = 1, pick = 1, priority = 1) // Only do this one time for each Class (pick = 1)
 	// InflamCell, GrowthFactor class only has one 'agent' in the context
 	public void fiberStep(){
 		Context context = ContextUtils.getContext(this); // get the context of the fiber
+		Neutrophil.neutrophilRecruitment(context);
+		Macrophage.macRecruitment(context);
 		for (int i = 1; i < origFiberNumber + 1; i++){ // go through each fiber and change the border to red
 			List<Object> borderFibers = getFiberBorder(i, context); // get all the borders and set to 1; check if damage surrounds it
 			checkFiberSize(context, i); // check if it is big enough
 			SSC.sscMigrationChance(context); // chance of SSC migration with every step-- step at every fiber (Scalable with more fibers)
 			Fibroblast.fibrobRecruitment(context);// chance of recruiting fibroblasts
 			checkFiberTouching(context, i); // check if any fibers are touching and resolve it
-			//Neutrophil.neutrophil_recruit(context);
 		}
 		getNumFiberNeedRepair(context); // Get the total number of fibers that need repair
 	}
@@ -103,13 +107,13 @@ public class Fiber {
 	public void fiberInitialStep(){
 		Context context = ContextUtils.getContext(this); // get the context of the fiber
 		origFiberNumber = getTotalFiberNumber(context); // get total number of fibers at start
-		necrosisChronic = 0; // chronic damage only
+		necrosisChronic = 1; // chronic damage only
 		
 		// DISEASE PARAMETER SET:// Set disease state parameters
 		// HEALTHY
-		double necrosisInitial = 30;
+		double necrosisInitial = 10;
 		//double necrosisInitial = 1;
-		//mdxChronicInflam = 0;
+		mdxChronicInflam = 1;
 		//asymmSenescent = 2; 
 		// VERY YOUNG MDX
 		if (diseaseState == 4){
@@ -428,7 +432,7 @@ public class Fiber {
 					collagenNeighbor = ((ECM) ecmNeighbor).getCollagen(); 
 				}
 			}
-			Fiber newFiberElem = new Fiber(grid, 0, fiberNumber, 0, 0, 0, 0); // change to a fiber
+			Fiber newFiberElem = new Fiber(mcpSpatial, grid, 0, fiberNumber, 0, 0, 0, 0); // change to a fiber
 			context.add((Fiber) newFiberElem); // change to a fiber
 			grid.moveTo(newFiberElem, newLoc.getX(), newLoc.getY());
 			if (ecmToAdd != null){ // move collagen to nearby ecm
@@ -473,7 +477,7 @@ public class Fiber {
 			collAtRemoveExt = collagenAtPt;
 			// Return collagen and it will be replaced where the other ECM was added
 			// MOVE ECM TO THE NEIGHBOR
-			Fiber newFiberElem = new Fiber(grid, 0, fiberNumber, 0, 0, 0, 0); // change to a fiber
+			Fiber newFiberElem = new Fiber(mcpSpatial, grid, 0, fiberNumber, 0, 0, 0, 0); // change to a fiber
 			context.add((Fiber) newFiberElem); // change to a fiber
 			grid.moveTo(newFiberElem, locationToChange.getX(), locationToChange.getY());
 		}
@@ -529,7 +533,7 @@ public class Fiber {
 					}
 				}
 				// NEED TO GET FIBER NUMBER
-				Fiber newFiberElem = new Fiber(grid, 0, fiberNumber, 1, 0, 0, 0); // change to a fiber
+				Fiber newFiberElem = new Fiber(mcpSpatial, grid, 0, fiberNumber, 1, 0, 0, 0); // change to a fiber
 				context.add((Fiber) newFiberElem); // change to a fiber
 				grid.moveTo(newFiberElem, newLoc.getX(), newLoc.getY());
 				//System.out.println(newFiberElem);
@@ -569,7 +573,7 @@ public class Fiber {
 					}
 				}
 				// NEED TO GET FIBER NUMBER
-				Fiber newFiberElem = new Fiber(grid, 0, fiberNumber, 1, 0, 0, 0); // change to a fiber
+				Fiber newFiberElem = new Fiber(mcpSpatial, grid, 0, fiberNumber, 1, 0, 0, 0); // change to a fiber
 				context.add((Fiber) newFiberElem); // change to a fiber
 				grid.moveTo(newFiberElem, newLoc.getX(), newLoc.getY());
 				//System.out.println(newFiberElem);
@@ -612,7 +616,7 @@ public class Fiber {
 					}
 				}
 				// NEED TO GET FIBER NUMBER
-				Fiber newFiberElem = new Fiber(grid, 0, fiberNumber, 1, 0, 0, 0); // change to a fiber
+				Fiber newFiberElem = new Fiber(mcpSpatial, grid, 0, fiberNumber, 1, 0, 0, 0); // change to a fiber
 				context.add((Fiber) newFiberElem); // change to a fiber
 				grid.moveTo(newFiberElem, newLoc.getX(), newLoc.getY());
 				//System.out.println(newFiberElem);
@@ -652,7 +656,7 @@ public class Fiber {
 					}
 				}
 				// NEED TO GET FIBER NUMBER
-				Fiber newFiberElem = new Fiber(grid, 0, fiberNumber, 1, 0, 0, 0); // change to a fiber
+				Fiber newFiberElem = new Fiber(mcpSpatial, grid, 0, fiberNumber, 1, 0, 0, 0); // change to a fiber
 				context.add((Fiber) newFiberElem); // change to a fiber
 				grid.moveTo(newFiberElem, newLoc.getX(), newLoc.getY());
 				//System.out.println(newFiberElem);
@@ -682,7 +686,7 @@ public class Fiber {
 					GridPoint thisPoint = grid.getLocation((Fiber) thisFiber);
 					context.remove((Fiber) thisFiber);
 					// Add in ECM
-					ECM newECM = new ECM(grid, 1, 0, 0); // change to ECM
+					ECM newECM = new ECM(mcpSpatial, grid, 1, 0, 0); // change to ECM
 					context.add((ECM) newECM);
 					grid.moveTo(newECM, thisPoint.getX(), thisPoint.getY()); 
 				}
@@ -690,7 +694,7 @@ public class Fiber {
 					GridPoint thatPoint = grid.getLocation((Fiber) thatFiber);
 					context.remove((Fiber) thatFiber);
 					// Add in ECM
-					ECM newECM = new ECM(grid, 1, 0, 0); // change to ECM
+					ECM newECM = new ECM(mcpSpatial, grid, 1, 0, 0); // change to ECM
 					context.add((ECM) newECM);
 					grid.moveTo(newECM, thatPoint.getX(), thatPoint.getY()); 
 				}

@@ -20,6 +20,7 @@ import repast.simphony.util.ContextUtils;
 import repast.simphony.util.collections.IndexedIterable;
 import repast.simphony.util.collections.ListIndexedIterable;
 import repast.simphony.util.collections.RandomIterable;
+import repast.simphony.valueLayer.BufferedGridValueLayer;
 
 /**
  * @ Kelley Virgilio
@@ -29,15 +30,17 @@ import repast.simphony.util.collections.RandomIterable;
 public class Necrosis {
 	
 	private Grid<Object> grid;
+	private static BufferedGridValueLayer mcpSpatial;
 	private int secondary; // defines secondary necrosis
 	private int age; // tracks age of necrosis- counter
 	public static double initialBurst;
 	
-	public Necrosis(Grid<Object> grid, int secondary, int age)
+	public Necrosis(BufferedGridValueLayer mcpSpatial, Grid<Object> grid, int secondary, int age)
 	{
 		this.secondary = secondary;
 		this.grid = grid;
 		this.age = age;
+		this.mcpSpatial = mcpSpatial;
 	}
 	
 
@@ -51,15 +54,15 @@ public class Necrosis {
 	public static void necrosisBehaviors(Context<Object> context, Grid<Object> grid, double[] inflamCells, int totalFiberNumber, double[] growthFactors){
 		// inflammCells: 0 RM; 1 N; 2 Na; 3 M1; 4 M1ae; 5 M1de; 6 M2
 		// Neutrophils and M1-debris eating get rid of necrosis but release ROS --> secondary necrosis	
-		double neutrophils = Math.ceil(inflamCells[1])*50; // round neutrophils to nearest whole number
+		/*double neutrophils = Math.ceil(inflamCells[1])*50; // round neutrophils to nearest whole number
 		double m1de = Math.ceil(Math.ceil(inflamCells[5]) + GrowthFactors.m1MacAdded*.3)*50; // round neutrophils to nearest whole number
-		//System.out.println(m1de);
+		// double m1de = 0;// Math.ceil(inflamCells[5])*50;
 		// M1 DEBRIS EATING MACROPHAGES- REMOVE NECROSIS
 		  for (int i = 0; i < m1de; i++){
 			  // *** CHECK IF THERE IS ANY NECROSIS IN THE MUSCLE
 			List<Object> necrosisCheck = getNecrosis(context);
 			if (necrosisCheck.size() > 0){  
-			  if (RandomHelper.nextIntFromTo(0, 5) < 1){ // Each m1de has a 1 in 10 chance of removing necrosis
+			  if (RandomHelper.nextIntFromTo(0, 1) < 2){ // Each m1de has a 1 in 10 chance of removing necrosis ***changed to remove always 
 				// REMOVE NECROSIS
 				List<Necrosis> necrosisAtEdge = new ArrayList<Necrosis>();
 				List<Object> necrosis = getNecrosis(context); // Get all the necrosis elements at each step
@@ -78,7 +81,7 @@ public class Necrosis {
 				if (necrosisAtEdge.size() > 0){
 					int index = RandomHelper.nextIntFromTo(0,  necrosisAtEdge.size() - 1);
 					Necrosis necrosisRandom = necrosisAtEdge.get(index);
-					ECM newECM = new ECM(grid, 0.1, 0, 0); // Create a new ECM element currently just add small amount of collagen
+					ECM newECM = new ECM(mcpSpatial, grid, 0.1, 0, 0); // Create a new ECM element currently just add small amount of collagen
 					//ECM newECM = new ECM(grid, .1, 0, 0); // add a lot of collagen-- removed by MMPs
 					GridPoint pt = grid.getLocation(necrosisRandom); // get location
 					context.remove(necrosisRandom); // remove the necrosis and change to ECM
@@ -89,7 +92,7 @@ public class Necrosis {
 					List<Object> necrosisRemain = getNecrosis(context); // get the remaining necrosis
 					int index = RandomHelper.nextIntFromTo(0,  necrosisRemain.size() - 1);
 					Object necrosisRandomTemp = necrosisRemain.get(index);
-					ECM newECM = new ECM(grid, 0.1, 0, 0); // Create a new ECM element currently just add small amount of collagen
+					ECM newECM = new ECM(mcpSpatial, grid, 0.1, 0, 0); // Create a new ECM element currently just add small amount of collagen
 					GridPoint pt = grid.getLocation(necrosisRandomTemp); // get location
 					context.remove(necrosisRandomTemp); // remove the necrosis and change to ECM
 					context.add(newECM); // Change to ecm for now
@@ -97,7 +100,7 @@ public class Necrosis {
 				}
 			  }
 			}
-		}
+		} */
 		
 		// SECONDARY NECROSIS- based on ROS
 		double ros = growthFactors[28];
@@ -120,7 +123,7 @@ public class Necrosis {
 			if (fiberNearNecrosis.size() > 0){
 			int index = RandomHelper.nextIntFromTo(0,  fiberNearNecrosis.size() - 1);
 			Fiber fiberRandom = fiberNearNecrosis.get(index);
-			Necrosis newNecrosis = new Necrosis(grid, 1, 0); // Create a new Necrotic element, marked 'secondary'
+			Necrosis newNecrosis = new Necrosis(mcpSpatial, grid, 1, 0); // Create a new Necrotic element, marked 'secondary'
 			GridPoint pt = grid.getLocation(fiberRandom); // get location
 			context.remove(fiberRandom); // remove the fiber and change to secondary necrosis
 			context.add(newNecrosis); // Add new necrosis
@@ -130,6 +133,7 @@ public class Necrosis {
 		}
 	}
 	
+	//@ScheduledMethod(start = 2, interval = 24, priority = 1) 
 	// Only for chronic damage simulations
 	public static void chronicDamage(Context<Object> context, Grid<Object> grid, double chronicAmount){
 		// Apply a low level chronic damage
@@ -149,14 +153,14 @@ public class Necrosis {
 				fiberRandom = fiberRandomTemp;
 			}
 			// CHANGE FIBERS TO NECROTIC
-			Necrosis necrosis = new Necrosis(grid, 0, 0);
+			Necrosis necrosis = new Necrosis(mcpSpatial, grid, 0, 0);
 			GridPoint ptfiberRandom = grid.getLocation(fiberRandom); // GET THE ORIGINAL FIBER LOCATION			
 			context.remove(fiberRandom); // REMOVE FIBER FROM THE CONTEXT
 			context.add(necrosis); // ADD THE NECROSIS
 			grid.moveTo(necrosis, ptfiberRandom.getX(), ptfiberRandom.getY()); // MOVE INTO CONTEXT IN PLACE OF OLD FIBER
 			currentNecr = currentNecr + 1; // ADD ONE TO CURRENT NECROTIC
 			// EXPAND NECROSIS OUT FROM NECROTIC AREA
-			for (int i = 0; i < RandomHelper.nextIntFromTo(0,  2000); i++){ // TO DO: reset max to be dependent on the size of the fibers (once defined)
+			/*for (int i = 0; i < RandomHelper.nextIntFromTo(0,  2000); i++){ // TO DO: reset max to be dependent on the size of the fibers (once defined)
 				fibers = Fiber.getFiberElems(context); // GET THE NEW LIST OF FIBERS
 				MooreQuery<Object> query = new MooreQuery(grid, necrosis, 2, 2); // Von Neumann query finds the 4 neighbors; Moore finds the 8 neighbors within the extent of the area defined
 				Iterable<Object> iter = query.query();
@@ -171,7 +175,7 @@ public class Necrosis {
 					}
 				}
 				for (Object fiberNeighborChange : fiberNeighborsTemp){
-					Necrosis necrosisNeighbor = new Necrosis(grid, 0, 0);
+					Necrosis necrosisNeighbor = new Necrosis(mcpSpatial, grid, 0, 0);
 					GridPoint ptNeighbor = grid.getLocation(fiberNeighborChange); // GET THE ORIGINAL FIBER LOCATION			
 					context.remove(fiberNeighborChange); // REMOVE FIBER FROM THE CONTEXT
 					context.add(necrosisNeighbor); // ADD THE NECROSIS
@@ -183,9 +187,9 @@ public class Necrosis {
 					}
 					count = count + 1;
 				}
-		} 
+		} */
 			
-			/*// new code to replace lines 159-186
+			// new code to replace lines 159-186
 			for (int i = 0; i < RandomHelper.nextIntFromTo(0, 1); i++){ // this line tells how large the cluster of damage will be
 			fibers = Fiber.getFiberElems(context); // GET THE NEW LIST OF FIBERS
 			MooreQuery<Object> query = new MooreQuery(grid, necrosis, 2, 2); // Von Neumann query finds the 4 neighbors; Moore finds the 8 neighbors within the extent of the area defined
@@ -201,7 +205,7 @@ public class Necrosis {
 				}
 			}
 			for (Object fiberNeighborChange : fiberNeighborsTemp){
-				Necrosis necrosisNeighbor = new Necrosis(grid, 0, 0);
+				Necrosis necrosisNeighbor = new Necrosis(mcpSpatial, grid, 0, 0);
 				GridPoint ptNeighbor = grid.getLocation(fiberNeighborChange); // GET THE ORIGINAL FIBER LOCATION			
 				context.remove(fiberNeighborChange); // REMOVE FIBER FROM THE CONTEXT
 				context.add(necrosisNeighbor); // ADD THE NECROSIS
@@ -213,7 +217,7 @@ public class Necrosis {
 				}
 				count = count + 1;
 			}
-	} */
+	} 
 			
 	
 			
@@ -262,7 +266,7 @@ public class Necrosis {
 				fiberRandom = fiberRandomTemp;
 			}
 			// CHANGE FIBERS TO NECROTIC
-			Necrosis necrosis = new Necrosis(grid, 0, 0);
+			Necrosis necrosis = new Necrosis(mcpSpatial, grid, 0, 0);
 			GridPoint ptfiberRandom = grid.getLocation(fiberRandom); // GET THE ORIGINAL FIBER LOCATION			
 			context.remove(fiberRandom); // REMOVE FIBER FROM THE CONTEXT
 			context.add(necrosis); // ADD THE NECROSIS
@@ -278,7 +282,7 @@ public class Necrosis {
 				int count = 0;
 					for (Object neighbors : iter){
 						if (neighbors instanceof Fiber){
-							Necrosis necrosisNeighbor = new Necrosis(grid, 0, 0);
+							Necrosis necrosisNeighbor = new Necrosis(mcpSpatial, grid, 0, 0);
 							GridPoint ptNeighbor = grid.getLocation(neighbors); // GET THE ORIGINAL FIBER LOCATION			
 							context.remove(neighbors); // REMOVE FIBER FROM THE CONTEXT
 							context.add(necrosisNeighbor); // ADD THE NECROSIS
@@ -315,6 +319,15 @@ public class Necrosis {
 					}
 			}
 		}
+	}
+	
+	// Get rid of necrotic element and replace with ECM
+	public static void eatNecrosis(Context<Object> context, Grid<Object> grid, Object necrosisToEat) {
+		ECM newECM = new ECM(mcpSpatial, grid, 0.1, 0, 0); // Create a new ECM element currently just add small amount of collagen
+		GridPoint pt = grid.getLocation(necrosisToEat); // get location
+		context.remove(necrosisToEat); // remove the necrosis and change to ECM
+		context.add(newECM); // Change to ecm for now
+		grid.moveTo(newECM, pt.getX(), pt.getY()); // Move ECM to wear the necrosis was removed
 	}
 	
 	public static List<Object> getNecrosis(Context<Object> context){ // Get a list of all the fibroblasts
@@ -369,6 +382,35 @@ public class Necrosis {
 		double ecmSize = ecms.size();
 		double fiberSize = fibers.size();
 		return necroticSizeTemp/(necroticSizeTemp + fiberSize + ecmSize); // percent necrotic muscle 
+	}
+	
+	public static List<Necrosis> getNewNecrosis(Context<Object> context){
+		// Calculates the initial percent necrotic --> amount in first 24 hours- after which it does not secrete hgf
+		int necroticSizeTemp = 0; // tracks the amount of necrotic fibers necrosed in first 24 hours
+		List<Object> necrosis =  getNecrosis(context);// Get amount of necrosis
+		List<Necrosis> newNecrosis = new ArrayList<Necrosis>();
+		for (Object necroticRec : necrosis){
+			if (((Necrosis) necroticRec).getAge() < 2){
+				newNecrosis.add((Necrosis) necroticRec);
+			}
+		}
+		return newNecrosis; // percent necrotic muscle 
+	}
+	
+	public static List<Necrosis> getNecrosisAtEdge(Context<Object> context, Grid<Object> grid) {
+		List<Necrosis> necrosisAtEdge = new ArrayList<Necrosis>();
+		List<Object> necrosis = getNecrosis(context); // Get all the necrosis elements at each step
+		// Make a list of all the necrosis that borders ECM
+		for (Object necrosisIter : necrosis){ // For all the necrosis elements- get the neighbors
+			VNQuery<Object> query = new VNQuery(grid, necrosisIter, 1, 1); // Find the 4 neighbors and determine if the necrosis borders ecm
+			Iterable<Object> iter = query.query(); // query the list of agents that are the neighbors
+			for (Object neighborCheck : iter){ // go through the list of neighbors
+				if (neighborCheck instanceof ECM){
+					necrosisAtEdge.add((Necrosis) necrosisIter); // Add to list of necrosis elements bordering ECM
+				}
+			}
+		}
+		return necrosisAtEdge;
 	}
 	
 	public void setSecondary(int secondary){

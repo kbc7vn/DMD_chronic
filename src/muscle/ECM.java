@@ -15,6 +15,7 @@ import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.util.ContextUtils;
+import repast.simphony.valueLayer.BufferedGridValueLayer;
 
 /**
  * @author Kelley Virgilio
@@ -23,18 +24,20 @@ import repast.simphony.util.ContextUtils;
 public class ECM {
 
 	private Grid<Object> grid;
+	private BufferedGridValueLayer mcpSpatial;
 	private double collagen;
 	private static ContinuousSpace<Object> space;
 	private int ecmEdge;
 	private int sameFiberBorder;
 	public static double collagenDensity;
 
-	public ECM(Grid<Object> grid, double collagen, int ecmEdge, int sameFiberBorder) {
+	public ECM(BufferedGridValueLayer mcpSpatial, Grid<Object> grid, double collagen, int ecmEdge, int sameFiberBorder) {
 		this.grid = grid;
 		this.collagen = collagen; // initialize with base level of collagen
 		this.ecmEdge = ecmEdge; // marks the outer edge of the ecm
 		this.sameFiberBorder = sameFiberBorder; // records how many fibers the ecm borders --> greater number ==
 												// surrounded
+		this.mcpSpatial = mcpSpatial;
 	}
 
 	@ScheduledMethod(start = 2, interval = 1, pick = 1)
@@ -90,7 +93,7 @@ public class ECM {
 				if (bordersFiber == 0) { // the ecm is not bordering fibers with two different fiber numbers
 					GridPoint pt = grid.getLocation((ECM) neighbors);
 					context.remove((ECM) neighbors);
-					Fiber newFiberElem = new Fiber(grid, 0, fiberNumber, 0, 0, 0, 0); // change to a fiber
+					Fiber newFiberElem = new Fiber(mcpSpatial, grid, 0, fiberNumber, 0, 0, 0, 0); // change to a fiber
 					context.add((Fiber) newFiberElem); // change to a fiber
 					grid.moveTo(newFiberElem, pt.getX(), pt.getY());
 					// Now have to remove a fiber from the exterior
@@ -100,7 +103,7 @@ public class ECM {
 					Object randomBorder = fiberBorders.get(index);
 					GridPoint ptRandom = grid.getLocation(randomBorder);
 					context.remove(randomBorder); // remove the fiber from the border and make it ECM
-					ECM newECM = new ECM(grid, 1, 0, 0); // change to a ecm
+					ECM newECM = new ECM(mcpSpatial, grid, 1, 0, 0); // change to a ecm
 					context.add((ECM) newECM);
 					grid.moveTo(newECM, ptRandom.getX(), ptRandom.getY());
 				}
@@ -133,7 +136,7 @@ public class ECM {
 					// List<Object> fiberBorders2 = ((Fiber) neighbors2).getFiberBorder(fiberNumber,
 					// context); // get the border fibers before deleting
 					context.remove((Fiber) neighbors2); // remove from context and change to ECM
-					ECM newECM = new ECM(grid, 1, 0, 0); // change to ECM
+					ECM newECM = new ECM(mcpSpatial, grid, 1, 0, 0); // change to ECM
 					context.add((ECM) newECM);
 					grid.moveTo(newECM, pt2.getX(), pt2.getY());
 					// >>>>>>>>Now add a fiber at the edge
@@ -222,7 +225,7 @@ public class ECM {
 				}
 				int randomInt = RandomHelper.nextIntFromTo(0, indexTemp - 1); // indexTemp = number of open spaces
 				// Add ECM
-				ECM newECM = new ECM(grid, 1, 0, 0); // change to ECM
+				ECM newECM = new ECM(mcpSpatial, grid, 1, 0, 0); // change to ECM
 				context.add((ECM) newECM);
 				grid.moveTo(newECM, openCheckX[randomInt], openCheckY[randomInt]);
 			}
@@ -462,7 +465,7 @@ public class ECM {
 			int[] emptySites = findEmptySites(pt, grid);
 			if (emptySites[0] != -1) {
 				// Then move the collagen to this empty site
-				ECM newECM = new ECM(grid, 1, 1, 0); // change to ECM
+				ECM newECM = new ECM(mcpSpatial, grid, 1, 1, 0); // change to ECM
 				context.add((ECM) newECM);
 				grid.moveTo(newECM, emptySites[0], emptySites[1]);
 			}
@@ -477,7 +480,7 @@ public class ECM {
 				int[] emptySites = findEmptySites(pt, grid);
 				if (emptySites[0] != -1) {
 					// Then move the collagen to this empty site
-					ECM newECM = new ECM(grid, 1, 0, 0); // change to ECM
+					ECM newECM = new ECM(mcpSpatial, grid, 1, 0, 0); // change to ECM
 					context.add((ECM) newECM);
 					grid.moveTo(newECM, emptySites[0], emptySites[1]);
 				}

@@ -10,8 +10,10 @@ import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.parameter.Parameters;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
+import repast.simphony.space.grid.GridPoint;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.util.ContextUtils;
+import repast.simphony.valueLayer.BufferedGridValueLayer;
 
 /**
  * @author Kelley Virgilio This class contains the growth factors for the model:
@@ -19,25 +21,29 @@ import repast.simphony.util.ContextUtils;
  */
 public class GrowthFactors {
 
-	public static Grid<Object> grid;
+	private static Grid<Object> grid;
 	public static ContinuousSpace<Object> space;
+	private static BufferedGridValueLayer mcpSpatial;
 	public static int activeDelay = 96; // time delay from latent to active tgf, 96 normal
-
+	public static double totalMCP;
+	
 	// DISEASE STATE PARAMETERS
 	public static double m1MacAdded = 0; // 0 at healthy
 	public static double m2MacAdded = 0; // 0 at healthy
 	public static double mdxTGF = 0; // 0 at healthy
 	// private static int activeDelay = 1; // void at healthy; add baseline active
 	// TGF
+	public static double inflamWeight = 0; // 0 at healthy 
 
-	static final int numGrowthFactors = 31; // Number of growth factors in model
+	static final int numGrowthFactors = 32;// = 31; (w/o spatial MCP) // Number of growth factors in model
 	public static double[] growthFactors = new double[numGrowthFactors]; // growth factors
 	static final int simLength = 3000 + activeDelay + 1;
 	public static double[] activeTgf = new double[simLength]; // holds active TGF at each time step
-
-	public GrowthFactors(Grid<Object> grid, ContinuousSpace<Object> space) {
+	
+	public GrowthFactors(BufferedGridValueLayer mcpSpatial, Grid<Object> grid, ContinuousSpace<Object> space) {
 		this.grid = grid;
 		this.space = space;
+		this.mcpSpatial = mcpSpatial;
 	}
 
 	public static double[] getGrowthFactors() {
@@ -59,6 +65,27 @@ public class GrowthFactors {
 		double rmNecr = 0.; // number of resident macrophages scaled to the amount of muscle damage
 		double percentNecrotic = Necrosis.getPercentNecrotic(context); // percent of muscle that is necrotic
 		// activation is a function of initial damage only
+
+		//get total spatial MCP
+		List<Object> ecms = ECM.getECM(context);
+		List<Object> necrotic = Necrosis.getNecrosis(context);
+		List<Object> fibers = Fiber.getFiberElems(context);
+		
+		double totalMCP = 0;
+		for (Object obj : ecms) {
+			GridPoint pt = grid.getLocation(obj);
+			totalMCP = totalMCP + mcpSpatial.get(pt.getX(), pt.getY());
+		}
+		for (Object obj : necrotic) {
+			GridPoint pt = grid.getLocation(obj);
+			totalMCP = totalMCP + mcpSpatial.get(pt.getX(), pt.getY());
+		}
+		for (Object obj : fibers) {
+			GridPoint pt = grid.getLocation(obj);
+			totalMCP = totalMCP + mcpSpatial.get(pt.getX(), pt.getY());
+		}
+		growthFactors[31] = totalMCP;
+		
 		int timestep = 1;
 		if (percentNecrotic < 0.001) { // lower limit of damage for resident macrophages to detect
 			rmNecr = 0;
@@ -69,7 +96,7 @@ public class GrowthFactors {
 		// INFLAMMATION WEIGHTING FUNCTION:
 		// weighting function to determine if it is a pro-inflammatory or
 		// anti-inflammatory environment
-		double inflamWeight = (growthFactors[1] - getActiveTgf(InflamCell.getTick())) / (40. * Fiber.origFiberNumber);
+		inflamWeight = (growthFactors[1] - getActiveTgf(InflamCell.getTick())) / (40. * Fiber.origFiberNumber);
 		if (inflamWeight < 0) {
 			inflamWeight = 0;
 		}
@@ -79,9 +106,12 @@ public class GrowthFactors {
 
 		//double m1Mac = inflamCells[3]; // m1 macrophages
 		//double m2Mac = inflamCells[6]; // m2 macrophages
-		double m1Mac = Macrophage.getM1(context).size(); // m1 macrophages
-		double m2Mac = Macrophage.getM2(context).size();; // m2 macrophages
-		
+		double m1Mac = Macrophage.getM1(context).size()/10; // m1 macrophages
+		double m2Mac = Macrophage.getM2(context).size()/10;; // m2 macrophages
+		double n = Neutrophil.getNeutrophils(context).size();
+		double na = Neutrophil.getApoptosed(context).size();
+
+
 		// DISEASE STATE PARAMETERS
 		// MACROPHAGE PHENOTYPE ANALYSIS:
 		// M1: INFLAMMATORY-- add in a constant level of inflammatory M1s
@@ -114,24 +144,24 @@ public class GrowthFactors {
 
 		// SECRETE GROWTH FACTORS AT EACH TIME STEP:
 		double dtgfdt = (1 * numActiveFibrob + 1 * inflamCells[4] + 2 * m2Mac); // tgf
-		double dtnfdt = (1 * rmNecr + 2 * inflamCells[1] + 2 * m1Mac + 2 * inflamCells[4] + 2 * inflamCells[5]
+		double dtnfdt = (1 * rmNecr + 2 * n + 2 * m1Mac + 2 * inflamCells[4] + 2 * inflamCells[5]
 				+ .2 * inflamSSC); // tnf
 		double digf1dt = (2 * numActiveFibrob + 1 * m1Mac + 1 * inflamCells[4] + 1 * inflamCells[5] + 1 * m2Mac); // igf1
 		double dpdgfdt = (1 * numActiveFibrob); // pdgf
 		double dmmpxdt = (1 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// mmpX
 		double dactiveTGFTempdt = (2 * numMyofbs);// tgf myofibroblast release
 		double decmprotdt = (2 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// ecmprot
-		double dil1dt = (2 * rmNecr + 1 * inflamCells[1] + 1 * m1Mac + 1 * inflamCells[4] + 1 * inflamCells[5]
+		double dil1dt = (2 * rmNecr + 1 * n + 1 * m1Mac + 1 * inflamCells[4] + 1 * inflamCells[5]
 				+ 1 * inflamFibroblasts + 1 * numActiveSecretingSSC);// il1
-		double dil8dt = (1 * rmNecr + 1 * inflamCells[1] + 1 * m1Mac + 2 * inflamCells[5] + 1 * inflamFibroblasts
+		double dil8dt = (1 * rmNecr + 1 * n + 1 * m1Mac + 2 * inflamCells[5] + 1 * inflamFibroblasts
 				+ .2 * inflamSSC);// il8
 		double dcxcl2dt = (1 * rmNecr);// cxcl2
 		double dcxcl1dt = (1 * rmNecr);// cxcl1
-		double dccl3dt = (1 * rmNecr + 1 * inflamCells[1] - 1 * inflamCells[2]);// ccl3
-		double dccl4dt = (1 * rmNecr + 1 * inflamCells[1]);// ccl4
-		double dil6dt = (1 * inflamCells[1] + 3 * m1Mac + 3 * inflamCells[5] + 1 * numActiveFibrob + 1 * inflamSSC);// il6
-		double dmcpdt = (1.7 * inflamCells[1] + 1 * inflamFibroblasts + 1 * inflamSSC);// mcp
-		double difndt = (5 * inflamCells[1] + 1 * inflamCells[5]);// ifn
+		double dccl3dt = (1 * rmNecr + 1 * n - 1 * inflamCells[2]);// ccl3
+		double dccl4dt = (1 * rmNecr + 1 * n);// ccl4
+		double dil6dt = (1 * n + 3 * m1Mac + 3 * inflamCells[5] + 1 * numActiveFibrob + 1 * inflamSSC);// il6
+		double dmcpdt = (1.7 * n + 1 * inflamFibroblasts + 1 * inflamSSC);// mcp
+		double difndt = (5 * n + 1 * inflamCells[5]);// ifn
 		double dlactoferinsdt = (5 * inflamCells[2]);// lactoferins
 		double dhgfdt = percentNecrotic * 100 * 5;// hgf - Released from ecm with damage // eliminated effect of apop
 													// neutrophils and released with % necrotic at damage
@@ -146,7 +176,7 @@ public class GrowthFactors {
 		double dccl22dt = (1 * inflamCells[4] + 1 * m2Mac + 1 * numActiveSecretingSSC);// ccl22
 		double dcollagen4dt = (1 * m2Mac);// collagen4
 		double dpge2dt = (3 * m2Mac);// pge2
-		double drosdt = (1 * inflamCells[1] + 1 * inflamCells[5]);// ros
+		double drosdt = (1 * n + 1 * inflamCells[5]);// ros
 		double dfgfdt = numActiveFibrob; // fgf
 		double dil4dt = 0; // il4
 		
@@ -236,6 +266,7 @@ public class GrowthFactors {
 		growthFactorsTemp[28] = drosdt; // does not build up- flushes every step
 		growthFactorsTemp[29] = (growthFactors[29] + dfgfdt) * Math.pow(.5, timestep / 5.);
 		growthFactorsTemp[30] = (growthFactors[30] + dil4dt) * Math.pow(.5, timestep / 5.);
+		growthFactorsTemp[31] = growthFactors[31];
 		growthFactors = growthFactorsTemp;
 		// if growth factor below threshold == 0
 		if (growthFactors[0] < .0001) {
@@ -339,6 +370,7 @@ public class GrowthFactors {
 		if (growthFactors[30] < .0001) {
 			growthFactors[30] = 0.;
 		}
+		
 		return growthFactors;
 	}
 
@@ -484,4 +516,18 @@ public class GrowthFactors {
 	public double getIl4() {
 		return growthFactors[30];
 	}
+	
+	public double getInflamWeight() {
+		return inflamWeight;
+	}
+	
+	public double getTotalMCP() {
+		return growthFactors[31];
+	}
+	
+	public double mcpRatio() {
+		return growthFactors[31]/growthFactors[14];
+	}
+	
+
 }

@@ -13,6 +13,8 @@ import repast.simphony.parameter.Parameters;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.util.ContextUtils;
+import repast.simphony.valueLayer.BufferedGridValueLayer;
+import repast.simphony.valueLayer.GridValueLayer;
 
 /**
  * @author Kelley Virgilio This class includes the inflammatory cell
@@ -21,8 +23,9 @@ import repast.simphony.util.ContextUtils;
  */
 public class InflamCell {
 
-	public static Grid<Object> grid;
+	private static Grid<Object> grid;
 	public static ContinuousSpace<Object> space;
+	private static BufferedGridValueLayer mcpSpatial;
 	public static double[] inflamCellsIter; // Use inflamCellsIter to be able to solve ODE at each step
 	static final int numInflamCells = 10; // Number of inflammatory cells tracked in simulations
 	public static double[] inflamCells = new double[numInflamCells]; // Array of inflammatory cell counts = [RM N Na M1
@@ -31,12 +34,13 @@ public class InflamCell {
 	public static int tick = 0; // keep track of tick count for the active tgf
 
 	// DISEASE STATE PARAMETERS
-	public static final int chronicDamage = 0; // if 1 = chronic damage, otherwise single level
-	public static double mdxChronicInflam = 0; // 1 at healthy control--> increases number of resident macs
+	public static final int chronicDamage = 1; // if 1 = chronic damage, otherwise single level
+	public static double mdxChronicInflam = 1; // 1 at healthy control--> increases number of resident macs
 
-	public InflamCell(Grid<Object> grid, ContinuousSpace<Object> space) {
+	public InflamCell(BufferedGridValueLayer mcpSpatial, Grid<Object> grid, ContinuousSpace<Object> space) {
 		this.grid = grid;
 		this.space = space;
+		this.mcpSpatial = mcpSpatial;
 	}
 
 	// GLOBAL STEPS FOR EACH TIME POINT: SINGLE UPDATE PARAMETER CHANGES
@@ -68,7 +72,7 @@ public class InflamCell {
 //		}
 //	}
 
-/*	// CHRONIC DAMAGE-- Repetitive injury
+	// CHRONIC DAMAGE-- Repetitive injury
 	@ScheduledMethod(start = 1.9, interval = 1)
 	public void chronicDamageSchedule() {
 		Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
@@ -96,7 +100,7 @@ public class InflamCell {
 				Fiber.chronicFiberNecrosis = chronicFiberNecrosisTemp;
 			}
 		}
-	}*/
+	}
 
 	public static void setTick() {
 		tick = tick + 1;
@@ -113,7 +117,7 @@ public class InflamCell {
 		Parameters params = RunEnvironment.getInstance().getParameters(); // RunEnvironment --> provides access to the
 																			// environment in which a particular model
 																			// runs
-		double[] inflamCells = new double[numInflamCells];
+		/*double[] inflamCells = new double[numInflamCells];
 		rmBasal = Math.floor(origFiberNumber / 3.7) * mdxChronicInflam; // defines number of resident macrophages
 		//inflamCells[0] = 0;																	// based on number of fibers
 		inflamCells[0] = rmBasal; // set the baseline number of resident macrophages
@@ -122,9 +126,10 @@ public class InflamCell {
 		}
 		
 		for (int i = 0; i < rmBasal; i++) {
-			context.add(new Macrophage(space, grid, 3, 0, 0, false, null));
-		}
+			context.add(new Macrophage(mcpSpatial, space, grid, 3, 0, 0, false, null));
+		}*/
 		
+		inflamCells[0] = 0;
 		inflamCells[1] = (Integer) params.getValue("n_initial");
 		inflamCells[2] = (Integer) params.getValue("na_initial");
 		inflamCells[3] = (Integer) params.getValue("m1_initial");

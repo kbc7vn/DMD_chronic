@@ -21,6 +21,9 @@ import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
 import repast.simphony.space.grid.StrictBorders;
+import repast.simphony.space.grid.WrapAroundBorders;
+import repast.simphony.valueLayer.BufferedGridValueLayer;
+import repast.simphony.valueLayer.GridValueLayer;
 
 public class muscleBuilder implements ContextBuilder<Object> {
 
@@ -52,11 +55,15 @@ public class muscleBuilder implements ContextBuilder<Object> {
 		NetworkBuilder<Object> netBuilder = new NetworkBuilder<Object>("fiber network", context, true);
 		netBuilder.buildNetwork(); // use network builder to create the network, call buildnetwork to actually
 									// build the network
+		
+		// Add in MCP value layer for growth factor diffusion
+		BufferedGridValueLayer mcpSpatial = new BufferedGridValueLayer("MCP Layer", 0, true, new StrictBorders(), gridx, gridy);
+	    context.addValueLayer(mcpSpatial);
 
 		// Read in a CSV file for the fiber and ecm agents: CSV File: xCoor, yCoor,
 		// Material Type (1 = border, 2 = ecm, 3 = fiber)
 		try {
-			readLineByLine(context, grid);
+			readLineByLine(context, grid, mcpSpatial);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -65,11 +72,13 @@ public class muscleBuilder implements ContextBuilder<Object> {
 
 		// Add a single "InflamCell" to the context for solving
 		for (int i = 0; i < 1; i++) {
-			context.add(new InflamCell(grid, space));
+			InflamCell initialInflamCell = new InflamCell(mcpSpatial, grid, space);
+			context.add(initialInflamCell);
 		}
 		// Add a single "GrowthFactor" cell to the context for solving and printing data
 		for (int i = 0; i < 1; i++) {
-			context.add(new GrowthFactors(grid, space));
+			GrowthFactors initialGrowthFactor = new GrowthFactors(mcpSpatial, grid, space);
+			context.add(initialGrowthFactor);
 		}
 
 		// Set duration of simulation:
@@ -78,17 +87,19 @@ public class muscleBuilder implements ContextBuilder<Object> {
 
 		// Add one resident macrophage to the environment
 		//Adding resident Macs
-		context.add(new Macrophage(space, grid, 3, 0, 0, false, null)); // create a single Mac; phenotype = 3 (res); age = 0; phagocytosis = 0; linked = false; buddy = null		context.add(resmac);
+		Macrophage initialMac = new Macrophage(mcpSpatial, space, grid, 3, 0, 0, false, null);
+		context.add(initialMac); // create a single Mac; phenotype = 3 (res); age = 0; phagocytosis = 0; linked = false; buddy = null		context.add(resmac);
 		
 		// Add one neutrophil to the environment
-		Neutrophil initialN = new Neutrophil(grid, space, 0, 0, 0); // age = 0; phagocytosis = 0; 
+		Neutrophil initialN = new Neutrophil(mcpSpatial, grid, space, 0, 0, 0); // age = 0; phagocytosis = 0; 
+		//Neutrophil initialN = new Neutrophil(grid, space, 0, 0, 0); // age = 0; phagocytosis = 0; 
 		context.add(initialN);
 		
 		return context; // return the muscle context
 
 	}
 
-	public static void readLineByLine(Context<Object> context, Grid<Object> grid) throws IOException {
+	public static void readLineByLine(Context<Object> context, Grid<Object> grid, BufferedGridValueLayer mcpSpatial) throws IOException {
 		// Read in CSV file and convert it to the initial geometry read by the ABM
 		// if disease state == 0 --> healthy
 		String csvFilename = "./data/healthy_histo.csv";
@@ -106,13 +117,13 @@ public class muscleBuilder implements ContextBuilder<Object> {
 
 		while ((row = csvReader.readNext()) != null) {
 			if ((row[2].equals("3"))) { // type 3 = muscle; if muscle add a fiber
-				Fiber fiber = new Fiber(grid, 0, 0, 0, 0, 0, 0);
+				Fiber fiber = new Fiber(mcpSpatial, grid, 0, 0, 0, 0, 0, 0);
 				context.add(fiber);
 				grid.moveTo(fiber, Integer.parseInt(row[0]), Integer.parseInt(row[1]));
 			}
 			// if (Objects.equals(row[2], "1")) { // CTO paper
 			if ((row[2].equals("2"))) { // type 2 = ecm; if muscle add a fiber
-				ECM ecm = new ECM(grid, 1.0, 0, 0);
+				ECM ecm = new ECM(mcpSpatial, grid, 1.0, 0, 0);
 				context.add(ecm);
 				grid.moveTo(ecm, Integer.parseInt(row[0]), Integer.parseInt(row[1]));
 			}

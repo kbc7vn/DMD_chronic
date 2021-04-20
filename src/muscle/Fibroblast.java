@@ -16,6 +16,8 @@ import repast.simphony.space.continuous.NdPoint;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.util.ContextUtils;
+import repast.simphony.valueLayer.BufferedGridValueLayer;
+import repast.simphony.valueLayer.GridValueLayer;
 
 /**
  * @author Kelley Virgilio
@@ -27,6 +29,7 @@ public class Fibroblast {
 	// Fibroblast parameters
 	private static Grid<Object> grid;
 	private static ContinuousSpace<Object> space;
+	private static BufferedGridValueLayer mcpSpatial;
 	public static double eosinophilRecruit; // eosinphil recruitment parameter
 	public static double fibroblastRecruit; // fibroblast recruitment
 	public static double fibroblastApop; // fibroblast apoptosis
@@ -65,7 +68,7 @@ public class Fibroblast {
 	public static int count = 0;
 	private int daughter; // same as ssc-- keeps track of the number of divisions
 
-	public Fibroblast(Grid<Object> grid, ContinuousSpace<Object> space, int phenotype, int recruitAge, int apopAge,
+	public Fibroblast(BufferedGridValueLayer mcpSpatial, Grid<Object> grid, ContinuousSpace<Object> space, int phenotype, int recruitAge, int apopAge,
 			int resident, int expansionAge, int daughter) {
 		this.grid = grid;
 		this.space = space;
@@ -76,12 +79,15 @@ public class Fibroblast {
 									// fibroblasts
 		this.expansionAge = expansionAge; // fibroblast expansion time- counter
 		this.daughter = daughter; // records number of divisions- similar to SSCs
+		this.mcpSpatial = mcpSpatial;
 	}
 
 	// FIBROBLAST BEHAVIORS
 	@ScheduledMethod(start = 2, interval = 1, priority = 2)
 	public void fibroblastStep() {
 		Context context = ContextUtils.getContext(this);
+	    mcpSpatial = (BufferedGridValueLayer) context.getValueLayer("MCP Layer");
+
 		// MOVE
 		if (this.getPhenotype() < myofibroblastSwitch && this.resident == 0 && this.expansionAge == 0) {
 			move();
@@ -148,6 +154,20 @@ public class Fibroblast {
 		// DISEASE STATE PARAMETERS
 		double tnf = growthFactors[1] + Fiber.mdxTnf;
 		double ifn = growthFactors[15] + Fiber.mdxIfn;
+		
+		// Active fibroblasts secrete mcp if the environment is inflammatory
+		double inflamWeight = GrowthFactors.inflamWeight*100;
+		int randomInt = RandomHelper.nextIntFromTo(0, 100);
+		if (randomInt <= inflamWeight) {
+		    GridPoint pt = grid.getLocation(this);
+		    try {
+				mcpSpatial.set(2 + mcpSpatial.get(pt.getX(), pt.getY()), pt.getX(), pt.getY());
+
+		    } catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		// FIBROBLAST PROLIFERATION AND APOPTOSIS
 		fibroblastRecruit = InflamCell.getFibrobRecruit(); // IL4-mediated eosinophil recruitment of NMMPs + SSC
 															// recruitment;
@@ -215,7 +235,7 @@ public class Fibroblast {
 		}
 		if (fibrobRecruitSaturation > getActiveFibroblasts(context).size()
 				&& RandomHelper.nextIntFromTo(0, fibRecTemp) < 1) { // if less than saturation point
-			Fibroblast fibroblastNew = new Fibroblast(grid, space, 0, 0, 0, 1, 0, 0); // add a fibroblast
+			Fibroblast fibroblastNew = new Fibroblast(mcpSpatial, grid, space, 0, 0, 0, 1, 0, 0); // add a fibroblast
 			context.add(fibroblastNew); // add to context
 			// Get ECM location
 			int index = RandomHelper.nextIntFromTo(0, ecms.size() - 1); // draw random number with randomHelper
@@ -277,7 +297,7 @@ public class Fibroblast {
 		// If the fibroblast is dividing:
 		if (this.expansionAge >= expTime) {
 			this.setExpansionAge(0);
-			Fibroblast fibroblastNew = new Fibroblast(grid, space, 0, 0, 0, 0, 0, (this.getDaughter() + 1)); // add new
+			Fibroblast fibroblastNew = new Fibroblast(mcpSpatial, grid, space, 0, 0, 0, 0, 0, (this.getDaughter() + 1)); // add new
 																												// fibroblast:
 																												// mark
 																												// as
@@ -351,7 +371,7 @@ public class Fibroblast {
 				GridPoint pt = grid.getLocation(randomNecrosis); // Get the ecm location
 				context.remove(randomNecrosis); // remove necrosis
 				// replace with lots of collagen
-				ECM newECM = new ECM(grid, 10, 0, 0); // change to ECM
+				ECM newECM = new ECM(mcpSpatial, grid, 10, 0, 0); // change to ECM
 				context.add((ECM) newECM);
 				grid.moveTo(newECM, pt.getX(), pt.getY());
 			}
@@ -445,7 +465,7 @@ public class Fibroblast {
 		// Start the model with a certain number of fibroblasts- written as an input
 		// value in the GUI
 		for (int i = 0; i < Math.ceil(origFiberNumber * fibroScale * murphRep * fibrobMDX * Fiber.tcf4Scale); i++) {
-			context.add(new Fibroblast(grid, space, 0, 0, 0, 1, 0, 0)); // Add the set number of fibroblasts to the
+			context.add(new Fibroblast(mcpSpatial, grid, space, 0, 0, 0, 1, 0, 0)); // Add the set number of fibroblasts to the
 																		// context
 		}
 		List<Object> ecms = ECM.getECM(context); // Get a list of all the ecm agents to place cells on the ECM
