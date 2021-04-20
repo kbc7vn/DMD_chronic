@@ -99,12 +99,12 @@ public class Neutrophil {
 		int addNeutrophils = 0;
 		
 		numNeutrophils = getNeutrophils(context).size();
-		if (Necrosis.getInitialBurstNecrotic(context) > 0 && numNeutrophils < 0) {
+		/*if (Necrosis.getInitialBurstNecrotic(context) > 0 && numNeutrophils < 0) {
 			// if there was recent damage but dNdt == 0 --> for instance at chronic damage--
 			// then add
 			addNeutrophils = (int) (Necrosis.getInitialBurstNecrotic(context) * 55.3 * Macrophage.getMres(context).size() * 1.3);
 			
-		}
+		}*/
 		
 		
 		List<Object> necrosis = Necrosis.getNecrosis(context);
@@ -112,11 +112,9 @@ public class Neutrophil {
 		if (differential > 0) {
 			int max = Fiber.origFiberNumber * 2;
 			int neutro_prob = RandomHelper.nextIntFromTo(0, (int) ((differential / 2) + (differential / 4) - 1)/20);
-			System.out.println(neutro_prob);
 			if (neutro_prob < 0) {
 				neutro_prob = addNeutrophils;
 			}
-			System.out.println(neutro_prob);
 			if (neutro_prob > 10) {
 				neutro_prob = (10) + RandomHelper.nextIntFromTo(0, 2);
 			}

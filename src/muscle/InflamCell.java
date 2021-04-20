@@ -72,7 +72,7 @@ public class InflamCell {
 //		}
 //	}
 
-	// CHRONIC DAMAGE-- Repetitive injury
+	// CHRONIC DAMAGE-- Repetitive injury - once every 24 hours
 	@ScheduledMethod(start = 1.9, interval = 1)
 	public void chronicDamageSchedule() {
 		Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
@@ -101,6 +101,76 @@ public class InflamCell {
 			}
 		}
 	}
+	
+	// CHRONIC DAMAGE-- Repetitive injury based on Jarrah et al.
+	//@ScheduledMethod(start = 1.9, interval = 1)
+	public void chronicDamageScheduleJarrah() {
+		Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
+		double h = 0.511657; // proportional to magnitude of damage
+		double sigma = 2.92815; // standard deviation of the initial damage
+		double m = 4.22686; // peak of initial damage
+		double t = tick;
+
+		double damage = (h / (t * sigma * Math.sqrt(2 * Math.PI)))
+				* Math.pow(Math.E, Math.pow(-Math.log(t) - m, 2) / Math.pow(2 * sigma, 2));
+		System.out.println(damage);
+		Necrosis.chronicDamage(context, grid, damage);
+		// Check every time there is damage:
+		// Define the amount of necrosis/fiber (similar to originalFiberNecrosis for the
+		// single damage simulations:
+		double[] chronicFiberNecrosisTemp = new double[Fiber.origFiberNumber];
+		for (int i = 1; i < Fiber.origFiberNumber + 1; i++) { // go through each fiber and change the border to red
+			// get a random fiber in order to call getFiberBorder
+			List<Object> elemsInFiber = Fiber.getElemInFiber(i, context); // get elems within this fiber
+			if (elemsInFiber.size() > 0) {
+				Object randomFiber = elemsInFiber.get(0);// choose one fiber to call getFiberBorder
+				((Fiber) randomFiber).getFiberBorder(i, context); // get all the borders and set to 1
+				for (Object elems : elemsInFiber) {
+					if (((Fiber) elems).getDamaged() != 0) {
+						chronicFiberNecrosisTemp[i - 1] = 1; // if any of the fibers are marked as damaged- end and
+																// go to the next fiber and check
+					}
+				}
+			}
+			Fiber.chronicFiberNecrosis = chronicFiberNecrosisTemp;
+		}
+
+	}
+	
+	
+	public void chronicDamageScheduleFrind() {
+		Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
+		double h = 0.511657; // proportional to magnitude of damage
+		double sigma = 2.92815; // standard deviation of the initial damage
+		double m = 4.22686; // peak of initial damage
+		double t = tick;
+
+		double damage = (h / (t * sigma * Math.sqrt(2 * Math.PI)))
+				* Math.pow(Math.E, Math.pow(-Math.log(t) - m, 2) / Math.pow(2 * sigma, 2));
+		System.out.println(damage);
+		Necrosis.chronicDamage(context, grid, damage);
+		// Check every time there is damage:
+		// Define the amount of necrosis/fiber (similar to originalFiberNecrosis for the
+		// single damage simulations:
+		double[] chronicFiberNecrosisTemp = new double[Fiber.origFiberNumber];
+		for (int i = 1; i < Fiber.origFiberNumber + 1; i++) { // go through each fiber and change the border to red
+			// get a random fiber in order to call getFiberBorder
+			List<Object> elemsInFiber = Fiber.getElemInFiber(i, context); // get elems within this fiber
+			if (elemsInFiber.size() > 0) {
+				Object randomFiber = elemsInFiber.get(0);// choose one fiber to call getFiberBorder
+				((Fiber) randomFiber).getFiberBorder(i, context); // get all the borders and set to 1
+				for (Object elems : elemsInFiber) {
+					if (((Fiber) elems).getDamaged() != 0) {
+						chronicFiberNecrosisTemp[i - 1] = 1; // if any of the fibers are marked as damaged- end and
+																// go to the next fiber and check
+					}
+				}
+			}
+			Fiber.chronicFiberNecrosis = chronicFiberNecrosisTemp;
+		}
+
+	}
+	
 
 	public static void setTick() {
 		tick = tick + 1;
