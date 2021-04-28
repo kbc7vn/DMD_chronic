@@ -106,8 +106,8 @@ public class GrowthFactors {
 
 		//double m1Mac = inflamCells[3]; // m1 macrophages
 		//double m2Mac = inflamCells[6]; // m2 macrophages
-		double m1Mac = Macrophage.getM1(context).size()/10; // m1 macrophages
-		double m2Mac = Macrophage.getM2(context).size()/10;; // m2 macrophages
+		double m1Mac = Macrophage.getM1(context).size(); // m1 macrophages
+		double m2Mac = Macrophage.getM2(context).size();; // m2 macrophages
 		double n = Neutrophil.getNeutrophils(context).size();
 		double na = Neutrophil.getApoptosed(context).size();
 
@@ -148,9 +148,11 @@ public class GrowthFactors {
 				+ .2 * inflamSSC); // tnf
 		double digf1dt = (2 * numActiveFibrob + 1 * m1Mac + 1 * inflamCells[4] + 1 * inflamCells[5] + 1 * m2Mac); // igf1
 		double dpdgfdt = (1 * numActiveFibrob); // pdgf
-		double dmmpxdt = (1 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// mmpX
+		//double dmmpxdt = (1 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// mmpX
+		double dmmpxdt = (0.18 * numActiveFibrob + 1 * numActiveSecretingSSC + 5.23 * numMyofbs);// mmpX
 		double dactiveTGFTempdt = (2 * numMyofbs);// tgf myofibroblast release
-		double decmprotdt = (2 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// ecmprot
+		//double decmprotdt = (2 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// ecmprot
+		double decmprotdt = (10 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// ecmprot
 		double dil1dt = (2 * rmNecr + 1 * n + 1 * m1Mac + 1 * inflamCells[4] + 1 * inflamCells[5]
 				+ 1 * inflamFibroblasts + 1 * numActiveSecretingSSC);// il1
 		double dil8dt = (1 * rmNecr + 1 * n + 1 * m1Mac + 2 * inflamCells[5] + 1 * inflamFibroblasts

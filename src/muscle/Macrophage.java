@@ -99,7 +99,8 @@ public class Macrophage {
 			m1Chance = 0.01;
 		}
 
-		double m2Chance = (il10 * 2 + il4 - ifn); // (sum [IL10] of patches * 2) + IL4 + IL13 - IFN
+		//double m2Chance = (il10 * 2 + il4 - ifn); // (sum [IL10] of patches * 2) + IL4 + IL13 - IFN
+		double m2Chance = (il10 * 3 + il4 - ifn); // (sum [IL10] of patches * 2) + IL4 + IL13 - IFN
 		if (m2Chance < 0) {
 			m2Chance = 0.01;
 		}
@@ -303,7 +304,7 @@ public class Macrophage {
 					if (RandomHelper.nextIntFromTo(0, 24) == 1) { // NetLogo orig: 5 * 4 + 5; chance M1 will polarize to
 																	// M2
 						stay = 1;
-						phenotype = 1;
+						phenotype = 2;
 					}
 				}
 			}
@@ -388,7 +389,7 @@ public class Macrophage {
 			age = age - 1;
 			if (stay > RandomHelper.nextIntFromTo(0, 2)) { // originally, NetLogo : random (2 * 1.5)
 				stay = 0;
-				this.phenotype = 3;
+				this.phenotype = 2;
 			}
 		} else {
 			MooreQuery<Object> query = new MooreQuery(grid, this, 2, 2); // get "cells" this macrophage is currently in

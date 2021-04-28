@@ -95,7 +95,6 @@ public class Neutrophil {
 		double recruit = il1 + gcsf + mcp + ccl4 + cxcl2 + cxcl1 + il8;
 		double deter = lipoxins + resolvins + mmp12 + lactoferrins + pge2 + il10 + il6 / 2;
 		double differential = recruit - deter;
-		System.out.println("tick: " + InflamCell.getTick());
 		int addNeutrophils = 0;
 		
 		numNeutrophils = getNeutrophils(context).size();

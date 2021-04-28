@@ -42,8 +42,7 @@ public class Fibroblast {
 	public static final int myofibroblastSwitch = 12; // time of switch from fibroblast to myofibroblast
 	public static final int fibrobApopCount = 3; // fibroblast apoptosis time
 	public static final int expTime = 12; // fibroblast expansion time
-	public int phenotype; // fibroblast phenotype: starts at 0, 1+ converting to myofibroblast with more
-							// collagen
+	public int phenotype; // fibroblast phenotype: starts at 0, 1+ converting to myofibroblast with more collagen
 	private int recruitAge; // fibroblast recruitment time- counter
 	private int expansionAge; // fibroblast expansion time- counter
 	private int apopAge; // fibroblast apoptosis time- counter
@@ -366,8 +365,7 @@ public class Fibroblast {
 			List<Object> necrosis = Necrosis.getNecrosis(context);
 			if (necrosis.size() != 0) {
 				int index = RandomHelper.nextIntFromTo(0, necrosis.size() - 1);
-				Object randomNecrosis = necrosis.get(index); // get the ecm based on the random number chosen-- index
-																// within the list
+				Object randomNecrosis = necrosis.get(index); // get the ecm based on the random number chosen-- index within the list
 				GridPoint pt = grid.getLocation(randomNecrosis); // Get the ecm location
 				context.remove(randomNecrosis); // remove necrosis
 				// replace with lots of collagen
@@ -393,11 +391,8 @@ public class Fibroblast {
 			}
 		}
 		if (ecmNeighbor != null) {
-			((ECM) ecmNeighbor).setCollagen(((ECM) ecmNeighbor).getCollagen() + .2 * (1 / Fiber.tcf4Scale)); // add
-																												// collagen
-																												// to
-																												// ecm
-																												// element
+			//((ECM) ecmNeighbor).setCollagen(((ECM) ecmNeighbor).getCollagen() + .2 * (1 / Fiber.tcf4Scale)); // add collagen to ecm element
+			((ECM) ecmNeighbor).setCollagen(((ECM) ecmNeighbor).getCollagen() + .2 * 1.5); // add collagen to ecm element																									
 		}
 	}
 
@@ -434,7 +429,8 @@ public class Fibroblast {
 			grid.moveTo(this, pt.getX(), pt.getY());
 			// And secrete collagen
 			if (((ECM) randomNeighbor).getCollagen() < .7 * Fiber.mdxBaseCollagen) {
-				((ECM) randomNeighbor).setCollagen(((ECM) randomNeighbor).getCollagen() + .1 * (1 / Fiber.tcf4Scale));
+				//((ECM) randomNeighbor).setCollagen(((ECM) randomNeighbor).getCollagen() + .1 * (1 / Fiber.tcf4Scale));
+				((ECM) randomNeighbor).setCollagen(((ECM) randomNeighbor).getCollagen() + .1 * 4.3);
 			}
 
 		} else if (openNeighbor.size() > 0) { // Otherwise just pick a random direction of ecm go to it

@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.7.0">
-  <name>Regeneration</name>
-  <dataSet>Regeneration</dataSet>
+  <name>GrowthFactors</name>
+  <dataSet>GrowthFactors</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel></yAxisLabel>
-  <chartTitle>Muscle Regeneration</chartTitle>
+  <chartTitle>Growth Factors</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -21,11 +21,131 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>total size</string>
+      <string>ccl4</string>
       <SeriesData>
-        <label>total size</label>
+        <label>ccl4</label>
+        <color>
+          <red>153</red>
+          <green>204</green>
+          <blue>255</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>hgf</string>
+      <SeriesData>
+        <label>hgf</label>
+        <color>
+          <red>255</red>
+          <green>51</green>
+          <blue>255</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>ccl3</string>
+      <SeriesData>
+        <label>ccl3</label>
         <color>
           <red>0</red>
+          <green>0</green>
+          <blue>153</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>ccl22</string>
+      <SeriesData>
+        <label>ccl22</label>
+        <color>
+          <red>51</red>
+          <green>153</green>
+          <blue>255</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>tnf</string>
+      <SeriesData>
+        <label>tnf</label>
+        <color>
+          <red>51</red>
+          <green>255</green>
+          <blue>51</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>ifn</string>
+      <SeriesData>
+        <label>ifn</label>
+        <color>
+          <red>0</red>
+          <green>153</green>
+          <blue>0</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>il4</string>
+      <SeriesData>
+        <label>il4</label>
+        <color>
+          <red>204</red>
+          <green>153</green>
+          <blue>255</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>pge2</string>
+      <SeriesData>
+        <label>pge2</label>
+        <color>
+          <red>153</red>
+          <green>0</green>
+          <blue>0</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>il6</string>
+      <SeriesData>
+        <label>il6</label>
+        <color>
+          <red>0</red>
+          <green>51</green>
+          <blue>255</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>lipoxins</string>
+      <SeriesData>
+        <label>lipoxins</label>
+        <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>tgf</string>
+      <SeriesData>
+        <label>tgf</label>
+        <color>
+          <red>153</red>
           <green>0</green>
           <blue>255</blue>
           <alpha>255</alpha>
@@ -33,37 +153,37 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>fibers</string>
+      <string>ccl17</string>
       <SeriesData>
-        <label>fibers</label>
+        <label>ccl17</label>
         <color>
           <red>0</red>
           <green>255</green>
-          <blue>0</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>necrosis</string>
-      <SeriesData>
-        <label>necrosis</label>
-        <color>
-          <red>255</red>
-          <green>0</green>
           <blue>255</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>
     </entry>
     <entry>
-      <string>ECM</string>
+      <string>il10</string>
       <SeriesData>
-        <label>ECM</label>
+        <label>il10</label>
         <color>
-          <red>255</red>
-          <green>0</green>
-          <blue>0</blue>
+          <red>153</red>
+          <green>153</green>
+          <blue>255</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>mcp</string>
+      <SeriesData>
+        <label>mcp</label>
+        <color>
+          <red>0</red>
+          <green>255</green>
+          <blue>255</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>

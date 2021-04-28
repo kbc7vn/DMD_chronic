@@ -112,31 +112,17 @@ public class Fiber {
 		// DISEASE PARAMETER SET:// Set disease state parameters
 		// HEALTHY
 		double necrosisInitial = 10;
-		//double necrosisInitial = 1;
 		mdxChronicInflam = 1;
-		//asymmSenescent = 2; 
 		// VERY YOUNG MDX
 		if (diseaseState == 4){
 			// INITIAL DAMAGE
-			//necrosisChronic = 2; // chronic damage only
 			necrosisInitial = 35; //
-			//necrosisInitial = 16; // @ fix damage
-			//necrosisInitial = 1; // @ fix damage- abm paper
 			// STEM CELLS
 			asymmSenescent = 3; // 3.5% chance
-			//asymmSenescent = 0; // @ fix asymm division
 			// CHRONIC INFLAMMATION
 			mdxChronicInflam = 2;
 			mdxsSecondNecr = 2; // increases secondary necrosis
-//			mdxChronicInflam = 1; // @ fix inflammation
-//			mdxsSecondNecr = 1; // @ fix inflammation
 			GrowthFactors.mdxTGF = 0; // add TGF-beta in background
-			mdxTnf = 0;
-			mdxIfn = 0;
-//			mdxM1mult = 1; // @ fix inflammation- abm paper
-//			mdxM2mult = 1; // @ fix inflammation- abm paper
-//			mdxM1death = 1; // @ fix inflammation- abm paper
-//			mdxM2death = 1; // @ fix inflammation- abm paper
 //			mdxEosinophil = 1;
 			mdxM1mult = 1.5; // 1.5 at very young
 			mdxM2mult = .8; // .8 at  very young
@@ -148,11 +134,8 @@ public class Fiber {
 		else if (diseaseState == 1){
 			// INITIAL DAMAGE
 			necrosisInitial = 26;
-			// necrosisInitial = 1; // @ fix damage- abm paper
-			//necrosisInitial = 12; // @ fix damage
 			// FIBROSIS- COLLAGEN
 			mdxBaseCollagen = 1.5;
-			//mdxBaseCollagen = 1; // @ fix fibrosis
 			List<Object> ecms = ECM.getECM(context);
 			for (Object ecm : ecms){
 					((ECM) ecm).setCollagen(((ECM) ecm).getCollagen()*mdxBaseCollagen); 
@@ -160,30 +143,20 @@ public class Fiber {
 			// STEM CELLS
 			// Asymmetric division
 			asymmSenescent = 1; // 7% chance
-			//asymmSenescent = 0; // @ fix asymm division
 			// CHRONIC INFLAMMATION
 			mdxChronicInflam = 1.3; // increases resident macrophages
-			//mdxChronicInflam = 1; // @ fix inflammation
-			//mdxsSecondNecr = 1; // @ fix inflammation
 			mdxsSecondNecr = 1.5; // increases secondary necrosis
 			GrowthFactors.mdxTGF = 0; // add TGF-beta in background -- 200
-			mdxTnf = 0;
-			mdxIfn = 0;
 			mdxM2death = .8; // .8 at early  mdx
 			// FIBROBLASTS
 			fibrobMDX = 1.5;		
-			//fibrobMDX = 1; // @ fix fibroblasts- ABM paper	
 		}
 		// ADULT MDX
 		else if (diseaseState == 2){
 			// INITIAL DAMAGE
 			necrosisInitial = 29;
-			// necrosisInitial = 1; // @ fix damage- abm paper
-			//necrosisInitial = 17; // @ fix damage
-			//necrosisInitial = 34; // @ fix fibrosis
 			// FIBROSIS- COLLAGEN
 			mdxBaseCollagen = 3.0;
-			//mdxBaseCollagen = 1; // @ fix fibrosis
 			List<Object> ecms = ECM.getECM(context);
 			 for (Object ecm : ecms){
 			 		((ECM) ecm).setCollagen(((ECM) ecm).getCollagen()*mdxBaseCollagen); 
@@ -191,28 +164,18 @@ public class Fiber {
 			// STEM CELLS
 			// Asymmetric division
 			asymmSenescent = 2; // 17% chance
-			//asymmSenescent = 0; // @ fix asymm division
 			// CHRONIC INFLAMMATION
 			mdxChronicInflam = 1.8;
 			mdxsSecondNecr = 1.5; // increases secondary necrosis
-//			mdxChronicInflam = 1; // @ fix inflammation
-//			mdxsSecondNecr = 1; // @ fix inflammation
 			GrowthFactors.mdxTGF = 600; // add TGF-beta in background
-			//GrowthFactors.mdxTGF = 0; // @ fix inflammation- abm paper
-			mdxTnf = 0; 
-			mdxIfn = 0;
 			mdxM2death = .4; // .4 at adult mdx
-//			mdxM2death = 1; //  @ fix inflammation- abm paper
 			// FIBROBLASTS
-			fibrobMDX = 2;
-			//fibrobMDX = 1; // @ fix fibroblasts- ABM paper	
-			
+			fibrobMDX = 2;			
 		}
 		// OLD MDX
 		else if (diseaseState == 3){
 			// INITIAL DAMAGE
 			necrosisInitial = 33;
-			// necrosisInitial = 1;
 			// FIBROSIS- COLLAGEN
 			List<Object> ecms = ECM.getECM(context);
 			for (Object ecm : ecms){
