@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.7.0">
-  <name>Inflammatory Cells</name>
-  <dataSet>InflamCells</dataSet>
+  <name>Fibroblasts and SSCs</name>
+  <dataSet>Fibroblasts and SSCs</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel></yAxisLabel>
-  <chartTitle>InflamCells</chartTitle>
+  <chartTitle>Fibroblasts and SSCs</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -21,45 +21,21 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>m1 mac</string>
+      <string>fibroblast</string>
       <SeriesData>
-        <label>m1 mac</label>
+        <label>fibroblast</label>
         <color>
           <red>0</red>
           <green>255</green>
-          <blue>0</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>apop neutrophil</string>
-      <SeriesData>
-        <label>apop neutrophil</label>
-        <color>
-          <red>0</red>
-          <green>0</green>
           <blue>255</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>
     </entry>
     <entry>
-      <string>m2 mac</string>
+      <string>myofibroblast</string>
       <SeriesData>
-        <label>m2 mac</label>
-        <color>
-          <red>255</red>
-          <green>255</green>
-          <blue>0</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>m1 ae</string>
-      <SeriesData>
-        <label>m1 ae</label>
+        <label>myofibroblast</label>
         <color>
           <red>255</red>
           <green>0</green>
@@ -69,36 +45,60 @@
       </SeriesData>
     </entry>
     <entry>
-      <string>m1 de</string>
+      <string>myoblast</string>
       <SeriesData>
-        <label>m1 de</label>
+        <label>myoblast</label>
+        <color>
+          <red>255</red>
+          <green>255</green>
+          <blue>51</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>collagen density</string>
+      <SeriesData>
+        <label>collagen density</label>
+        <color>
+          <red>153</red>
+          <green>0</green>
+          <blue>255</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>senescent SSC</string>
+      <SeriesData>
+        <label>senescent SSC</label>
+        <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>51</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>active fibroblast</string>
+      <SeriesData>
+        <label>active fibroblast</label>
+        <color>
+          <red>0</red>
+          <green>51</green>
+          <blue>255</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>pax7 SSC</string>
+      <SeriesData>
+        <label>pax7 SSC</label>
         <color>
           <red>255</red>
           <green>200</green>
-          <blue>0</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>res mac</string>
-      <SeriesData>
-        <label>res mac</label>
-        <color>
-          <red>0</red>
-          <green>255</green>
-          <blue>255</blue>
-          <alpha>255</alpha>
-        </color>
-      </SeriesData>
-    </entry>
-    <entry>
-      <string>neutrophil</string>
-      <SeriesData>
-        <label>neutrophil</label>
-        <color>
-          <red>255</red>
-          <green>0</green>
           <blue>0</blue>
           <alpha>255</alpha>
         </color>

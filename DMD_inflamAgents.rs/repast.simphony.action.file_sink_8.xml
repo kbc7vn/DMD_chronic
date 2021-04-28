@@ -1,0 +1,17 @@
+<repast.simphony.data2.engine.FileSinkDescriptor simphonyVersion="2.7.0">
+  <name>Regeneration File Sink</name>
+  <dataSet>Regeneration</dataSet>
+  <delimiter>,</delimiter>
+  <format>TABULAR</format>
+  <sourceIds class="linked-hash-set">
+    <string>total size</string>
+    <string>ECM</string>
+    <string>necrosis</string>
+    <string>tick</string>
+    <string>total collagen</string>
+    <string>collagen density</string>
+    <string>fiber</string>
+  </sourceIds>
+  <fileName>C:\Users\kbc7vn\Documents\DMD\modelOutput\ChronicDMD\ModelOutput_regeneration.csv</fileName>
+  <addTimeStamp>true</addTimeStamp>
+</repast.simphony.data2.engine.FileSinkDescriptor>

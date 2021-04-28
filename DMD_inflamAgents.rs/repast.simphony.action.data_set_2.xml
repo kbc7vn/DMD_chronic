@@ -25,20 +25,20 @@
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
+      <string>fiber</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>fiber</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getFiberTotal</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
       <string>ECM</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>ECM</id>
         <className>muscle.InflamCell</className>
         <methodName>getECMTotal</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>fibers</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>fibers</id>
-        <className>muscle.InflamCell</className>
-        <methodName>getFiberTotal</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
