@@ -42,7 +42,7 @@ public class SSC {
 
     // characteristics:
     private int active; // 0 = quiescent; 1-3 = activating SC; 4 = active + MyoD positive (myoblast)
-    private int committed; // represents committed myogenic precursors == myoblasts == 1 in progress; 2 == committed
+    private int committed; // represents committed myogenic precursors 1= myoblasts in progress; 2 = myocyte in progress
 	private int differentiated; // 0 = not differentiated; 1 = myogenin+; 2 = myocyte-- has differentiated for set amount of time; 3 = fused myocyte that can begin regenerating the fiber
     private int myf5neg; // marker for satellite cells that are Myf5-, do not differentiate, if equals 9 --> does not differentiate and restores the pool
 	private int daughter; // tracks how many divisions 0- has not divided, 1 it has divided 1 time, 2 = 2 times
@@ -360,6 +360,7 @@ public class SSC {
 					fibronectinFactor = 1.;
 				} else {
 					fibronectinFactor = (sscNiche / Fiber.origFiberNumber) / 20.;
+					System.out.println(fibronectinFactor);
 				}
 				// SC DAUGHTER FATE DETERMINATION
 				// IF IT IS A SSC
@@ -418,7 +419,7 @@ public class SSC {
 		// if the SC is not on a fiber edge but there is a large quiescence signal --> chance of quiescence
 		else if (this.onEdge == 0 && this.fiberNeedsRep == 0
 				&& RandomHelper.nextIntFromTo(0, (int) (sscQuiescence)) < 1) {
-			// include fiber does not need repair in case it is one off edge but stillassociated with a fiber repair
+			// include fiber does not need repair in case it is one off edge but still associated with a fiber repair
 			this.setActive(0);
 		}
 	}

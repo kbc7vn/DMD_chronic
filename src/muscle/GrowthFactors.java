@@ -37,7 +37,7 @@ public class GrowthFactors {
 
 	static final int numGrowthFactors = 32;// = 31; (w/o spatial MCP) // Number of growth factors in model
 	public static double[] growthFactors = new double[numGrowthFactors]; // growth factors
-	static final int simLength = 3000 + activeDelay + 1;
+	static final int simLength = 10000 + activeDelay + 1;
 	public static double[] activeTgf = new double[simLength]; // holds active TGF at each time step
 	
 	public GrowthFactors(BufferedGridValueLayer mcpSpatial, Grid<Object> grid, ContinuousSpace<Object> space) {
@@ -106,8 +106,8 @@ public class GrowthFactors {
 
 		//double m1Mac = inflamCells[3]; // m1 macrophages
 		//double m2Mac = inflamCells[6]; // m2 macrophages
-		double m1Mac = Macrophage.getM1(context).size(); // m1 macrophages
-		double m2Mac = Macrophage.getM2(context).size();; // m2 macrophages
+		double m1Mac = Macrophage.getM1(context).size()/10; // m1 macrophages
+		double m2Mac = Macrophage.getM2(context).size()/10;; // m2 macrophages
 		double n = Neutrophil.getNeutrophils(context).size();
 		double na = Neutrophil.getApoptosed(context).size();
 

@@ -83,7 +83,7 @@ public class muscleBuilder implements ContextBuilder<Object> {
 
 		// Set duration of simulation:
 		//RunEnvironment.getInstance().endAt(672);
-		RunEnvironment.getInstance().endAt(2160);
+		RunEnvironment.getInstance().endAt(8760);
 
 		// Add one resident macrophage to the environment
 		//Adding resident Macs

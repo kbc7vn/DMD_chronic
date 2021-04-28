@@ -128,8 +128,7 @@ public class ECM {
 					}
 				}
 				if (extensionCheck >= 6 && ((Fiber) neighbors2).getElemInFiber(fiberNumber, context).size() > 6) {
-					// If the fiber is only 6 elems or smaller- do not get rid of it (keep as a
-					// marker in order ro regrow)
+					// If the fiber is only 6 elems or smaller- do not get rid of it (keep as a marker in order to regrow)
 					// Then this is fiber surrounded by ecm on 7 sides
 					// 1. change to ecm 2. change an exterior edge to be fiber
 					GridPoint pt2 = grid.getLocation((Fiber) neighbors2);

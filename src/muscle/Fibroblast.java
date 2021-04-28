@@ -168,10 +168,8 @@ public class Fibroblast {
 		}
 		
 		// FIBROBLAST PROLIFERATION AND APOPTOSIS
-		fibroblastRecruit = InflamCell.getFibrobRecruit(); // IL4-mediated eosinophil recruitment of NMMPs + SSC
-															// recruitment;
-		fibroblastExpansion = InflamCell.inflamCells[8]; // SSC-dependent proliferation of fibroblasts (Murphy et al.
-															// 2011)
+		fibroblastRecruit = InflamCell.getFibrobRecruit(); // IL4-mediated eosinophil recruitment of NMMPs + SSC recruitment;
+		fibroblastExpansion = InflamCell.inflamCells[8]; // SSC-dependent proliferation of fibroblasts (Murphy et al. 2011)
 		fibroblastApop = tnf; // tnf induced fibroblast apotosis (Lemos 2015)
 		fibroblastBlockApop = GrowthFactors.getActiveTgf(InflamCell.getTick()); // active tgf blocks fibroblast apotosis
 																				// (Lemos 2015)
