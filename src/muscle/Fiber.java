@@ -693,6 +693,9 @@ public class Fiber {
 				}
 				// CHRONIC, REPETITIVE DAMAGE ONLY
 				if (InflamCell.chronicDamage == 1){
+					//System.out.println(chronicFiberNecrosis.length);
+					//System.out.println(fiberNumber);
+
 					if (((Fiber) fiberTemp).getNeedsGrowth() < .1  && chronicFiberNecrosis[fiberNumber-1] != 0){ // if the fiber is smaller than its original size -->  needs repair
 						// only for macrophage depletion! --> turn off signal if filled with fibrosis
 						if (Fiber.macDepletion == 1 && ECM.collagenDensity > 1.5 && RandomHelper.nextIntFromTo(0, 1) < 1){

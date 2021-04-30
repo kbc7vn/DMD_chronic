@@ -69,7 +69,7 @@ public class SSC {
 	private static final int timeToDiff = 18; // hours it takes to differentiate [Flamini18 <24hrs]
     
     // other:
-    private static final int maxProteinAdd = 1000;//(int) (60 * (1 / Fiber.pax7Scale)); // This value should scale based on the size of the elements
+    private static final int maxProteinAdd = 60;//(int) (60 * (1 / Fiber.pax7Scale)); // This value should scale based on the size of the elements
 	private static final double sscScale = 1;// .25 control
 
 	public SSC(BufferedGridValueLayer mcpSpatial, Grid<Object> grid, int active, int differentiated, int onEdge, int divideTime, int diffTime, int myf5neg,

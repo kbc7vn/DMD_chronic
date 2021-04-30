@@ -92,18 +92,20 @@ public class Neutrophil {
 
 		// determine how strong the recruitment force is
 		
-		double recruit = il1 + gcsf + mcp + ccl4 + cxcl2 + cxcl1 + il8;
+		double recruit = il1 + gcsf + mcp + ccl4 + cxcl2 + cxcl1 + il8;// + Necrosis.getInitialBurstNecrotic(context)*100;
 		double deter = lipoxins + resolvins + mmp12 + lactoferrins + pge2 + il10 + il6 / 2;
 		double differential = recruit - deter;
 		int addNeutrophils = 0;
-		
+		System.out.println("neutrophils: "+differential);
 		numNeutrophils = getNeutrophils(context).size();
-		/*if (Necrosis.getInitialBurstNecrotic(context) > 0 && numNeutrophils < 0) {
-			// if there was recent damage but dNdt == 0 --> for instance at chronic damage--
-			// then add
-			addNeutrophils = (int) (Necrosis.getInitialBurstNecrotic(context) * 55.3 * Macrophage.getMres(context).size() * 1.3);
-			
-		}*/
+		
+//		if (Necrosis.getInitialBurstNecrotic(context) > 0 && numNeutrophils < 0) {
+//			// if there was recent damage but dNdt == 0 --> for instance at chronic damage-- then add
+//			addNeutrophils = (int) (Necrosis.getInitialBurstNecrotic(context) * 55.3 * Macrophage.getMres(context).size() * 1.3);
+//			if (differential < 0) {
+//				differential = addNeutrophils;
+//			}
+//		}
 		
 		
 		List<Object> necrosis = Necrosis.getNecrosis(context);
@@ -111,12 +113,10 @@ public class Neutrophil {
 		if (differential > 0) {
 			int max = Fiber.origFiberNumber * 2;
 			int neutro_prob = RandomHelper.nextIntFromTo(0, (int) ((differential / 2) + (differential / 4) - 1)/20);
-			if (neutro_prob < 0) {
-				neutro_prob = addNeutrophils;
-			}
 			if (neutro_prob > 10) {
 				neutro_prob = (10) + RandomHelper.nextIntFromTo(0, 2);
 			}
+			System.out.println("neutrophil: " + neutro_prob);
 			while (neutro_prob > 0 && numNeutrophils < max) { // make some neutrophils
 				// create_neutrophil();
 				// find areas of necrosis to place neutrophil

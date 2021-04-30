@@ -48,8 +48,7 @@ public class Macrophage {
 
 		//Context context = ContextUtils.getContext(this);
 		if (Necrosis.getInitialBurstNecrotic(context) > 0) {
-			double rmBasal = Math.floor(Fiber.getTotalFiberNumber(context) / 3.7) * Fiber.mdxChronicInflam; // defines number of resident macrophages
-																			// based on number of fibers
+			double rmBasal = Math.floor(Fiber.getTotalFiberNumber(context) / 3.7); // defines number of resident macrophages based on number of fibers
 			if (rmBasal == 0) {
 				rmBasal = 1;
 			}
@@ -83,7 +82,7 @@ public class Macrophage {
 		double recruit = ccl4 + ccl17 + ccl22 + ccl13 + il6 + mcp; // Azurocidin + LL37 + CCL2 + CCL4 + CCL17 +
 																			// CCL22 + CCL3 + CCL6 + sum [IL6] of
 																			// patches + CX3CL1 + sum [MCP] of patches
-		double deter = pge2 + lipoxins + ros + tgf; // PGE2 + Lipoxins + NO + sum [TGF] of patches
+		double deter = pge2 + lipoxins + tgf; // PGE2 + Lipoxins + NO + sum [TGF] of patches
 		double macProb = 0;
 		double differential = recruit - deter;
 
@@ -93,14 +92,14 @@ public class Macrophage {
 		}
 
 		// Determine the likelihood of the recruited macrophage to be m1 or M2
-		double m1Chance = ifn + tnf / 2 - il10 - tgf; // IFN + sum [TNF] of patches / 2 - sum [IL10] of patches - sum
-														// [TGF] of patches
+		//double m1Chance = ifn + tnf / 2 - il10 - tgf; // IFN + sum [TNF] of patches / 2 - sum [IL10] of patches - sum[TGF] of patches
+		double m1Chance = ifn + tnf - il10 - tgf; // IFN + sum [TNF] of patches / 2 - sum [IL10] of patches - sum[TGF] of patches
 		if (m1Chance < 0) {
 			m1Chance = 0.01;
 		}
 
 		//double m2Chance = (il10 * 2 + il4 - ifn); // (sum [IL10] of patches * 2) + IL4 + IL13 - IFN
-		double m2Chance = (il10 * 3 + il4 - ifn); // (sum [IL10] of patches * 2) + IL4 + IL13 - IFN
+		double m2Chance = (il10 * 2 + il4 - ifn); // (sum [IL10] of patches * 2) + IL4 + IL13 - IFN
 		if (m2Chance < 0) {
 			m2Chance = 0.01;
 		}
@@ -155,11 +154,7 @@ public class Macrophage {
 				Object spawnpt = patch.get(index);
 				GridPoint gridpt = grid.getLocation(spawnpt);
 				// NdPoint spacept = space.getLocation(spawnpt);
-				Macrophage m2mac = new Macrophage(mcpSpatial, space, grid, 2, 0, 0, false, null); // phenotype = 2; age
-																									// = 0; phagocytosis
-																									// = 0; linked =
-																									// false; buddy =
-																									// null
+				Macrophage m2mac = new Macrophage(mcpSpatial, space, grid, 2, 0, 0, false, null); // phenotype = 2; age = 0; phagocytosis = 0; linked = false; buddy = null
 				context.add(m2mac);
 				grid.moveTo(m2mac, gridpt.getX(), gridpt.getY());
 				// space.moveTo(m2mac, spacept.getX(), spacept.getY());
@@ -191,7 +186,7 @@ public class Macrophage {
 			m2Behave(context);
 		} else if (this.phenotype == 3) {
 			// after neutrophils are recruited, resident macrophages will stop being active, but there should always be a pool of ~5 left
-			if (Neutrophil.numNeutrophils > 5 && getMres(context).size() > 5) {
+			if (Neutrophil.numNeutrophils > 5 && getMres(context).size() > 5 || this.age > 5 && getMres(context).size() > 5) {
 				if (RandomHelper.nextIntFromTo(0, 4) == 1) { // originally, NetLogo: random 5
 					macDie();
 				}
@@ -224,7 +219,7 @@ public class Macrophage {
 		// omit M1 secretions
 
 		// Find neutrophil and necrosis in this grid point
-		MooreQuery<Object> query = new MooreQuery(grid, this, 0, 0); // get "cells" this macrophage is currently in
+		MooreQuery<Object> query = new MooreQuery(grid, this, 1, 1); // get "cells" this macrophage is currently in
 		Iterable<Object> iter = query.query(); // query the list of agents
 		List<Object> necroticCell = new ArrayList<Object>();
 		List<Object> neutrophilNgh = new ArrayList<Object>();

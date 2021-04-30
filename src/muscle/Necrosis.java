@@ -373,7 +373,7 @@ public class Necrosis {
 		int necroticSizeTemp = 0; // tracks the amount of necrotic fibers necrosed in first 24 hours
 		List<Object> necrosis =  getNecrosis(context);// Get amount of necrosis
 		for (Object necroticRec : necrosis){
-			if (((Necrosis) necroticRec).getAge() == 2){
+			if (((Necrosis) necroticRec).getAge() == 2) {// && ((Necrosis) necroticRec).getSecondary() == 0){
 				necroticSizeTemp++ ;
 			}
 		}

@@ -218,3 +218,388 @@ Caused by: java.lang.ArrayIndexOutOfBoundsException: Index 56 out of bounds for 
 	at muscle.Fiber.checkFiberSize(Fiber.java:696)
 	at muscle.Fiber.fiberStep(Fiber.java:97)
 	... 10 more
+FATAL [Thread-2] 2021-04-28 23:07:38,336 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAction.execute(ScheduledMethodControllerAction.java:283)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.reflect.InvocationTargetException
+	at muscle.Fiber$$FastClassByCGLIB$$6afcba0f.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.NullPointerException
+	at muscle.Fiber.checkFiberSize(Fiber.java:696)
+	at muscle.Fiber.fiberStep(Fiber.java:97)
+	... 10 more
+FATAL [Thread-2] 2021-04-28 23:08:08,341 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAction.execute(ScheduledMethodControllerAction.java:283)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.reflect.InvocationTargetException
+	at muscle.Fiber$$FastClassByCGLIB$$6afcba0f.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.NullPointerException
+	at muscle.Fiber.checkFiberSize(Fiber.java:696)
+	at muscle.Fiber.fiberStep(Fiber.java:97)
+	... 10 more
+FATAL [Thread-2] 2021-04-28 23:11:37,728 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAction.execute(ScheduledMethodControllerAction.java:283)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.reflect.InvocationTargetException
+	at muscle.Fiber$$FastClassByCGLIB$$6afcba0f.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.NullPointerException
+	at muscle.Fiber.checkFiberSize(Fiber.java:696)
+	at muscle.Fiber.fiberStep(Fiber.java:97)
+	... 10 more
+FATAL [Thread-2] 2021-04-28 23:15:15,405 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAction.execute(ScheduledMethodControllerAction.java:283)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.reflect.InvocationTargetException
+	at muscle.Fiber$$FastClassByCGLIB$$6afcba0f.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.NullPointerException
+	at muscle.Fiber.checkFiberSize(Fiber.java:696)
+	at muscle.Fiber.fiberStep(Fiber.java:97)
+	... 10 more
+FATAL [Thread-2] 2021-04-28 23:25:00,171 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (241.9)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.reflect.InvocationTargetException
+	at muscle.InflamCell$$FastClassByCGLIB$$4ea0a4d6.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1042)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:996)
+	at repast.simphony.util.collections.UnremoveableIterator.next(UnremoveableIterator.java:41)
+	at repast.simphony.util.collections.IteratorOverIterables.getNextObj(IteratorOverIterables.java:29)
+	at repast.simphony.util.collections.IteratorOverIterables.next(IteratorOverIterables.java:85)
+	at muscle.Necrosis.necrosisInitialize(Necrosis.java:283)
+	at muscle.InflamCell.chronicDamageScheduleDouble(InflamCell.java:106)
+	... 10 more
+INFO  [AWT-EventQueue-0] 2021-04-29 15:16:21,216 repast.simphony.batch.gui.BatchConfigMediator - Writing batch run config file to: C:\Users\kbc7vn\workspace\DMD_inflamAgents\output\config.props
+INFO  [AWT-EventQueue-0] 2021-04-29 15:16:21,862 repast.simphony.batch.gui.BatchConfigMediator - Unrolling batch parameter file:
+	C:\Users\kbc7vn\workspace\DMD_inflamAgents\batch\batch_params.xml to
+	C:\Users\kbc7vn\AppData\Local\Temp\unrolledParamFile.txt
+INFO  [SwingWorker-pool-2-thread-1] 2021-04-29 15:17:31,495 repast.simphony.batch.ssh.LocalSession - 
+	Copying locally C:\Users\kbc7vn\AppData\Local\Temp\kbc7vn_localhost18301913379599476783.zip to 
+C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 ...
+INFO  [SwingWorker-pool-2-thread-1] 2021-04-29 15:17:31,539 repast.simphony.batch.ssh.LocalSession - Copying Finished.
+INFO  [SwingWorker-pool-2-thread-1] 2021-04-29 15:17:31,540 repast.simphony.batch.ssh.SessionsDriver - Initialization Time: 0.0527
+INFO  [SwingWorker-pool-2-thread-1] 2021-04-29 15:17:31,540 repast.simphony.batch.ssh.LocalSession - Unzipping model C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377\kbc7vn_localhost18301913379599476783.zip
+INFO  [SwingWorker-pool-2-thread-1] 2021-04-29 15:17:32,267 repast.simphony.batch.ssh.LocalSession - Running model on localhost ...
+INFO  [Thread-0] 2021-04-29 15:17:55,981 repast.simphony.batch.ssh.LocalSession - WARNING: An illegal reflective access operation has occurred
+INFO  [Thread-0] 2021-04-29 15:17:55,982 repast.simphony.batch.ssh.LocalSession - WARNING: Illegal reflective access by com.thoughtworks.xstream.core.util.Fields (file:/C:/Users/kbc7vn/AppData/Local/Temp/simphony_model_1619723848377/lib/xstream-1.4.7.jar) to field java.util.TreeMap.comparator
+INFO  [Thread-0] 2021-04-29 15:17:55,982 repast.simphony.batch.ssh.LocalSession - WARNING: Please consider reporting this to the maintainers of com.thoughtworks.xstream.core.util.Fields
+INFO  [Thread-0] 2021-04-29 15:17:55,982 repast.simphony.batch.ssh.LocalSession - WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+INFO  [Thread-0] 2021-04-29 15:17:55,982 repast.simphony.batch.ssh.LocalSession - WARNING: All illegal access operations will be denied in a future release
+INFO  [Thread-0] 2021-04-29 15:17:56,090 repast.simphony.batch.ssh.LocalSession - WARNING: An illegal reflective access operation has occurred
+INFO  [Thread-0] 2021-04-29 15:17:56,091 repast.simphony.batch.ssh.LocalSession - WARNING: Illegal reflective access by com.thoughtworks.xstream.core.util.Fields (file:/C:/Users/kbc7vn/AppData/Local/Temp/simphony_model_1619723848377/lib/xstream-1.4.7.jar) to field java.util.TreeMap.comparator
+INFO  [Thread-0] 2021-04-29 15:17:56,091 repast.simphony.batch.ssh.LocalSession - WARNING: Please consider reporting this to the maintainers of com.thoughtworks.xstream.core.util.Fields
+INFO  [Thread-0] 2021-04-29 15:17:56,091 repast.simphony.batch.ssh.LocalSession - WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+INFO  [Thread-0] 2021-04-29 15:17:56,091 repast.simphony.batch.ssh.LocalSession - WARNING: All illegal access operations will be denied in a future release
+INFO  [pool-3-thread-1] 2021-04-29 15:18:32,283 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:19:32,295 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:20:32,305 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:21:32,317 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:22:32,319 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:23:32,328 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:24:32,337 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:25:32,351 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:26:32,362 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:27:32,367 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:28:32,368 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:29:32,377 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:30:32,386 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:31:32,397 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:32:32,413 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:33:32,426 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:34:32,434 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:35:32,450 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:36:32,453 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [Thread-0] 2021-04-29 15:37:25,667 repast.simphony.batch.ssh.LocalSession - FATAL [Thread-1] 15:37:25,664 repast.simphony.batch.BatchScheduleRunner - BatchSchedule.execute: error when running the schedule
+INFO  [Thread-0] 2021-04-29 15:37:25,667 repast.simphony.batch.ssh.LocalSession - Current tick (2.0)
+INFO  [Thread-0] 2021-04-29 15:37:25,667 repast.simphony.batch.ssh.LocalSession - java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+INFO  [Thread-0] 2021-04-29 15:37:25,667 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+INFO  [Thread-0] 2021-04-29 15:37:25,667 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAction.execute(ScheduledMethodControllerAction.java:283)
+INFO  [Thread-0] 2021-04-29 15:37:25,668 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+INFO  [Thread-0] 2021-04-29 15:37:25,668 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+INFO  [Thread-0] 2021-04-29 15:37:25,668 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+INFO  [Thread-0] 2021-04-29 15:37:25,668 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+INFO  [Thread-0] 2021-04-29 15:37:25,668 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.batch.BatchScheduleRunner$ScheduleLoopRunnable.run(BatchScheduleRunner.java:37)
+INFO  [Thread-0] 2021-04-29 15:37:25,668 repast.simphony.batch.ssh.LocalSession - 	at java.base/java.lang.Thread.run(Thread.java:834)
+INFO  [Thread-0] 2021-04-29 15:37:25,668 repast.simphony.batch.ssh.LocalSession - Caused by: java.lang.reflect.InvocationTargetException
+INFO  [Thread-0] 2021-04-29 15:37:25,668 repast.simphony.batch.ssh.LocalSession - 	at muscle.Fiber$$FastClassByCGLIB$$6afcba0f.invoke(<generated>)
+INFO  [Thread-0] 2021-04-29 15:37:25,668 repast.simphony.batch.ssh.LocalSession - 	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+INFO  [Thread-0] 2021-04-29 15:37:25,668 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+INFO  [Thread-0] 2021-04-29 15:37:25,668 repast.simphony.batch.ssh.LocalSession - 	... 7 more
+INFO  [Thread-0] 2021-04-29 15:37:25,668 repast.simphony.batch.ssh.LocalSession - Caused by: java.lang.ArrayIndexOutOfBoundsException: Index 53 out of bounds for length 50
+INFO  [Thread-0] 2021-04-29 15:37:25,669 repast.simphony.batch.ssh.LocalSession - 	at muscle.Fiber.checkFiberSize(Fiber.java:696)
+INFO  [Thread-0] 2021-04-29 15:37:25,669 repast.simphony.batch.ssh.LocalSession - 	at muscle.Fiber.fiberStep(Fiber.java:97)
+INFO  [Thread-0] 2021-04-29 15:37:25,669 repast.simphony.batch.ssh.LocalSession - 	... 10 more
+INFO  [pool-3-thread-1] 2021-04-29 15:37:32,460 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:38:32,464 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:39:32,471 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:40:32,474 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:41:32,488 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [pool-3-thread-1] 2021-04-29 15:43:18,474 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  no
+INFO  [Thread-0] 2021-04-29 15:44:07,445 repast.simphony.batch.ssh.LocalSession - FATAL [Thread-1] 15:44:07,443 repast.simphony.batch.BatchScheduleRunner - BatchSchedule.execute: error when running the schedule
+INFO  [Thread-0] 2021-04-29 15:44:07,446 repast.simphony.batch.ssh.LocalSession - Current tick (2.0)
+INFO  [Thread-0] 2021-04-29 15:44:07,446 repast.simphony.batch.ssh.LocalSession - java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+INFO  [Thread-0] 2021-04-29 15:44:07,446 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+INFO  [Thread-0] 2021-04-29 15:44:07,446 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAction.execute(ScheduledMethodControllerAction.java:283)
+INFO  [Thread-0] 2021-04-29 15:44:07,446 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+INFO  [Thread-0] 2021-04-29 15:44:07,447 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+INFO  [Thread-0] 2021-04-29 15:44:07,447 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+INFO  [Thread-0] 2021-04-29 15:44:07,447 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+INFO  [Thread-0] 2021-04-29 15:44:07,447 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.batch.BatchScheduleRunner$ScheduleLoopRunnable.run(BatchScheduleRunner.java:37)
+INFO  [Thread-0] 2021-04-29 15:44:07,447 repast.simphony.batch.ssh.LocalSession - 	at java.base/java.lang.Thread.run(Thread.java:834)
+INFO  [Thread-0] 2021-04-29 15:44:07,447 repast.simphony.batch.ssh.LocalSession - Caused by: java.lang.reflect.InvocationTargetException
+INFO  [Thread-0] 2021-04-29 15:44:07,447 repast.simphony.batch.ssh.LocalSession - 	at muscle.Fiber$$FastClassByCGLIB$$6afcba0f.invoke(<generated>)
+INFO  [Thread-0] 2021-04-29 15:44:07,447 repast.simphony.batch.ssh.LocalSession - 	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+INFO  [Thread-0] 2021-04-29 15:44:07,447 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+INFO  [Thread-0] 2021-04-29 15:44:07,447 repast.simphony.batch.ssh.LocalSession - 	... 7 more
+INFO  [Thread-0] 2021-04-29 15:44:07,447 repast.simphony.batch.ssh.LocalSession - Caused by: java.lang.ArrayIndexOutOfBoundsException: Index 51 out of bounds for length 50
+INFO  [Thread-0] 2021-04-29 15:44:07,448 repast.simphony.batch.ssh.LocalSession - 	at muscle.Fiber.checkFiberSize(Fiber.java:696)
+INFO  [Thread-0] 2021-04-29 15:44:07,448 repast.simphony.batch.ssh.LocalSession - 	at muscle.Fiber.fiberStep(Fiber.java:97)
+INFO  [Thread-0] 2021-04-29 15:44:07,448 repast.simphony.batch.ssh.LocalSession - 	... 10 more
+INFO  [pool-3-thread-1] 2021-04-29 15:44:18,479 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377 for DONE:  yes
+INFO  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,479 repast.simphony.batch.ssh.SessionsDriver - Run Time: 26.7823
+INFO  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,542 repast.simphony.batch.ssh.LocalSession - Finding output on localhost in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377
+WARN  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,550 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_growthFactors*.batch_param_map.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377\instance_1
+WARN  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,551 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_regeneration*.batch_param_map.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377\instance_1
+WARN  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,551 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_cellCounts*.batch_param_map.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377\instance_1
+WARN  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,551 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_growthFactors*.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377\instance_1
+WARN  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,551 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_regeneration*.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377\instance_1
+WARN  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,551 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_cellCounts*.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377\instance_1
+WARN  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,552 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_growthFactors*.batch_param_map.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377\instance_2
+WARN  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,553 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_regeneration*.batch_param_map.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377\instance_2
+WARN  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,553 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_cellCounts*.batch_param_map.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377\instance_2
+WARN  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,553 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_growthFactors*.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377\instance_2
+WARN  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,553 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_regeneration*.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377\instance_2
+WARN  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,553 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_cellCounts*.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619723848377\instance_2
+INFO  [SwingWorker-pool-2-thread-1] 2021-04-29 15:44:18,553 repast.simphony.batch.ssh.SessionsDriver - Aggregating output into C:/Users/kbc7vn/workspace/DMD_inflamAgents/output
+INFO  [AWT-EventQueue-0] 2021-04-29 16:46:13,186 repast.simphony.batch.gui.BatchConfigMediator - Writing batch run config file to: C:\Users\kbc7vn\workspace\DMD_inflamAgents\BatchOutput\config.props
+INFO  [AWT-EventQueue-0] 2021-04-29 16:46:13,190 repast.simphony.batch.gui.BatchConfigMediator - Unrolling batch parameter file:
+	C:\Users\kbc7vn\workspace\DMD_inflamAgents\batch\batch_params.xml to
+	C:\Users\kbc7vn\AppData\Local\Temp\unrolledParamFile.txt
+INFO  [SwingWorker-pool-2-thread-2] 2021-04-29 16:46:27,706 repast.simphony.batch.ssh.LocalSession - 
+	Copying locally C:\Users\kbc7vn\AppData\Local\Temp\kbc7vn_localhost18439967614057659885.zip to 
+C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 ...
+INFO  [SwingWorker-pool-2-thread-2] 2021-04-29 16:46:27,750 repast.simphony.batch.ssh.LocalSession - Copying Finished.
+INFO  [SwingWorker-pool-2-thread-2] 2021-04-29 16:46:27,751 repast.simphony.batch.ssh.SessionsDriver - Initialization Time: 0.0489
+INFO  [SwingWorker-pool-2-thread-2] 2021-04-29 16:46:27,751 repast.simphony.batch.ssh.LocalSession - Unzipping model C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816\kbc7vn_localhost18439967614057659885.zip
+INFO  [SwingWorker-pool-2-thread-2] 2021-04-29 16:46:28,415 repast.simphony.batch.ssh.LocalSession - Running model on localhost ...
+INFO  [Thread-1] 2021-04-29 16:46:50,479 repast.simphony.batch.ssh.LocalSession - WARNING: An illegal reflective access operation has occurred
+INFO  [Thread-1] 2021-04-29 16:46:50,479 repast.simphony.batch.ssh.LocalSession - WARNING: Illegal reflective access by com.thoughtworks.xstream.core.util.Fields (file:/C:/Users/kbc7vn/AppData/Local/Temp/simphony_model_1619729184816/lib/xstream-1.4.7.jar) to field java.util.TreeMap.comparator
+INFO  [Thread-1] 2021-04-29 16:46:50,479 repast.simphony.batch.ssh.LocalSession - WARNING: Please consider reporting this to the maintainers of com.thoughtworks.xstream.core.util.Fields
+INFO  [Thread-1] 2021-04-29 16:46:50,479 repast.simphony.batch.ssh.LocalSession - WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+INFO  [Thread-1] 2021-04-29 16:46:50,479 repast.simphony.batch.ssh.LocalSession - WARNING: All illegal access operations will be denied in a future release
+INFO  [Thread-1] 2021-04-29 16:46:50,750 repast.simphony.batch.ssh.LocalSession - WARNING: An illegal reflective access operation has occurred
+INFO  [Thread-1] 2021-04-29 16:46:50,750 repast.simphony.batch.ssh.LocalSession - WARNING: Illegal reflective access by com.thoughtworks.xstream.core.util.Fields (file:/C:/Users/kbc7vn/AppData/Local/Temp/simphony_model_1619729184816/lib/xstream-1.4.7.jar) to field java.util.TreeMap.comparator
+INFO  [Thread-1] 2021-04-29 16:46:50,750 repast.simphony.batch.ssh.LocalSession - WARNING: Please consider reporting this to the maintainers of com.thoughtworks.xstream.core.util.Fields
+INFO  [Thread-1] 2021-04-29 16:46:50,750 repast.simphony.batch.ssh.LocalSession - WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+INFO  [Thread-1] 2021-04-29 16:46:50,750 repast.simphony.batch.ssh.LocalSession - WARNING: All illegal access operations will be denied in a future release
+INFO  [pool-4-thread-1] 2021-04-29 16:47:28,429 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 16:48:28,436 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 16:49:28,437 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 16:50:28,451 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 16:51:28,451 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 16:52:28,452 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 16:53:28,465 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 16:54:28,478 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 16:55:28,489 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 16:56:28,503 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 16:57:28,514 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 16:58:28,521 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 16:59:28,532 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 17:00:28,544 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 17:01:28,553 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 17:02:28,559 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 17:03:28,566 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 17:04:28,567 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 17:05:28,581 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [pool-4-thread-1] 2021-04-29 17:06:28,596 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [Thread-1] 2021-04-29 17:06:52,601 repast.simphony.batch.ssh.LocalSession - FATAL [Thread-1] 17:06:52,597 repast.simphony.batch.BatchScheduleRunner - BatchSchedule.execute: error when running the schedule
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - Current tick (2.0)
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAction.execute(ScheduledMethodControllerAction.java:283)
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.batch.BatchScheduleRunner$ScheduleLoopRunnable.run(BatchScheduleRunner.java:37)
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - 	at java.base/java.lang.Thread.run(Thread.java:834)
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - Caused by: java.lang.reflect.InvocationTargetException
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - 	at muscle.Fiber$$FastClassByCGLIB$$6afcba0f.invoke(<generated>)
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - 	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+INFO  [Thread-1] 2021-04-29 17:06:52,602 repast.simphony.batch.ssh.LocalSession - 	... 7 more
+INFO  [Thread-1] 2021-04-29 17:06:52,603 repast.simphony.batch.ssh.LocalSession - Caused by: java.lang.ArrayIndexOutOfBoundsException: Index 57 out of bounds for length 50
+INFO  [Thread-1] 2021-04-29 17:06:52,603 repast.simphony.batch.ssh.LocalSession - 	at muscle.Fiber.checkFiberSize(Fiber.java:696)
+INFO  [Thread-1] 2021-04-29 17:06:52,603 repast.simphony.batch.ssh.LocalSession - 	at muscle.Fiber.fiberStep(Fiber.java:97)
+INFO  [Thread-1] 2021-04-29 17:06:52,603 repast.simphony.batch.ssh.LocalSession - 	... 10 more
+INFO  [pool-4-thread-1] 2021-04-29 17:07:28,606 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  no
+INFO  [Thread-1] 2021-04-29 17:08:01,690 repast.simphony.batch.ssh.LocalSession - FATAL [Thread-1] 17:08:01,686 repast.simphony.batch.BatchScheduleRunner - BatchSchedule.execute: error when running the schedule
+INFO  [Thread-1] 2021-04-29 17:08:01,690 repast.simphony.batch.ssh.LocalSession - Current tick (2.0)
+INFO  [Thread-1] 2021-04-29 17:08:01,690 repast.simphony.batch.ssh.LocalSession - java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+INFO  [Thread-1] 2021-04-29 17:08:01,690 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+INFO  [Thread-1] 2021-04-29 17:08:01,690 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAction.execute(ScheduledMethodControllerAction.java:283)
+INFO  [Thread-1] 2021-04-29 17:08:01,690 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+INFO  [Thread-1] 2021-04-29 17:08:01,690 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+INFO  [Thread-1] 2021-04-29 17:08:01,690 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+INFO  [Thread-1] 2021-04-29 17:08:01,691 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+INFO  [Thread-1] 2021-04-29 17:08:01,691 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.batch.BatchScheduleRunner$ScheduleLoopRunnable.run(BatchScheduleRunner.java:37)
+INFO  [Thread-1] 2021-04-29 17:08:01,691 repast.simphony.batch.ssh.LocalSession - 	at java.base/java.lang.Thread.run(Thread.java:834)
+INFO  [Thread-1] 2021-04-29 17:08:01,691 repast.simphony.batch.ssh.LocalSession - Caused by: java.lang.reflect.InvocationTargetException
+INFO  [Thread-1] 2021-04-29 17:08:01,691 repast.simphony.batch.ssh.LocalSession - 	at muscle.Fiber$$FastClassByCGLIB$$6afcba0f.invoke(<generated>)
+INFO  [Thread-1] 2021-04-29 17:08:01,691 repast.simphony.batch.ssh.LocalSession - 	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+INFO  [Thread-1] 2021-04-29 17:08:01,691 repast.simphony.batch.ssh.LocalSession - 	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+INFO  [Thread-1] 2021-04-29 17:08:01,691 repast.simphony.batch.ssh.LocalSession - 	... 7 more
+INFO  [Thread-1] 2021-04-29 17:08:01,691 repast.simphony.batch.ssh.LocalSession - Caused by: java.lang.ArrayIndexOutOfBoundsException: Index 50 out of bounds for length 50
+INFO  [Thread-1] 2021-04-29 17:08:01,691 repast.simphony.batch.ssh.LocalSession - 	at muscle.Fiber.checkFiberSize(Fiber.java:696)
+INFO  [Thread-1] 2021-04-29 17:08:01,691 repast.simphony.batch.ssh.LocalSession - 	at muscle.Fiber.fiberStep(Fiber.java:97)
+INFO  [Thread-1] 2021-04-29 17:08:01,691 repast.simphony.batch.ssh.LocalSession - 	... 10 more
+INFO  [pool-4-thread-1] 2021-04-29 17:08:28,614 repast.simphony.batch.ssh.LocalDonePoller - Polled C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816 for DONE:  yes
+INFO  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,615 repast.simphony.batch.ssh.SessionsDriver - Run Time: 22.0144
+INFO  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,684 repast.simphony.batch.ssh.LocalSession - Finding output on localhost in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816
+WARN  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,688 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_growthFactors*.batch_param_map.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816\instance_1
+WARN  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,688 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_regeneration*.batch_param_map.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816\instance_1
+WARN  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,688 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_cellCounts*.batch_param_map.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816\instance_1
+WARN  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,688 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_growthFactors*.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816\instance_1
+WARN  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,688 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_regeneration*.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816\instance_1
+WARN  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,688 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_cellCounts*.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816\instance_1
+WARN  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,690 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_growthFactors*.batch_param_map.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816\instance_2
+WARN  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,691 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_regeneration*.batch_param_map.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816\instance_2
+WARN  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,691 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_cellCounts*.batch_param_map.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816\instance_2
+WARN  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,691 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_growthFactors*.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816\instance_2
+WARN  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,691 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_regeneration*.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816\instance_2
+WARN  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,691 repast.simphony.batch.ssh.OutputFinder - No model output found matching glob:{**\\,}C:\\Users\\kbc7vn\\Documents\\DMD\\modelOutput\\ChronicDMD\\ModelOutput_cellCounts*.csv in C:\Users\kbc7vn\AppData\Local\Temp\simphony_model_1619729184816\instance_2
+INFO  [SwingWorker-pool-2-thread-2] 2021-04-29 17:08:28,691 repast.simphony.batch.ssh.SessionsDriver - Aggregating output into C:/Users/kbc7vn/workspace/DMD_inflamAgents/BatchOutput
+FATAL [Thread-3] 2021-04-29 17:22:38,883 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAction.execute(ScheduledMethodControllerAction.java:283)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.reflect.InvocationTargetException
+	at muscle.Fiber$$FastClassByCGLIB$$6afcba0f.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.ArrayIndexOutOfBoundsException: Index 71 out of bounds for length 50
+	at muscle.Fiber.checkFiberSize(Fiber.java:697)
+	at muscle.Fiber.fiberStep(Fiber.java:97)
+	... 10 more
+FATAL [Thread-3] 2021-04-29 17:24:25,863 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAction.execute(ScheduledMethodControllerAction.java:283)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.reflect.InvocationTargetException
+	at muscle.Fiber$$FastClassByCGLIB$$6afcba0f.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.ArrayIndexOutOfBoundsException: Index 52 out of bounds for length 50
+	at muscle.Fiber.checkFiberSize(Fiber.java:699)
+	at muscle.Fiber.fiberStep(Fiber.java:97)
+	... 10 more
+FATAL [Thread-3] 2021-04-29 17:35:12,121 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAction.execute(ScheduledMethodControllerAction.java:283)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.reflect.InvocationTargetException
+	at muscle.Fiber$$FastClassByCGLIB$$6afcba0f.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.ArrayIndexOutOfBoundsException: Index 50 out of bounds for length 50
+	at muscle.Fiber.checkFiberSize(Fiber.java:699)
+	at muscle.Fiber.fiberStep(Fiber.java:97)
+	... 10 more
+FATAL [Thread-3] 2021-04-29 21:01:13,319 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAction.execute(ScheduledMethodControllerAction.java:283)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.reflect.InvocationTargetException
+	at muscle.Fiber$$FastClassByCGLIB$$6afcba0f.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.ArrayIndexOutOfBoundsException: Index 63 out of bounds for length 50
+	at muscle.Fiber.checkFiberSize(Fiber.java:699)
+	at muscle.Fiber.fiberStep(Fiber.java:97)
+	... 10 more

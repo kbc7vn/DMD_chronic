@@ -15,6 +15,7 @@
 <repast.simphony.action.time_series_chart context="muscle" file="repast.simphony.action.time_series_chart_12.xml" />
 <repast.simphony.action.time_series_chart context="muscle" file="repast.simphony.action.time_series_chart_13.xml" />
 <repast.simphony.action.time_series_chart context="muscle" file="repast.simphony.action.time_series_chart_14.xml" />
-<repast.simphony.action.display context="muscle" file="repast.simphony.action.display_15.xml" />
+<repast.simphony.action.time_series_chart context="muscle" file="repast.simphony.action.time_series_chart_15.xml" />
 <repast.simphony.action.display context="muscle" file="repast.simphony.action.display_16.xml" />
+<repast.simphony.action.display context="muscle" file="repast.simphony.action.display_17.xml" />
 </Scenario>

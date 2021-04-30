@@ -61,12 +61,14 @@ public class InflamCell {
 		setTick();
 	}
 
-//	// CHRONIC DAMAGE-- Repetitive injury, followed by single damage
-//	@ScheduledMethod(start = 1.9, interval = 1)
-//	public void chronicDamageSchedule(){
+	// CHRONIC DAMAGE-- Repetitive injury, followed by single damage
+	//@ScheduledMethod(start = 1.9, interval = 1)
+//	public void chronicDamageScheduleDouble(){
 //		Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
-//		if (chronicDamage == 1 && tick % 24 == 0 && tick < 240){ // determines multiples of 24 by finding remainder-- micro damage at 2 weeks then stop
-//			Necrosis.chronicDamage(context, grid, 2);
+//		if (tick < 240) {
+//			if (chronicDamage == 1 && tick == 0 || chronicDamage == 1 && tick % 24 == 0){ // determines multiples of 24 by finding remainder-- micro damage at 2 weeks then stop
+//				Necrosis.chronicDamage(context, grid, 2);
+//			}
 //		}
 //		else if (chronicDamage == 1 && tick == 240){
 //			Necrosis.necrosisInitialize(context, grid, 20);
@@ -74,7 +76,56 @@ public class InflamCell {
 //	}
 	
 	// CHRONIC DAMAGE-- Repetitive injury - once every 24 hours
-		@ScheduledMethod(start = 1.9, interval = 1)
+			//@ScheduledMethod(start = 1.9, interval = 1)
+			public void chronicDamageScheduleDouble() {
+				Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
+				if (tick < 1008) {
+					if (chronicDamage == 1 && tick == 0 || chronicDamage == 1 && tick % 24 == 0) { // determines multiples of 24 by finding remainder-- micro damage
+						Necrosis.chronicDamage(context, grid, Fiber.necrosisChronic*2);
+						// Check every time there is damage:
+						// Define the amount of necrosis/fiber (similar to originalFiberNecrosis for the single damage simulations:
+						double[] chronicFiberNecrosisTemp = new double[Fiber.origFiberNumber];
+						for (int i = 1; i < Fiber.origFiberNumber + 1; i++) { // go through each fiber and change the border to red
+							// get a random fiber in order to call getFiberBorder
+							List<Object> elemsInFiber = Fiber.getElemInFiber(i, context); // get elems within this fiber
+							if (elemsInFiber.size() > 0) {
+								Object randomFiber = elemsInFiber.get(0);// choose one fiber to call getFiberBorder
+								((Fiber) randomFiber).getFiberBorder(i, context); // get all the borders and set to 1
+								for (Object elems : elemsInFiber) {
+									if (((Fiber) elems).getDamaged() != 0) {
+										chronicFiberNecrosisTemp[i - 1] = 1; // if any of the fibers are marked as damaged- end and
+																				// go to the next fiber and check
+									}
+								}
+							}
+							Fiber.chronicFiberNecrosis = chronicFiberNecrosisTemp;
+						}
+					}
+				} else if (chronicDamage == 1 && tick == 10008) {
+					double damage = Fiber.necrosisChronic; 
+					Necrosis.chronicDamage(context, grid, 20);					// Check every time there is damage:
+					// Define the amount of necrosis/fiber (similar to originalFiberNecrosis for the single damage simulations:
+					double[] chronicFiberNecrosisTemp = new double[Fiber.origFiberNumber];
+					for (int i = 1; i < Fiber.origFiberNumber + 1; i++) { // go through each fiber and change the border to red
+						// get a random fiber in order to call getFiberBorder
+						List<Object> elemsInFiber = Fiber.getElemInFiber(i, context); // get elems within this fiber
+						if (elemsInFiber.size() > 0) {
+							Object randomFiber = elemsInFiber.get(0);// choose one fiber to call getFiberBorder
+							((Fiber) randomFiber).getFiberBorder(i, context); // get all the borders and set to 1
+							for (Object elems : elemsInFiber) {
+								if (((Fiber) elems).getDamaged() != 0) {
+									chronicFiberNecrosisTemp[i - 1] = 1; // if any of the fibers are marked as damaged- end and
+																			// go to the next fiber and check
+								}
+							}
+						}
+						Fiber.chronicFiberNecrosis = chronicFiberNecrosisTemp;
+					}
+				}
+			}
+	
+	// CHRONIC DAMAGE-- Repetitive injury - once every 24 hours
+		//@ScheduledMethod(start = 1.9, interval = 1)
 		public void chronicDamageVariableSchedule() {
 			Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
 			if (tick <= 336) {
@@ -126,37 +177,30 @@ public class InflamCell {
 			}
 		}
 	
-	// CHRONIC DAMAGE-- Repetitive injury based on Jarrah et al.
-	//@ScheduledMethod(start = 1.9, interval = 1)
-	public void chronicDamageScheduleJarrah() {
+	// CHRONIC DAMAGE-- Repetitive injury same amount every day
+	@ScheduledMethod(start = 1.9, interval = 1)
+	public void chronicDamageSchedule() {
 		Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
-		double h = 0.511657; // proportional to magnitude of damage
-		double sigma = 2.92815; // standard deviation of the initial damage
-		double m = 4.22686; // peak of initial damage
-		double t = tick;
-
-		double damage = (h / (t * sigma * Math.sqrt(2 * Math.PI)))
-				* Math.pow(Math.E, Math.pow(-Math.log(t) - m, 2) / Math.pow(2 * sigma, 2));
-		System.out.println(damage);
-		Necrosis.chronicDamage(context, grid, damage);
-		// Check every time there is damage:
-		// Define the amount of necrosis/fiber (similar to originalFiberNecrosis for the
-		// single damage simulations:
-		double[] chronicFiberNecrosisTemp = new double[Fiber.origFiberNumber];
-		for (int i = 1; i < Fiber.origFiberNumber + 1; i++) { // go through each fiber and change the border to red
-			// get a random fiber in order to call getFiberBorder
-			List<Object> elemsInFiber = Fiber.getElemInFiber(i, context); // get elems within this fiber
-			if (elemsInFiber.size() > 0) {
-				Object randomFiber = elemsInFiber.get(0);// choose one fiber to call getFiberBorder
-				((Fiber) randomFiber).getFiberBorder(i, context); // get all the borders and set to 1
-				for (Object elems : elemsInFiber) {
-					if (((Fiber) elems).getDamaged() != 0) {
-						chronicFiberNecrosisTemp[i - 1] = 1; // if any of the fibers are marked as damaged- end and
-																// go to the next fiber and check
+		if (chronicDamage == 1 && tick == 0 || chronicDamage == 1 && tick % 24 == 0) { // determines multiples of 24 by finding remainder-- micro damage
+			Necrosis.chronicDamage(context, grid, 1);
+			// Check every time there is damage:
+			// Define the amount of necrosis/fiber (similar to originalFiberNecrosis for the single damage simulations:
+			double[] chronicFiberNecrosisTemp = new double[Fiber.origFiberNumber];
+			for (int i = 1; i < Fiber.origFiberNumber + 1; i++) { // go through each fiber and change the border to red
+				// get a random fiber in order to call getFiberBorder
+				List<Object> elemsInFiber = Fiber.getElemInFiber(i, context); // get elems within this fiber
+				if (elemsInFiber.size() > 0) {
+					Object randomFiber = elemsInFiber.get(0);// choose one fiber to call getFiberBorder
+					((Fiber) randomFiber).getFiberBorder(i, context); // get all the borders and set to 1
+					for (Object elems : elemsInFiber) {
+						if (((Fiber) elems).getDamaged() != 0) {
+							chronicFiberNecrosisTemp[i - 1] = 1; // if any of the fibers are marked as damaged- end and
+																	// go to the next fiber and check
+						}
 					}
 				}
+				Fiber.chronicFiberNecrosis = chronicFiberNecrosisTemp;
 			}
-			Fiber.chronicFiberNecrosis = chronicFiberNecrosisTemp;
 		}
 
 	}
@@ -361,13 +405,8 @@ public class InflamCell {
 		// Use instead of just hgf, since hgf is dependent on how quickly damage is
 		// cleared
 		double dsscActivationdt = Necrosis.getInitialBurstNecrotic(context) * 10 * origFiberNumber * 15;
-		inflamCellsTemp[9] = (inflamCellsIter[9] + dsscActivationdt) * Math.pow(.5, timestep / 24.); // slow decrease to
-																										// allow
-																										// necrosis
-																										// signal to be
-																										// maintained
-																										// for a long
-																										// time
+		inflamCellsTemp[9] = (inflamCellsIter[9] + dsscActivationdt) * Math.pow(.5, timestep / 24.); // slow decrease to allow necrosis signal to be maintained for a long time
+		System.out.println("SSC: " + inflamCellsTemp[9]);																								
 
 		// Check to make sure all numbers are not less than zero/lower threshold
 		if (inflamCellsTemp[0] < .001) {

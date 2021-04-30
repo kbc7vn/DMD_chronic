@@ -1,23 +1,71 @@
 <repast.simphony.visualization.engine.CartesianDisplayDescriptor simphonyVersion="2.7.0">
-  <name>New Display</name>
+  <name>Grid Display</name>
   <type>2D</type>
   <styles>
+    <entry>
+      <string>muscle.Fibroblast</string>
+      <string>muscle.FibroblastStyle</string>
+    </entry>
+    <entry>
+      <string>muscle.Fiber</string>
+      <string>muscle.FiberStyle</string>
+    </entry>
+    <entry>
+      <string>muscle.MCPContext</string>
+      <string>repast.simphony.visualizationOGL2D.DefaultStyleOGL2D</string>
+    </entry>
+    <entry>
+      <string>muscle.Macrophage</string>
+      <string>muscle.MacrophageStyle</string>
+    </entry>
     <entry>
       <string>muscle.Neutrophil</string>
       <string>muscle.NeutrophilStyle</string>
     </entry>
     <entry>
+      <string>muscle.Necrosis</string>
+      <string>muscle.NecrosisStyle</string>
+    </entry>
+    <entry>
       <string>muscle.SSC</string>
       <string>muscle.SSCStyle</string>
     </entry>
+    <entry>
+      <string>muscle.ECM</string>
+      <string>muscle.ECMStyle</string>
+    </entry>
   </styles>
   <editedStyles>
+    <entry>
+      <string>muscle.Fibroblast</string>
+      <null/>
+    </entry>
+    <entry>
+      <string>muscle.Fiber</string>
+      <null/>
+    </entry>
+    <entry>
+      <string>muscle.MCPContext</string>
+      <null/>
+    </entry>
+    <entry>
+      <string>muscle.Macrophage</string>
+      <null/>
+    </entry>
     <entry>
       <string>muscle.Neutrophil</string>
       <null/>
     </entry>
     <entry>
+      <string>muscle.Necrosis</string>
+      <null/>
+    </entry>
+    <entry>
       <string>muscle.SSC</string>
+      <null/>
+    </entry>
+    <entry>
+      <string>muscle.ECM</string>
       <null/>
     </entry>
   </editedStyles>
@@ -31,19 +79,43 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-160585519</hashCode>
+    <hashCode>-196074845</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>grid</layoutProjection>
   <layoutInterval>0</layoutInterval>
   <layerOrder>
     <entry>
-      <string>muscle.Neutrophil</string>
+      <string>muscle.Fibroblast</string>
+      <int>7</int>
+    </entry>
+    <entry>
+      <string>muscle.Fiber</string>
       <int>1</int>
     </entry>
     <entry>
-      <string>muscle.SSC</string>
+      <string>muscle.MCPContext</string>
       <int>0</int>
+    </entry>
+    <entry>
+      <string>muscle.Macrophage</string>
+      <int>6</int>
+    </entry>
+    <entry>
+      <string>muscle.Neutrophil</string>
+      <int>5</int>
+    </entry>
+    <entry>
+      <string>muscle.Necrosis</string>
+      <int>3</int>
+    </entry>
+    <entry>
+      <string>muscle.SSC</string>
+      <int>4</int>
+    </entry>
+    <entry>
+      <string>muscle.ECM</string>
+      <int>2</int>
     </entry>
   </layerOrder>
   <projections>
@@ -90,8 +162,5 @@
     <blue>255</blue>
     <alpha>255</alpha>
   </backgroundColor>
-  <valueLayerStyleName>muscle.MCPStyle</valueLayerStyleName>
-  <valueLayers>
-    <string>MCP Layer</string>
-  </valueLayers>
+  <valueLayers/>
 </repast.simphony.visualization.engine.CartesianDisplayDescriptor>
