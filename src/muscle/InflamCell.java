@@ -124,7 +124,7 @@ public class InflamCell {
 			}
 	
 	// CHRONIC DAMAGE-- Repetitive injury - once every 24 hours
-		@ScheduledMethod(start = 1.9, interval = 1)
+		//@ScheduledMethod(start = 1.9, interval = 1)
 		public void chronicDamageVariableSchedule() {
 			Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
 			if (tick <= 336) {
@@ -177,7 +177,7 @@ public class InflamCell {
 		}
 	
 	// CHRONIC DAMAGE-- Repetitive injury same amount every day
-	//@ScheduledMethod(start = 1.9, interval = 1)
+	@ScheduledMethod(start = 1.9, interval = 1)
 	public void chronicDamageSchedule() {
 		Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
 		if (chronicDamage == 1 && tick == 0 || chronicDamage == 1 && tick % 24 == 0) { // determines multiples of 24 by finding remainder-- micro damage
