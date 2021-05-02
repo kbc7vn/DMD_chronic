@@ -364,7 +364,7 @@ public class SSC {
 				}
 				// SC DAUGHTER FATE DETERMINATION
 				// IF IT IS A SSC
-				int chanceSymmetric = 10; // 10% chance of asymmetric division in DMD [Dumont2015 ]
+				int chanceSymmetric = 90; // 10% chance of asymmetric division in DMD [Dumont2015 ]
 				if (this.getCommitted() == 0) { // If it is a SSC (not committed)
 					if (RandomHelper.nextIntFromTo(0, 100) > (chanceSymmetric) * fibronectinFactor && this.getMyf5neg() != 9) { // 10% of SC go through asymmetric division 90% go through symmetric division with a SC and committed daughter
 						// MYOBLAST- ASYMMETRIC DIVISION

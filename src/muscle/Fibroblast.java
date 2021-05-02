@@ -131,7 +131,9 @@ public class Fibroblast {
 			setApopAge(this.getApopAge() + 1);
 		}
 		// "QUIESCENCE" = HOMEOSTASIS/BASELINE CONDITIONS
-		if (this.getPhenotype() < myofibroblastSwitch && this.getRecruitAge() == 0 && this.getApopAge() < 2 && this.resident == 0 && this.expansionAge == 0) {
+		// let myofibroblasts become quiescent too
+		//if (this.getPhenotype() < myofibroblastSwitch && this.getRecruitAge() == 0 && this.getApopAge() < 2 && this.resident == 0 && this.expansionAge == 0) {
+		if (this.getRecruitAge() == 0 && this.getApopAge() < 2 && this.resident == 0 && this.expansionAge == 0) {	
 			fibrobQuiescence();
 		}
 
@@ -154,6 +156,7 @@ public class Fibroblast {
 		// DISEASE STATE PARAMETERS
 		double tnf = growthFactors[1] + Fiber.mdxTnf;
 		double ifn = growthFactors[15] + Fiber.mdxIfn;
+		double fgf = growthFactors[29];
 		
 		// Active fibroblasts secrete mcp if the environment is inflammatory
 		double inflamWeight = GrowthFactors.inflamWeight*100;
@@ -171,14 +174,14 @@ public class Fibroblast {
 		// FIBROBLAST PROLIFERATION AND APOPTOSIS
 		fibroblastRecruit = InflamCell.getFibrobRecruit() + growthFactors[30]; // IL4-mediated eosinophil recruitment of NMMPs + SSC recruitment;
 		fibroblastExpansion = InflamCell.inflamCells[8]; // SSC-dependent proliferation of fibroblasts (Murphy et al. 2011)
-		fibroblastApop = tnf ; // tnf induced fibroblast apotosis (Lemos 2015)
+		fibroblastApop = tnf;// + fgf/2; // tnf induced fibroblast apotosis (Lemos 2015)
 		fibroblastBlockApop = GrowthFactors.getActiveTgf(InflamCell.getTick()); // active tgf blocks fibroblast apotosis (Lemos 2015)
 		fibroblastProlif = 0; // see fibroblastExpansion
 		double fiberNorm = Fiber.origFiberNumber; // normalize number of fibroblasts to the number of fibers
 		if (Fiber.origFiberNumber < getFibroblasts(context).size()) {
 			// If there are more fibroblasts than fibers-- then normalize by the number of
 			// fibroblasts
-			fiberNorm = getFibroblasts(context).size();
+			fiberNorm = getFibroblasts(context).size() + getMyofibroblasts(context).size();
 		}
 		// Saturation limits (most not utilized in typical simulations- mostly used at
 		// chronic parameter testing)
@@ -227,7 +230,7 @@ public class Fibroblast {
 		if (fibRecTemp < 15) {
 			fibRecTemp = 15;
 		}
-		if (fibrobRecruitSaturation > getActiveFibroblasts(context).size()
+		if (fibrobRecruitSaturation > (getActiveFibroblasts(context).size() + getMyofibroblasts(context).size()) 
 				&& RandomHelper.nextIntFromTo(0, fibRecTemp) < 1) { // if less than saturation point
 			Fibroblast fibroblastNew = new Fibroblast(mcpSpatial, grid, space, 0, 0, 0, 1, 0, 0); // add a fibroblast
 			context.add(fibroblastNew); // add to context
