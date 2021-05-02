@@ -70,7 +70,7 @@ public class SSC {
     
     // other:
     private static final int maxProteinAdd = 60;//(int) (60 * (1 / Fiber.pax7Scale)); // This value should scale based on the size of the elements
-	private static final double sscScale = 1;// .25 control
+	private static final double sscScale = 0.25;// .25 control
 
 	public SSC(BufferedGridValueLayer mcpSpatial, Grid<Object> grid, int active, int differentiated, int onEdge, int divideTime, int diffTime, int myf5neg,
 			int daughter, int sisterAssoc, int proteinAdd, int fiberNeedsRep, int committed, int fiberAssoc,
@@ -166,8 +166,7 @@ public class SSC {
 				this.setDiff(2); // set differentiation to myocyte and make sure it is on an edge in order to fuse and regrow
 			}
 		}
-		if (this.getOnEdge() == 1 && this.getDiff() == 2) { // if the ssc is on an edge and differentiated --> fused
-															// myocyte --> myofiber
+		if (this.getOnEdge() == 1 && this.getDiff() == 2) { // if the ssc is on an edge and differentiated --> fused myocyte --> myofiber
 			this.setDiff(3); // fused myocyte ready to regrow muscle
 		}
 		// FIBER REPAIR
@@ -229,12 +228,15 @@ public class SSC {
 		// SSC NICHE- function of fibronectin
 		sscNiche = growthFactors[6];
 		// SSC ACTIVATION- function of damage
-		sscActivation = InflamCell.inflamCells[9]; // already scaled by fiber number
+		double sscActivation = 2*hgf + fgf + igf; // 2*hgf + fgf + igf
+		
+		//sscActivation = InflamCell.inflamCells[9]; // already scaled by fiber number
 		// SSC DIVISION/PROLIFERATION:
 		    // Division is induced by inflammatory factors/fibroblast factors: igf, fgf, tnf, ifn, il6, vegf, pdgf, gcsf, mmp
 		    // Division is inhibited by anti-inflammatory factors: il10, tgf
 		    // Division is weighted towards fgf and igf which are required for cell cycle entry
-		sscProliferation = (3 * igf + 3 * fgf + tnf + ifn + il6 + vegf + pdgf + gcsf - il10 - 4 * activeTGF) / Fiber.origFiberNumber;
+		//sscProliferation = (3 * igf + 3 * fgf + tnf + ifn + il6 + vegf + pdgf + gcsf - il10 - 4 * activeTGF) / Fiber.origFiberNumber;
+		sscProliferation = (3 * igf + 3 * fgf + tnf + ifn + il6 + vegf + pdgf + gcsf - il10 - 2 * activeTGF) / Fiber.origFiberNumber;
 		// SSC CELL CYCLE EXIT/DIFFERENTIATION:
 		    // Cell cycle exit is induced by il10, il4
 		    // Cell cycle exit is blocked by fgf, igf, hgf, ifn, tnf
@@ -322,7 +324,7 @@ public class SSC {
 			if (this.getDivideTime() == 0) { // if active and not already proliferating
 				// It takes 8-14 hours to activate originally - first division takes 18-24 hours while each subsequent division takes 10 hours
 				int divNumberEffect = 1;
-				if (this.daughter >= 2) {
+				if (this.daughter >= 1) {
 					// if the daughter has already divided twice- change the chance of division
 					divNumberEffect = (this.daughter + 1);
 				}
@@ -330,9 +332,7 @@ public class SSC {
 				if (divChance < 60) { // threshold for division chance- 8302016 parameter analysis solution
 					divChance = 60;
 				}
-				if (RandomHelper.nextIntFromTo(0,
-						(int) (divChance * Math.sqrt(divNumberEffect) * Fiber.regenCapacity)) < 1
-						&& this.getDiff() == 0) { // Chance of dividing
+				if (RandomHelper.nextIntFromTo(0,(int) (divChance * Math.sqrt(divNumberEffect) * Fiber.regenCapacity)) < 1 && this.getDiff() == 0) { // Chance of dividing
 					this.setDivideTime(1); // set divide time
 					this.setDaughter(1); // Should ssc that divided limit the number of divisions it can do
 					divideCount++; // count number of divisions
@@ -360,7 +360,7 @@ public class SSC {
 					fibronectinFactor = 1.;
 				} else {
 					fibronectinFactor = (sscNiche / Fiber.origFiberNumber) / 20.;
-					System.out.println(fibronectinFactor);
+					//System.out.println(fibronectinFactor);
 				}
 				// SC DAUGHTER FATE DETERMINATION
 				// IF IT IS A SSC

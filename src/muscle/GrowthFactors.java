@@ -151,51 +151,52 @@ public class GrowthFactors {
 		double na = Neutrophil.getApoptosed(context).size();
 		double m1ae = Macrophage.getM1ae(context).size();
 		double m1de = Macrophage.getM1de(context).size();
-		double m1Mac = ((Macrophage.getM1(context).size() - m1de - m1ae))/10;
-		double m2Mac = Macrophage.getM2(context).size()/10;
+		double m1Mac = ((Macrophage.getM1(context).size() - m1de - m1ae));
+		double m2Mac = Macrophage.getM2(context).size();
 		  
-/*		// Growth factor secretion calculations - healthy muscle
-		double dtgfdt = (1 * numActiveFibrob + 1 * m1ae + 2 * m2Mac); // tgf
-		double dtnfdt = (1 * resMac + 2 * n + 2 * m1Mac + 2 * m1ae + 2 * m1de + .2 * inflamSSC); // tnf
-		double digf1dt = (2 * numActiveFibrob + 1 * m1Mac + 1 * m1ae + 1 * m1de + 1 * m2Mac); // igf1
-		double dpdgfdt = (1 * numActiveFibrob); // pdgf
-		double dmmpxdt = (1 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// mmpX
-		double dactiveTGFTempdt = (2 * numMyofbs);// tgf myofibroblast release
-		double decmprotdt = (2 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// ecmprot
-		double dil1dt = (2 * resMac + 1 * n + 1 * m1Mac + 1 * m1ae + 1 * m1de+ 1 * inflamFibroblasts + 1 * numActiveSecretingSSC);// il1
-		double dil8dt = (1 * resMac + 1 * n + 1 * m1Mac + 2 * m1de + 1 * inflamFibroblasts + .2 * inflamSSC);// il8
-		double dcxcl2dt = (1 * resMac);// cxcl2
-		double dcxcl1dt = (1 * resMac);// cxcl1
-		double dccl3dt = (1 * resMac + 1 * n - 1 * na);// ccl3
-		double dccl4dt = (1 * resMac + 1 * n);// ccl4
-		double dil6dt = (1 * n + 3 * m1Mac + 3 * m1de + 1 * numActiveFibrob + 1 * inflamSSC);// il6
-		double dmcpdt = (1.7 * n + 1 * inflamFibroblasts + 1 * inflamSSC);// mcp
-		double difndt = (5 * n + 1 * m1de);// ifn
-		double dlactoferinsdt = (5 * na);// lactoferins
-		double dhgfdt = percentNecrotic * 100 * 5;// hgf - Released from ecm with damage // eliminated effect of apop neutrophils and released with % necrotic at damage
-		double dvegfdt = (1 * na + 1 * m1Mac + m1ae + 1 * m1de + .5 * numActiveSecretingSSC);// vegf
-		double dmmp12dt = (2 * m1Mac + 2 * m1ae + 2 * m1de + 1 * numActiveSecretingSSC);// mmp12
-		double dgcsfdt = (1 * m1Mac + 1 * m1ae + 1 * m1de);// gcsf
-		double dil10dt = (1 * m1Mac + 0.1 * m1ae + 0.5 * m1de + 1.2 * m2Mac);// il10
-		double dlipoxinsdt = (1 * m1ae + 1 * m1de);// lipoxins
-		double dresolvinsdt = (3 * m1ae + 2 * m1de);// resolvins
-		double dccl17dt = (1 * m1ae + 2.8 * m2Mac);// ccl17
-		double dccl22dt = (1 * m1ae + 1 * m2Mac + 1 * numActiveSecretingSSC);// ccl22
-		double dcollagen4dt = (1 * m2Mac);// collagen4
-		double dpge2dt = (3 * m2Mac);// pge2
-		double drosdt = (1 * n + 1 * m1de);// ros
-		double dfgfdt = numActiveFibrob; // fgf
-		double dil4dt = 0; // il4		
-		*/
+//		// Growth factor secretion calculations - healthy muscle
+//		double dtgfdt = (1 * numActiveFibrob + 1 * m1ae + 2 * m2Mac); // tgf
+//		double dtnfdt = (1 * resMac + 2 * n + 2 * m1Mac + 2 * m1ae + 2 * m1de + .2 * inflamSSC); // tnf
+//		double digf1dt = (2 * numActiveFibrob + 1 * m1Mac + 1 * m1ae + 1 * m1de + 1 * m2Mac); // igf1
+//		double dpdgfdt = (1 * numActiveFibrob); // pdgf
+//		double dmmpxdt = (1 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// mmpX
+//		double dactiveTGFTempdt = (2 * numMyofbs);// tgf myofibroblast release
+//		double decmprotdt = (2 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// ecmprot
+//		double dil1dt = (2 * resMac + 1 * n + 1 * m1Mac + 1 * m1ae + 1 * m1de+ 1 * inflamFibroblasts + 1 * numActiveSecretingSSC);// il1
+//		double dil8dt = (1 * resMac + 1 * n + 1 * m1Mac + 2 * m1de + 1 * inflamFibroblasts + .2 * inflamSSC);// il8
+//		double dcxcl2dt = (1 * resMac);// cxcl2
+//		double dcxcl1dt = (1 * resMac);// cxcl1
+//		double dccl3dt = (1 * resMac + 1 * n - 1 * na);// ccl3
+//		double dccl4dt = (1 * resMac + 1 * n);// ccl4
+//		double dil6dt = (1 * n + 3 * m1Mac + 3 * m1de + 1 * numActiveFibrob + 1 * inflamSSC);// il6
+//		double dmcpdt = (1.7 * n + 1 * inflamFibroblasts + 1 * inflamSSC);// mcp
+//		double difndt = (5 * n + 1 * m1de);// ifn
+//		double dlactoferinsdt = (5 * na);// lactoferins
+//		double dhgfdt = percentNecrotic * 100 * 5;// hgf - Released from ecm with damage // eliminated effect of apop neutrophils and released with % necrotic at damage
+//		double dvegfdt = (1 * na + 1 * m1Mac + m1ae + 1 * m1de + .5 * numActiveSecretingSSC);// vegf
+//		double dmmp12dt = (2 * m1Mac + 2 * m1ae + 2 * m1de + 1 * numActiveSecretingSSC);// mmp12
+//		double dgcsfdt = (1 * m1Mac + 1 * m1ae + 1 * m1de);// gcsf
+//		double dil10dt = (1 * m1Mac + 0.1 * m1ae + 0.5 * m1de + 1.2 * m2Mac);// il10
+//		double dlipoxinsdt = (1 * m1ae + 1 * m1de);// lipoxins
+//		double dresolvinsdt = (3 * m1ae + 2 * m1de);// resolvins
+//		double dccl17dt = (1 * m1ae + 2.8 * m2Mac);// ccl17
+//		double dccl22dt = (1 * m1ae + 1 * m2Mac + 1 * numActiveSecretingSSC);// ccl22
+//		double dcollagen4dt = (1 * m2Mac);// collagen4
+//		double dpge2dt = (3 * m2Mac);// pge2
+//		double drosdt = (1 * n + 1 * m1de);// ros
+//		double dfgfdt = numActiveFibrob; // fgf
+//		double dil4dt = m2Mac; // il4		
+		
 		
 		// Growth factor secretion calculations - dystrophic muscle
+		//double dtgfdt = (6 * numActiveFibrob + 1 * m1ae + 2 * m2Mac); // tgf
 		double dtgfdt = (1 * numActiveFibrob + 1 * m1ae + 2 * m2Mac); // tgf
-		double dtnfdt = (1 * resMac + 2 * n + 2 * m1Mac + 2 * m1ae + 2 * m1de + .2 * inflamSSC); // tnf
+		double dtnfdt = (1 * resMac + 2 * n + 2 * m1Mac + 2 * m1ae + 2 * m1de + .2 * inflamSSC)*2; // tnf
 		double digf1dt = (2 * numActiveFibrob + 1 * m1Mac + 1 * m1ae + 1 * m1de + 1 * m2Mac); // igf1
 		double dpdgfdt = (1 * numActiveFibrob); // pdgf
-		double dmmpxdt = (1 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// mmpX
+		double dmmpxdt = (0.2 * numActiveFibrob + 1 * numActiveSecretingSSC + 5 * numMyofbs);// mmpX
 		double dactiveTGFTempdt = (2 * numMyofbs);// tgf myofibroblast release
-		double decmprotdt = (2 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// ecmprot
+		double decmprotdt = (10 * numActiveFibrob + 1 * numActiveSecretingSSC + 1 * numMyofbs);// ecmprot
 		double dil1dt = (2 * resMac + 1 * n + 1 * m1Mac + 1 * m1ae + 1 * m1de + 1 * inflamFibroblasts + 1 * numActiveSecretingSSC);// il1
 		double dil8dt = (1 * resMac + 1 * n + 1 * m1Mac + 2 * m1de + 1 * inflamFibroblasts + .2 * inflamSSC);// il8
 		double dcxcl2dt = (1 * resMac);// cxcl2
@@ -204,9 +205,9 @@ public class GrowthFactors {
 		double dccl4dt = (1 * resMac + 1 * n);// ccl4
 		double dil6dt = (1 * n + 3 * m1Mac + 3 * m1de + 1 * numActiveFibrob + 1 * inflamSSC);// il6
 		double dmcpdt = (1.7 * n + 1 * inflamFibroblasts + 1 * inflamSSC);// mcp
-		double difndt = (5 * n + 1 * m1de);// ifn
+		double difndt = (5 * n + 1 * m1de + 1 * m1Mac);// ifn
 		double dlactoferinsdt = (5 * na);// lactoferins
-		double dhgfdt = percentNecrotic * 100 * 5;// hgf - Released from ecm with damage // eliminated effect of apop neutrophils and released with % necrotic at damage
+		double dhgfdt = percentNecrotic * 100 * 5 + na;// hgf - Released from ecm with damage // eliminated effect of apop neutrophils and released with % necrotic at damage
 		double dvegfdt = (1 * na + 1 * m1Mac + m1ae + 1 * m1de + .5 * numActiveSecretingSSC);// vegf
 		double dmmp12dt = (2 * m1Mac + 2 * m1ae + 2 * m1de + 1 * numActiveSecretingSSC);// mmp12
 		double dgcsfdt = (1 * m1Mac + 1 * m1ae + 1 * m1de);// gcsf
@@ -220,8 +221,8 @@ public class GrowthFactors {
 		//double dpge2dt = (1 * m2Mac);// pge2
 		double drosdt = (1 * n + 1 * m1de);// ros
 		double dfgfdt = numActiveFibrob; // fgf
-		double dil4dt = 0; // il4				
-		
+		double dil4dt = m2Mac; // il4				
+
 		// GROWTH FACTOR SOLVER
 		// add new growth factors and include half-life
 		growthFactorsTemp[0] = (growthFactors[0] + dtgfdt) * Math.pow(.5, timestep / 5.);
@@ -361,7 +362,6 @@ public class GrowthFactors {
 		if (growthFactors[30] < .0001) {
 			growthFactors[30] = 0.;
 		}
-		
 		return growthFactors;
 	}
 

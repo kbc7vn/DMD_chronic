@@ -51,7 +51,7 @@ public class Necrosis {
 		initialBurst = getInitialBurstNecrotic(context);
 	}
 
-	public static void necrosisBehaviors(Context<Object> context, Grid<Object> grid, double[] inflamCells, int totalFiberNumber, double[] growthFactors){
+	public static void necrosisBehaviors(Context<Object> context, Grid<Object> grid, double[] inflamCells, int totalFiberNumber, double[] growthFactors){		
 		// inflammCells: 0 RM; 1 N; 2 Na; 3 M1; 4 M1ae; 5 M1de; 6 M2
 		// Neutrophils and M1-debris eating get rid of necrosis but release ROS --> secondary necrosis	
 		/*double neutrophils = Math.ceil(inflamCells[1])*50; // round neutrophils to nearest whole number
@@ -105,32 +105,32 @@ public class Necrosis {
 		// SECONDARY NECROSIS- based on ROS
 		double ros = growthFactors[28];
 		// Note: May need to adjust this parameter as ROS values change with increased cell counts
-		if (ros > 0.001*totalFiberNumber && 1 > RandomHelper.nextIntFromTo(0,10)){ // ROS + chance 
-			for (int i = 0; i < ros*Fiber.mdxsSecondNecr; i++){
-			// Add necrosis next to a location of necrosis-- change color of secondary necrosis to orange
-			List<Object> fibers = Fiber.getFiberElems(context); // get the fibers
-			List<Fiber> fiberNearNecrosis = new ArrayList<Fiber>();
-			for (Object fiberIter : fibers){
-				VNQuery<Object> query = new VNQuery(grid, fiberIter, 1, 1); // Find the 4 neighbors and determine if the necrosis borders ecm
-				Iterable<Object> iter = query.query(); // query the list of agents that are the neighbors
-				for (Object neighborCheck : iter){ // go through the list of neighbors
-					if (neighborCheck instanceof Necrosis){
-						fiberNearNecrosis.add((Fiber) fiberIter); // Add to list of fibers boarding necrosis
-					}
-				}
-			}
-			// Choose a random fiber near necrosis and change it to secondary necrosis
-			if (fiberNearNecrosis.size() > 0){
-			int index = RandomHelper.nextIntFromTo(0,  fiberNearNecrosis.size() - 1);
-			Fiber fiberRandom = fiberNearNecrosis.get(index);
-			Necrosis newNecrosis = new Necrosis(mcpSpatial, grid, 1, 0); // Create a new Necrotic element, marked 'secondary'
-			GridPoint pt = grid.getLocation(fiberRandom); // get location
-			context.remove(fiberRandom); // remove the fiber and change to secondary necrosis
-			context.add(newNecrosis); // Add new necrosis
-			grid.moveTo(newNecrosis, pt.getX(), pt.getY()); 
-			}
-			}
-		}
+//		if (ros > 0.001*totalFiberNumber && 1 > RandomHelper.nextIntFromTo(0,10)){ // ROS + chance 
+//			for (int i = 0; i < ros*Fiber.mdxsSecondNecr; i++){
+//			// Add necrosis next to a location of necrosis-- change color of secondary necrosis to orange
+//			List<Object> fibers = Fiber.getFiberElems(context); // get the fibers
+//			List<Fiber> fiberNearNecrosis = new ArrayList<Fiber>();
+//			for (Object fiberIter : fibers){
+//				VNQuery<Object> query = new VNQuery(grid, fiberIter, 1, 1); // Find the 4 neighbors and determine if the necrosis borders ecm
+//				Iterable<Object> iter = query.query(); // query the list of agents that are the neighbors
+//				for (Object neighborCheck : iter){ // go through the list of neighbors
+//					if (neighborCheck instanceof Necrosis){
+//						fiberNearNecrosis.add((Fiber) fiberIter); // Add to list of fibers boarding necrosis
+//					}
+//				}
+//			}
+//			// Choose a random fiber near necrosis and change it to secondary necrosis
+//			if (fiberNearNecrosis.size() > 0){
+//			int index = RandomHelper.nextIntFromTo(0,  fiberNearNecrosis.size() - 1);
+//			Fiber fiberRandom = fiberNearNecrosis.get(index);
+//			Necrosis newNecrosis = new Necrosis(mcpSpatial, grid, 1, 0); // Create a new Necrotic element, marked 'secondary'
+//			GridPoint pt = grid.getLocation(fiberRandom); // get location
+//			context.remove(fiberRandom); // remove the fiber and change to secondary necrosis
+//			context.add(newNecrosis); // Add new necrosis
+//			grid.moveTo(newNecrosis, pt.getX(), pt.getY()); 
+//			}
+//			}
+//		}
 	}
 	
 	//@ScheduledMethod(start = 2, interval = 24, priority = 1) 

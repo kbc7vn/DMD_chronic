@@ -50,7 +50,7 @@ public class Fiber {
 	public static double[] origFiberCSA; // orig fiber CSA for each fiber
 	public static double[] origFiberNecrosis; // orig amount of necrosis for each fiber
 	public static double[] chronicFiberNecrosis; // metric for chronic damage simulations
-	
+
 	// DISEASE STATE PARAMETER
 	public static int diseaseState = 0; // 0 = healthy, 1 = young mdx, 2 = adult mdx, 3 = old mdx, 4 = very young mdx
 	public static double regenCapacity = 1; // 1 at healthy-- altered at disease states
@@ -108,6 +108,7 @@ public class Fiber {
 		Context context = ContextUtils.getContext(this); // get the context of the fiber
 		origFiberNumber = getTotalFiberNumber(context); // get total number of fibers at start
 		necrosisChronic = 1; // chronic damage only
+		fiberCount = 0;
 		
 		// DISEASE PARAMETER SET:// Set disease state parameters
 		// HEALTHY

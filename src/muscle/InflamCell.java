@@ -53,7 +53,6 @@ public class InflamCell {
 		double[] inflamCells = InflamCell.cellCountSolver(inflamCellsIter, context, Fiber.origFiberNumber); // AT EACH
 																											// STEP
 		double[] growthFactors = GrowthFactors.growthFactorSolver(inflamCells, context); // solve for growth factor
-																							// secretions
 		setInflamCellsIter(inflamCells); // reset inflamCellsIter for next generation
 		GrowthFactors.setActiveTgf(getTick());
 		int totalFiberNumber = Fiber.getTotalFiberNumber(context);
@@ -125,7 +124,7 @@ public class InflamCell {
 			}
 	
 	// CHRONIC DAMAGE-- Repetitive injury - once every 24 hours
-		//@ScheduledMethod(start = 1.9, interval = 1)
+		@ScheduledMethod(start = 1.9, interval = 1)
 		public void chronicDamageVariableSchedule() {
 			Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
 			if (tick <= 336) {
@@ -178,7 +177,7 @@ public class InflamCell {
 		}
 	
 	// CHRONIC DAMAGE-- Repetitive injury same amount every day
-	@ScheduledMethod(start = 1.9, interval = 1)
+	//@ScheduledMethod(start = 1.9, interval = 1)
 	public void chronicDamageSchedule() {
 		Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
 		if (chronicDamage == 1 && tick == 0 || chronicDamage == 1 && tick % 24 == 0) { // determines multiples of 24 by finding remainder-- micro damage
@@ -205,37 +204,29 @@ public class InflamCell {
 
 	}
 	
+//	// CHRONIC DAMAGE-- Repetitive injury
 	//@ScheduledMethod(start = 1.9, interval = 1)
-	public void chronicDamageScheduleFrind() {
+	public void chronicDamageSchedule2(){ //every 120 hours
 		Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
-		if (chronicDamage == 1 && tick == 0 || chronicDamage == 1 && tick % 24 == 0) { // determines multiples of 24
-			double a = RandomHelper.nextDoubleFromTo(0, 1);
-			double t = tick / 24;
-			System.out.println("time: " + t);
-
-			double damage = Math.pow(a * Math.sin(Math.PI * t), 2) * 100;
-			System.out.println(damage);
-			Necrosis.chronicDamage(context, grid, damage);
+		if (chronicDamage == 1 && tick == 0 || chronicDamage == 1 && tick % 120 == 30){ // determines multiples of 24 by finding remainder-- micro damage
+			Necrosis.chronicDamage(context, grid, Fiber.necrosisChronic);
 			// Check every time there is damage:
-			// Define the amount of necrosis/fiber (similar to originalFiberNecrosis for the
-			// single damage simulations:
+			// Define the amount of necrosis/fiber (similar to originalFiberNecrosis for the single damage simulations:
 			double[] chronicFiberNecrosisTemp = new double[Fiber.origFiberNumber];
-			for (int i = 1; i < Fiber.origFiberNumber + 1; i++) { // go through each fiber and change the border to red
-				// get a random fiber in order to call getFiberBorder
-				List<Object> elemsInFiber = Fiber.getElemInFiber(i, context); // get elems within this fiber
-				if (elemsInFiber.size() > 0) {
-					Object randomFiber = elemsInFiber.get(0);// choose one fiber to call getFiberBorder
-					((Fiber) randomFiber).getFiberBorder(i, context); // get all the borders and set to 1
-					for (Object elems : elemsInFiber) {
-						if (((Fiber) elems).getDamaged() != 0) {
-							chronicFiberNecrosisTemp[i - 1] = 1; // if any of the fibers are marked as damaged- end and
-																	// go to the next fiber and check
+			for (int i = 1; i < Fiber.origFiberNumber + 1; i++){ // go through each fiber and change the border to red
+		    	// get a random fiber in order to call getFiberBorder
+		    	List<Object> elemsInFiber = Fiber.getElemInFiber(i, context); // get elems within this fiber
+		    	if (elemsInFiber.size() > 0){
+		    		Object randomFiber = elemsInFiber.get(0);// choose one fiber to call getFiberBorder
+			    	((Fiber) randomFiber).getFiberBorder(i, context); // get all the borders and set to 1
+					for (Object elems : elemsInFiber){
+						if (((Fiber) elems).getDamaged() != 0){
+							chronicFiberNecrosisTemp[i-1] = 1; // if any of the fibers are marked as damaged- end and go to the next fiber and check
 						}
 					}
 				}
-				Fiber.chronicFiberNecrosis = chronicFiberNecrosisTemp;
+			    Fiber.chronicFiberNecrosis = chronicFiberNecrosisTemp;
 			}
-
 		}
 	}
 	
@@ -255,17 +246,6 @@ public class InflamCell {
 		Parameters params = RunEnvironment.getInstance().getParameters(); // RunEnvironment --> provides access to the
 																			// environment in which a particular model
 																			// runs
-		/*double[] inflamCells = new double[numInflamCells];
-		rmBasal = Math.floor(origFiberNumber / 3.7) * mdxChronicInflam; // defines number of resident macrophages
-		//inflamCells[0] = 0;																	// based on number of fibers
-		inflamCells[0] = rmBasal; // set the baseline number of resident macrophages
-		if (rmBasal == 0) {
-			rmBasal = 1;
-		}
-		
-		for (int i = 0; i < rmBasal; i++) {
-			context.add(new Macrophage(mcpSpatial, space, grid, 3, 0, 0, false, null));
-		}*/
 		
 		inflamCells[0] = 0;
 		inflamCells[1] = (Integer) params.getValue("n_initial");
@@ -385,28 +365,25 @@ public class InflamCell {
 		
 		// Calculate fibroblast and ssc additional parameters:
 		// FIBROBLAST RECRUITMENT- EOSINOPHIL-IL4
-		double dIL4Recruitdt = Necrosis.getInitialBurstNecrotic(context) * 10 * origFiberNumber * Fibroblast.fibroScale
-				* 30 * Fibroblast.murphRepRecruitParam * Fiber.mdxEosinophil * Fiber.tcf4Scale;
-		inflamCellsTemp[7] = (inflamCellsIter[7] + dIL4Recruitdt) * Math.pow(.5, timestep / (24.)); // slow decrease to
-																									// allow necrosis
-																									// signal to be
-																									// maintained for a
-																									// long time
+		double dIL4Recruitdt = Necrosis.getInitialBurstNecrotic(context) * 10 * origFiberNumber * Fibroblast.fibroScale * 30 * Fibroblast.murphRepRecruitParam * Fiber.mdxEosinophil * Fiber.tcf4Scale;
+		inflamCellsTemp[7] = (inflamCellsIter[7] + dIL4Recruitdt) * Math.pow(.5, timestep / (24.)); // slow decrease to allow necrosis signal to be maintained for a long time
 		// FIBROBLAST SSC-DEPENDENT EXPANSION
-		double numRecruitSSC = SSC.getActiveSSCs(context).size() - SSC.getDiffSSCs(context).size();// number of active,
-																									// not
-																									// differentiated
-																									// sscs
-		double sscFibroRecruit = numRecruitSSC / origFiberNumber; // weight by the number of fibers
-		double dfibrobExpansiondt = 200 * sscFibroRecruit * Fibroblast.murphRepRecruitParam; // fibroblast recruitment
-																								// parameter
-		inflamCellsTemp[8] = (inflamCellsIter[8] + dfibrobExpansiondt) * Math.pow(.5, timestep / 5.);
+		double numRecruitSSC = SSC.getActiveSSCs(context).size() - SSC.getDiffSSCs(context).size();// number of active, not differentiated sscs
+		double sscFibroRecruit = numRecruitSSC / Fiber.getTotalFiberNumber(context); // weight by the number of fibers
+		double dfibrobExpansiondt = 200 * sscFibroRecruit ; // fibroblast recruitment parameter
+		inflamCellsTemp[8] = dfibrobExpansiondt;
+				//(inflamCellsIter[8] + dfibrobExpansiondt) * Math.pow(.5, timestep / 5.);
 		// SSC ACTIVATION
-		// Use instead of just hgf, since hgf is dependent on how quickly damage is
-		// cleared
-		double dsscActivationdt = Necrosis.getInitialBurstNecrotic(context) * 10 * origFiberNumber * 15;
-		inflamCellsTemp[9] = (inflamCellsIter[9] + dsscActivationdt) * Math.pow(.5, timestep / 24.); // slow decrease to allow necrosis signal to be maintained for a long time
-		System.out.println("SSC: " + inflamCellsTemp[9]);																								
+		// Use instead of just hgf, since hgf is dependent on how quickly damage is cleared
+		//double dsscActivationdt = Necrosis.getInitialBurstNecrotic(context) * 10 * origFiberNumber * 15;
+		//inflamCellsTemp[9] = (inflamCellsIter[9] + dsscActivationdt) * Math.pow(.5, timestep / 24.); // slow decrease to allow necrosis signal to be maintained for a long time
+//		double dsscActivationdt = GrowthFactors.growthFactors[17] + GrowthFactors.growthFactors[17] + GrowthFactors.growthFactors[2]; // 2*hgf + fgf + igf
+//		inflamCellsTemp[9] = dsscActivationdt ; // slow decrease to allow necrosis signal to be maintained for a long time
+//		
+		//System.out.println("SSC: " + inflamCellsTemp[9]);
+		//System.out.println("hgf: " + GrowthFactors.growthFactors[17]);
+		//System.out.println("fgf: " + GrowthFactors.growthFactors[29]);
+
 
 		// Check to make sure all numbers are not less than zero/lower threshold
 		if (inflamCellsTemp[0] < .001) {

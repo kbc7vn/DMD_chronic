@@ -88,7 +88,8 @@ public class Fibroblast {
 	    mcpSpatial = (BufferedGridValueLayer) context.getValueLayer("MCP Layer");
 
 		// MOVE
-		if (this.getPhenotype() < myofibroblastSwitch && this.resident == 0 && this.expansionAge == 0) {
+		//if (this.getPhenotype() < myofibroblastSwitch && this.resident == 0 && this.expansionAge == 0) {
+		if (this.resident == 0 && this.expansionAge == 0) {
 			move();
 		}
 		// MYOFIBROBLAST SECRETIONS
@@ -105,8 +106,7 @@ public class Fibroblast {
 			senseEnvironment();
 		}
 		// RECRUITMENT -- called from Fiber
-		// until the fibroblast has been fully recruited it is not counted as a
-		// fibroblast
+		// until the fibroblast has been fully recruited it is not counted as a fibroblast
 		if (this.getRecruitAge() >= 1) {
 			setRecruitAge(this.getRecruitAge() + 1); // tracks fibroblast time to recruitment
 		}
@@ -115,22 +115,23 @@ public class Fibroblast {
 			this.setRecruitAge(0);
 		}
 		// EXPANSION/PROLIFERATION
-		if (this.resident == 0 && this.getRecruitAge() == 0) {
+		// myofibroblasts do not proliferate here (maybe change)
+		if (this.getPhenotype() < myofibroblastSwitch && this.resident == 0 && this.getRecruitAge() == 0) {
+		//if (this.resident == 0 && this.getRecruitAge() == 0) {
 			fibrobExpansion();
 		}
 		if (this.expansionAge >= 1) {
 			this.setExpansionAge(this.expansionAge + 1);
 		}
 		// APOPTOSIS
-		if (this.resident == 0 && this.expansionAge == 0 && this.getPhenotype() < myofibroblastSwitch) {
+		if (this.resident == 0 && this.expansionAge == 0) {// && this.getPhenotype() < myofibroblastSwitch) {
 			fibrobApoptosis();
 		}
 		if (this.getApopAge() >= fibrobApopCount && this.resident == 0) { // committed to apoptosis
 			setApopAge(this.getApopAge() + 1);
 		}
 		// "QUIESCENCE" = HOMEOSTASIS/BASELINE CONDITIONS
-		if (this.getPhenotype() < myofibroblastSwitch && this.getRecruitAge() == 0 && this.getApopAge() < 2
-				&& this.resident == 0 && this.expansionAge == 0) {
+		if (this.getPhenotype() < myofibroblastSwitch && this.getRecruitAge() == 0 && this.getApopAge() < 2 && this.resident == 0 && this.expansionAge == 0) {
 			fibrobQuiescence();
 		}
 
@@ -168,11 +169,10 @@ public class Fibroblast {
 		}
 		
 		// FIBROBLAST PROLIFERATION AND APOPTOSIS
-		fibroblastRecruit = InflamCell.getFibrobRecruit(); // IL4-mediated eosinophil recruitment of NMMPs + SSC recruitment;
+		fibroblastRecruit = InflamCell.getFibrobRecruit() + growthFactors[30]; // IL4-mediated eosinophil recruitment of NMMPs + SSC recruitment;
 		fibroblastExpansion = InflamCell.inflamCells[8]; // SSC-dependent proliferation of fibroblasts (Murphy et al. 2011)
-		fibroblastApop = tnf; // tnf induced fibroblast apotosis (Lemos 2015)
-		fibroblastBlockApop = GrowthFactors.getActiveTgf(InflamCell.getTick()); // active tgf blocks fibroblast apotosis
-																				// (Lemos 2015)
+		fibroblastApop = tnf ; // tnf induced fibroblast apotosis (Lemos 2015)
+		fibroblastBlockApop = GrowthFactors.getActiveTgf(InflamCell.getTick()); // active tgf blocks fibroblast apotosis (Lemos 2015)
 		fibroblastProlif = 0; // see fibroblastExpansion
 		double fiberNorm = Fiber.origFiberNumber; // normalize number of fibroblasts to the number of fibers
 		if (Fiber.origFiberNumber < getFibroblasts(context).size()) {
@@ -182,12 +182,9 @@ public class Fibroblast {
 		}
 		// Saturation limits (most not utilized in typical simulations- mostly used at
 		// chronic parameter testing)
-		fibrobRecruitSaturation = (fibroblastRecruit / fiberNorm) * 15 * Fiber.tcf4Scale; // saturation limits for
-																							// fibroblast recruitment
-		fibroExpSaturation = (1 - (Fiber.getFiberElems(context).size() / (Fiber.origCsaMean * Fiber.origFiberNumber)))
-				* Fiber.origFiberNumber * 10 * Fiber.tcf4Scale; // Fibroblast expansion saturation
-		fibroblastQuiescence = (Fiber.origCsaMean * Fiber.origFiberNumber - Fiber.getFiberElems(context).size())
-				/ (Fiber.origFiberNumber) * 7; // returns fibroblasts to homeostatic condition
+		fibrobRecruitSaturation = (fibroblastRecruit / fiberNorm) * 15 * Fiber.tcf4Scale; // saturation limits for fibroblast recruitment
+		fibroExpSaturation = (1 - (Fiber.getFiberElems(context).size() / (Fiber.origCsaMean * Fiber.origFiberNumber))) * Fiber.origFiberNumber * 10 ; // Fibroblast expansion saturation
+		fibroblastQuiescence = (Fiber.origCsaMean * Fiber.origFiberNumber - Fiber.getFiberElems(context).size()) / (Fiber.origFiberNumber) * 7; // returns fibroblasts to homeostatic condition
 	}
 
 	// FIBROBLAST ACTIVATION
@@ -245,8 +242,7 @@ public class Fibroblast {
 
 	public void fibrobExpansion() {
 		// Accounts for dependence of fibroblast expansion on satellite cells
-		// Fibrob recruit occurs for approx first 48 hours, expansion lasts while
-		// recruit signal is high
+		// Fibrob recruit occurs for approx first 48 hours, expansion lasts while recruit signal is high
 		Context context = ContextUtils.getContext(this);
 		List<Object> ecms = ECM.getECM(context); // Get a list of all the ecm agents to place cells on the ECM
 		// Expansion is dependent on the number of satellite cells
@@ -266,8 +262,7 @@ public class Fibroblast {
 		// counts-- more divisions = decreased chance of dividing- similar to SSC rules
 		int divNumberEffect = 1;
 		if (this.daughter >= 2) {
-			divNumberEffect = this.daughter + 1; // if the daughter has divided twice change the chance of dividing--
-													// assume similar to other cells
+			divNumberEffect = this.daughter + 1; // if the daughter has divided twice change the chance of dividing-- assume similar to other cells
 		}
 		if (this.expansionAge == 0 && fibroblastRecruit > Fiber.origFiberNumber * 2
 				&& (getFibroblasts(context).size() + getMyofibroblasts(context).size()) < fibroExpSaturation) {
@@ -322,23 +317,15 @@ public class Fibroblast {
 	// FIBROBLAST APOPTOSIS
 	public void fibrobApoptosis() {
 		Context context = ContextUtils.getContext(this);
-		int origFiberNumber = Fiber.getOrigFiberNumber(); // Total number of muscle fibers, not elements with muscle in
-															// it
-		// Chance of apoptosis vs. block apoptosis dependent on growth factors (signal
-		// above)
-		if (fibroblastApop > fibroblastBlockApop * 2 && fibroblastApop > 10 * origFiberNumber
-				&& RandomHelper.nextIntFromTo(0, (int) (55 - fibroblastApop / origFiberNumber)) < 2
-				&& this.getApopAge() < fibrobApopCount) {
-			// Any cells- unless already apoptosing
-			// if tnf is greater than tgf --> apoptosis of fibroblasts/nmmp/faps
+		int origFiberNumber = Fiber.getOrigFiberNumber(); // Total number of muscle fibers, not elements with muscle in it
+		// Chance of apoptosis vs. block apoptosis dependent on growth factors (signal above)
+		if (fibroblastApop > fibroblastBlockApop * 2 && fibroblastApop > 10 * origFiberNumber && RandomHelper.nextIntFromTo(0, (int) (55 - fibroblastApop / origFiberNumber)) < 2 && this.getApopAge() < fibrobApopCount) {
+			// Any cells- unless already apoptosing if tnf is greater than tgf --> apoptosis of fibroblasts/nmmp/faps
 			this.setApopAge(this.getApopAge() + 1); // will apop if it doesn't recruit first
-		} else if (fibroblastBlockApop > fibroblastApop * 2 && fibroblastBlockApop > 10 * origFiberNumber
-				&& RandomHelper.nextIntFromTo(0, (int) (120 - fibroblastBlockApop / origFiberNumber)) < 2
-				&& this.getApopAge() < fibrobApopCount) {
+		} else if (fibroblastBlockApop > fibroblastApop * 2 && fibroblastBlockApop > 10 * origFiberNumber && RandomHelper.nextIntFromTo(0, (int) (120 - fibroblastBlockApop / origFiberNumber)) < 2 && this.getApopAge() < fibrobApopCount) {
 			// Any cells- unless already apoptosing
 			// if tgf-beta is greatest, stop tnf-induced apoptosis of faps
-			setPhenotype(this.getPhenotype() + 1); // keep increasing phenotype number, at certain point -->
-													// myofibroblast
+			setPhenotype(this.getPhenotype() + 1); // keep increasing phenotype number, at certain point --> myofibroblast
 		}
 		// If the two pressures are similar- either can happen:
 		else if (fibroblastBlockApop / fibroblastApop < 2 && fibroblastBlockApop / fibroblastApop > .5
@@ -346,8 +333,7 @@ public class Fibroblast {
 			if (RandomHelper.nextIntFromTo(0, 1) < 1) {
 				this.setApopAge(this.getApopAge() + 1); // will apop if it doesn't recruit first
 			} else {
-				setPhenotype(this.getPhenotype() + 1); // keep increasing phenotype number, at certain point -->
-														// myofibroblast
+				setPhenotype(this.getPhenotype() + 1); // keep increasing phenotype number, at certain point --> myofibroblast
 			}
 		}
 		// APOPTOSIS
@@ -390,7 +376,7 @@ public class Fibroblast {
 		}
 		if (ecmNeighbor != null) {
 			//((ECM) ecmNeighbor).setCollagen(((ECM) ecmNeighbor).getCollagen() + .2 * (1 / Fiber.tcf4Scale)); // add collagen to ecm element
-			((ECM) ecmNeighbor).setCollagen(((ECM) ecmNeighbor).getCollagen() + .2 * 1.5); // add collagen to ecm element																									
+			((ECM) ecmNeighbor).setCollagen(((ECM) ecmNeighbor).getCollagen() + .2 * 1.5*6); // add collagen to ecm element																									
 		}
 	}
 
@@ -428,7 +414,7 @@ public class Fibroblast {
 			// And secrete collagen
 			if (((ECM) randomNeighbor).getCollagen() < .7 * Fiber.mdxBaseCollagen) {
 				//((ECM) randomNeighbor).setCollagen(((ECM) randomNeighbor).getCollagen() + .1 * (1 / Fiber.tcf4Scale));
-				((ECM) randomNeighbor).setCollagen(((ECM) randomNeighbor).getCollagen() + .1 * 4.3);
+				((ECM) randomNeighbor).setCollagen(((ECM) randomNeighbor).getCollagen() + .1 * 4.3*5);
 			}
 
 		} else if (openNeighbor.size() > 0) { // Otherwise just pick a random direction of ecm go to it

@@ -92,31 +92,30 @@ public class Neutrophil {
 
 		// determine how strong the recruitment force is
 		
-		double recruit = il1 + gcsf + mcp + ccl4 + cxcl2 + cxcl1 + il8;// + Necrosis.getInitialBurstNecrotic(context)*100;
+		double recruit = il1 + gcsf + mcp + ccl4 + cxcl2 + cxcl1 + il8 + Necrosis.getPercentNecrotic(context)*100;
 		double deter = lipoxins + resolvins + mmp12 + lactoferrins + pge2 + il10 + il6 / 2;
-		double differential = recruit - deter;
+		double differential = recruit - deter/2;
 		int addNeutrophils = 0;
-		System.out.println("neutrophils: "+differential);
 		numNeutrophils = getNeutrophils(context).size();
-		
-//		if (Necrosis.getInitialBurstNecrotic(context) > 0 && numNeutrophils < 0) {
-//			// if there was recent damage but dNdt == 0 --> for instance at chronic damage-- then add
-//			addNeutrophils = (int) (Necrosis.getInitialBurstNecrotic(context) * 55.3 * Macrophage.getMres(context).size() * 1.3);
-//			if (differential < 0) {
-//				differential = addNeutrophils;
-//			}
-//		}
 		
 		
 		List<Object> necrosis = Necrosis.getNecrosis(context);
 		List<Necrosis> newNecrosis = Necrosis.getNewNecrosis(context);
 		if (differential > 0) {
 			int max = Fiber.origFiberNumber * 2;
-			int neutro_prob = RandomHelper.nextIntFromTo(0, (int) ((differential / 2) + (differential / 4) - 1)/20);
+			int neutro_prob = RandomHelper.nextIntFromTo(0, (int) ((differential / 2) + (differential / 4) - 1)/25);
 			if (neutro_prob > 10) {
 				neutro_prob = (10) + RandomHelper.nextIntFromTo(0, 2);
+			} else if (differential < 0) {
+				if (Necrosis.getRecentPercentNecrotic(context) > 0 && numNeutrophils <= 0) {
+				// if there was recent damage but neutrophils == 0 --> for instance at chronic damage-- then add
+				addNeutrophils = (int) (Necrosis.getRecentPercentNecrotic(context) * 100 + Macrophage.getMres(context).size());
+				neutro_prob = addNeutrophils;
+				}
+				System.out.println(neutro_prob);
 			}
-			System.out.println("neutrophil: " + neutro_prob);
+			
+			//System.out.println("neutrophil: " + neutro_prob);
 			while (neutro_prob > 0 && numNeutrophils < max) { // make some neutrophils
 				// create_neutrophil();
 				// find areas of necrosis to place neutrophil
@@ -162,13 +161,18 @@ public class Neutrophil {
 			// Find areas with necrosis
 
 			// Find necrosis in this grid point
-			MooreQuery<Object> query = new MooreQuery<Object>(grid, this, 0, 0); // get the location this neutrophil is
+			MooreQuery<Object> query = new MooreQuery<Object>(grid, this, 1, 1); // get the location this neutrophil is
 			// currently in
 			Iterable<Object> iter = query.query(); // query the list of agents
 			List<Object> necroticCell = new ArrayList<Object>();
+			List<Object> fiberNgh = new ArrayList<Object>();
+			List<Object> m1macNgh = new ArrayList<Object>();
 			for (Object obj : iter) {
-				if (obj instanceof Necrosis) { // is current "cell" necrotic?
-					necroticCell.add(obj);
+				if (obj instanceof Fiber) { // is neighbor a fiber?
+					fiberNgh.add(obj);
+				} else if (obj instanceof Macrophage) { // is neighbor a fiber?
+					if (((Macrophage) obj).getPhenotype() == 1)
+					m1macNgh.add(obj);
 				}
 			}
 			
@@ -196,6 +200,15 @@ public class Neutrophil {
 					GridPoint pt = grid.getLocation(necrosisRemove);
 					// secrete mcp when phagocytosing necrosis
 					//mcpSpatial.set(5 + mcpSpatial.get(pt.getX(), pt.getY()), pt.getX(), pt.getY());		
+				}
+				if (fiberNgh.size() > 0 && m1macNgh.size() <= 0) {
+					int index = RandomHelper.nextIntFromTo(0,  fiberNgh.size() - 1);
+  					Fiber fiberRandom = (Fiber) fiberNgh.get(index);
+					Necrosis newNecrosis = new Necrosis(mcpSpatial, grid, 1, 0); // Create a new Necrotic element, marked 'secondary'
+					GridPoint pt = grid.getLocation(fiberRandom); // get location
+					context.remove(fiberRandom); // remove the fiber and change to secondary necrosis
+					context.add(newNecrosis); // Add new necrosis
+					grid.moveTo(newNecrosis, pt.getX(), pt.getY()); 
 				}
 				this.phagocytosis = phagocytosis + 1;
 				// secrete mcp when phagocytosing necrosis

@@ -79,9 +79,7 @@ public class Macrophage {
 		double il10 = growthFactors[21];
 		double il4 = growthFactors[30];
 
-		double recruit = ccl4 + ccl17 + ccl22 + ccl13 + il6 + mcp; // Azurocidin + LL37 + CCL2 + CCL4 + CCL17 +
-																			// CCL22 + CCL3 + CCL6 + sum [IL6] of
-																			// patches + CX3CL1 + sum [MCP] of patches
+		double recruit = ccl4 + ccl17 + ccl22 + ccl13 + il6 + mcp; // Azurocidin + LL37 + CCL2 + CCL4 + CCL17 + CCL22 + CCL3 + CCL6 + sum [IL6] of patches + CX3CL1 + sum [MCP] of patches
 		double deter = pge2 + lipoxins + tgf; // PGE2 + Lipoxins + NO + sum [TGF] of patches
 		double macProb = 0;
 		double differential = recruit - deter;
@@ -93,7 +91,7 @@ public class Macrophage {
 
 		// Determine the likelihood of the recruited macrophage to be m1 or M2
 		//double m1Chance = ifn + tnf / 2 - il10 - tgf; // IFN + sum [TNF] of patches / 2 - sum [IL10] of patches - sum[TGF] of patches
-		double m1Chance = ifn + tnf - il10 - tgf; // IFN + sum [TNF] of patches / 2 - sum [IL10] of patches - sum[TGF] of patches
+		double m1Chance = ifn + tnf;// - il10 - tgf; // IFN + sum [TNF] of patches / 2 - sum [IL10] of patches - sum[TGF] of patches
 		if (m1Chance < 0) {
 			m1Chance = 0.01;
 		}
@@ -115,43 +113,51 @@ public class Macrophage {
 			List<Object> ecms = ECM.getECM(context);
 			List<Object> necrosis = Necrosis.getNecrosis(context);
 			List<Necrosis> edgeNecrosis = Necrosis.getNecrosisAtEdge(context, grid);
-			List<Object> patch = new ArrayList<Object>();
-			for (Object obj : ecms) {
-				if (obj instanceof ECM && ((ECM) obj).getCollagen() > 0) {
-					patch.add(obj);
-				}
-			}
-			for (Object obj : necrosis) {
-				if (obj instanceof Necrosis) {
-					patch.add(obj);
-				}
-			}
+//			List<Object> patch = new ArrayList<Object>();
+//			for (Object obj : ecms) {
+//				if (obj instanceof ECM && ((ECM) obj).getCollagen() > 0) {
+//					patch.add(obj);
+//				}
+//			}
+//			for (Object obj : necrosis) {
+//				if (obj instanceof Necrosis) {
+//					patch.add(obj);
+//				}
+//			}
 
 			if (chance < m1Chance) {
 				if (edgeNecrosis.size() > 0) {
 					int index = RandomHelper.nextIntFromTo(0, edgeNecrosis.size() - 1);
-					Object spawnpt = patch.get(index);
+					Object spawnpt = edgeNecrosis.get(index);
 					GridPoint gridpt = grid.getLocation(spawnpt);
 					// NdPoint spacept = space.getLocation(spawnpt);
 					Macrophage m1mac = new Macrophage(mcpSpatial, space, grid, 1, 0, 0, false, null);
 					context.add(m1mac);
 					grid.moveTo(m1mac, gridpt.getX(), gridpt.getY());
 					// space.moveTo(m1mac, spacept.getX(), spacept.getY());
-				} else {
-
-					int index = RandomHelper.nextIntFromTo(0, patch.size() - 1);
-					Object spawnpt = patch.get(index);
+				} else if (necrosis.size() > 0){
+					int index = RandomHelper.nextIntFromTo(0, necrosis.size() - 1);
+					Object spawnpt = necrosis.get(index);
 					GridPoint gridpt = grid.getLocation(spawnpt);
 					// NdPoint spacept = space.getLocation(spawnpt);
 					Macrophage m1mac = new Macrophage(mcpSpatial, space, grid, 1, 0, 0, false, null); // phenotype = 1; age = 0; phagocytosis = 0; linked = false; buddy = null
 					context.add(m1mac);
 					grid.moveTo(m1mac, gridpt.getX(), gridpt.getY());
 					// space.moveTo(m1mac, spacept.getX(), spacept.getY());
+				} else {
+					int index = RandomHelper.nextIntFromTo(0, ecms.size() - 1);
+					Object spawnpt = ecms.get(index);
+					GridPoint gridpt = grid.getLocation(spawnpt);
+					// NdPoint spacept = space.getLocation(spawnpt);
+					Macrophage m1mac = new Macrophage(mcpSpatial, space, grid, 1, 0, 0, false, null);
+					context.add(m1mac);
+					grid.moveTo(m1mac, gridpt.getX(), gridpt.getY());
+					// space.moveTo(m1mac, spacept.getX(), spacept.getY());
 				}
 				
 			} else {
-				int index = RandomHelper.nextIntFromTo(0, patch.size() - 1);
-				Object spawnpt = patch.get(index);
+				int index = RandomHelper.nextIntFromTo(0, ecms.size() - 1);
+				Object spawnpt = ecms.get(index);
 				GridPoint gridpt = grid.getLocation(spawnpt);
 				// NdPoint spacept = space.getLocation(spawnpt);
 				Macrophage m2mac = new Macrophage(mcpSpatial, space, grid, 2, 0, 0, false, null); // phenotype = 2; age = 0; phagocytosis = 0; linked = false; buddy = null
