@@ -21,6 +21,18 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
+      <string>fgf</string>
+      <SeriesData>
+        <label>fgf</label>
+        <color>
+          <red>255</red>
+          <green>204</green>
+          <blue>255</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
       <string>ccl4</string>
       <SeriesData>
         <label>ccl4</label>

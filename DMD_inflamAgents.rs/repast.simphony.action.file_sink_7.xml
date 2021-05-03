@@ -38,6 +38,6 @@
     <string>tick</string>
     <string>random_seed</string>
   </sourceIds>
-  <fileName>C:\Users\kbc7vn\Documents\DMD\modelOutput\ChronicDMD\ModelOutput_growthFactorsVariable.csv</fileName>
+  <fileName>ModelOutput_growthFactors1%damage.csv</fileName>
   <addTimeStamp>true</addTimeStamp>
 </repast.simphony.data2.engine.FileSinkDescriptor>
