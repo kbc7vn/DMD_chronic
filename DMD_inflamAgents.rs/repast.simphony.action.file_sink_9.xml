@@ -19,6 +19,6 @@
     <string>senescent SSC</string>
     <string>tick</string>
   </sourceIds>
-  <fileName>ModelOutput_cellCounts1%damage.csv</fileName>
+  <fileName>C:\Users\kbc7vn\Documents\DMD\modelOutput\VariableDamage\ModelOutput_cellCountsVariableDamage.csv</fileName>
   <addTimeStamp>true</addTimeStamp>
 </repast.simphony.data2.engine.FileSinkDescriptor>

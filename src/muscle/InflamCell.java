@@ -32,7 +32,7 @@ public class InflamCell {
 	public static double[] inflamCells = new double[numInflamCells]; // Array of inflammatory cell counts = [RM N Na M1
 																		// M1ae M1de M2]
 	public static double rmBasal;
-	public static int tick = 0; // keep track of tick count for the active tgf
+	//public static int tick = 0; // keep track of tick count for the active tgf
 
 	// DISEASE STATE PARAMETERS
 	public static final int chronicDamage = 1; // if 1 = chronic damage, otherwise single level
@@ -78,8 +78,8 @@ public class InflamCell {
 			//@ScheduledMethod(start = 1.9, interval = 1)
 			public void chronicDamageScheduleDouble() {
 				Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
-				if (tick < 1008) {
-					if (chronicDamage == 1 && tick == 0 || chronicDamage == 1 && tick % 24 == 0) { // determines multiples of 24 by finding remainder-- micro damage
+				if (Fiber.tick < 1008) {
+					if (chronicDamage == 1 && Fiber.tick == 0 || chronicDamage == 1 && Fiber.tick % 24 == 0) { // determines multiples of 24 by finding remainder-- micro damage
 						Necrosis.chronicDamage(context, grid, Fiber.necrosisChronic*2);
 						// Check every time there is damage:
 						// Define the amount of necrosis/fiber (similar to originalFiberNecrosis for the single damage simulations:
@@ -100,7 +100,7 @@ public class InflamCell {
 							Fiber.chronicFiberNecrosis = chronicFiberNecrosisTemp;
 						}
 					}
-				} else if (chronicDamage == 1 && tick == 10008) {
+				} else if (chronicDamage == 1 && Fiber.tick == 10008) {
 					double damage = Fiber.necrosisChronic; 
 					Necrosis.chronicDamage(context, grid, 20);					// Check every time there is damage:
 					// Define the amount of necrosis/fiber (similar to originalFiberNecrosis for the single damage simulations:
@@ -124,11 +124,11 @@ public class InflamCell {
 			}
 	
 	// CHRONIC DAMAGE-- Repetitive injury - once every 24 hours
-		//@ScheduledMethod(start = 1.9, interval = 1)
+		@ScheduledMethod(start = 1.9, interval = 1)
 		public void chronicDamageVariableSchedule() {
 			Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
-			if (tick <= 336) {
-				if (chronicDamage == 1 && tick == 0 || chronicDamage == 1 && tick % 24 == 0) { // determines multiples of 24 by finding remainder-- micro damage
+			if (Fiber.tick <= 336) {
+				if (chronicDamage == 1 && Fiber.tick == 0 || chronicDamage == 1 && Fiber.tick % 24 == 0) { // determines multiples of 24 by finding remainder-- micro damage
 					Necrosis.chronicDamage(context, grid, Fiber.necrosisChronic*2);
 					// Check every time there is damage:
 					// Define the amount of necrosis/fiber (similar to originalFiberNecrosis for the single damage simulations:
@@ -149,10 +149,13 @@ public class InflamCell {
 						Fiber.chronicFiberNecrosis = chronicFiberNecrosisTemp;
 					}
 				}
-			} else if (chronicDamage == 1 && tick % 24 == 0) {
-				double damage = Fiber.necrosisChronic; 
-				if (tick > 1824) { // fading damage as mouse ages
-					damage = Fiber.necrosisChronic/2; 
+			} else if (chronicDamage == 1 && Fiber.tick % 24 == 0) {
+				// fading damage as mouse ages (Evans et al. 2010)
+				double damage = 1; 
+				if (Fiber.tick > 2496 && Fiber.tick < 3984) { //3-6 months less damage
+					damage = 0.5; 
+				} else if (Fiber.tick >= 3984) { //less damage after 6 months for rest of life 
+					damage = 0.25;
 				}
 				Necrosis.chronicDamage(context, grid, damage);
 				// Check every time there is damage:
@@ -177,11 +180,11 @@ public class InflamCell {
 		}
 	
 	// CHRONIC DAMAGE-- Repetitive injury same amount every day
-	@ScheduledMethod(start = 1.9, interval = 1)
+	//@ScheduledMethod(start = 1.9, interval = 1)
 	public void chronicDamageSchedule() {
 		Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
-		if (chronicDamage == 1 && tick == 0 || chronicDamage == 1 && tick % 24 == 0) { // determines multiples of 24 by finding remainder-- micro damage
-			Necrosis.chronicDamage(context, grid, 1);
+		if (chronicDamage == 1 && Fiber.tick == 0 || chronicDamage == 1 && Fiber.tick % 24 == 0) { // determines multiples of 24 by finding remainder-- micro damage
+			Necrosis.chronicDamage(context, grid, 0.5);
 			// Check every time there is damage:
 			// Define the amount of necrosis/fiber (similar to originalFiberNecrosis for the single damage simulations:
 			double[] chronicFiberNecrosisTemp = new double[Fiber.origFiberNumber];
@@ -208,7 +211,7 @@ public class InflamCell {
 	//@ScheduledMethod(start = 1.9, interval = 1)
 	public void chronicDamageSchedule2(){ //every 120 hours
 		Context context = ContextUtils.getContext(this); // get the context of the inflammatory cell
-		if (chronicDamage == 1 && tick == 0 || chronicDamage == 1 && tick % 120 == 30){ // determines multiples of 24 by finding remainder-- micro damage
+		if (chronicDamage == 1 && Fiber.tick == 0 || chronicDamage == 1 && Fiber.tick % 120 == 30){ // determines multiples of 24 by finding remainder-- micro damage
 			Necrosis.chronicDamage(context, grid, Fiber.necrosisChronic);
 			// Check every time there is damage:
 			// Define the amount of necrosis/fiber (similar to originalFiberNecrosis for the single damage simulations:
@@ -232,11 +235,11 @@ public class InflamCell {
 	
 
 	public static void setTick() {
-		tick = tick + 1;
+		Fiber.tick = Fiber.tick + 1;
 	}
 
 	public static int getTick() {
-		return tick;
+		return Fiber.tick;
 	}
 
 	static final int timestep = 1; // temp value for the timestep = 1 hour

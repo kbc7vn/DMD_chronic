@@ -25,7 +25,7 @@ public class FiberStyle extends DefaultStyleOGL2D {
 	@Override
 	public Color getColor(Object o) {
 
-		if (InflamCell.tick > 2) {
+		if (Fiber.tick > 2) {
 			if (((Fiber) o).getBorder() == 1 && ((Fiber) o).getNeedsRepair() == 0) { // if it is boarder fiber change
 																						// the color to dark red
 				return new Color(168, 0, 0); // dark red

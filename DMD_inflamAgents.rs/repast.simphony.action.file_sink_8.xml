@@ -12,6 +12,6 @@
     <string>collagen density</string>
     <string>fiber</string>
   </sourceIds>
-  <fileName>ModelOutput_regeneration1%damage.csv</fileName>
+  <fileName>C:\Users\kbc7vn\Documents\DMD\modelOutput\VariableDamage\ModelOutput_regenerationVariableDamage.csv</fileName>
   <addTimeStamp>true</addTimeStamp>
 </repast.simphony.data2.engine.FileSinkDescriptor>

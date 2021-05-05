@@ -518,10 +518,12 @@ public class SSC {
 					}
 				}
 				int int2 = RandomHelper.nextIntFromTo(0, openNeighbors.size() - 1);
-				Object ecmNearDam = openNeighbors.get(int2); // get the ecm near the damaged fiber
-				GridPoint ptECM = grid.getLocation(ecmNearDam); // Get the ecm location
-				grid.moveTo(sscNew, ptECM.getX(), ptECM.getY()); // add the new ssc to that location
-				sscNew.setMigrated(1);
+				if (openNeighbors.size() > 0) {
+					Object ecmNearDam = openNeighbors.get(int2); // get the ecm near the damaged fiber
+					GridPoint ptECM = grid.getLocation(ecmNearDam); // Get the ecm location
+					grid.moveTo(sscNew, ptECM.getX(), ptECM.getY()); // add the new ssc to that location
+					sscNew.setMigrated(1);
+				}
 			} else if (fiberBorderDamaged1.size() > 0) {
 				SSC sscNew = new SSC(mcpSpatial, grid, 0, 0, 0, 0, 0, RandomHelper.nextIntFromTo(0, 9), 0, 0, 0, 0, 0, 0, 0, 1); // adds a quiescent SSC that has not migrated
 				// Chance is dependent on the number of ssc
@@ -698,15 +700,23 @@ public class SSC {
 		// Need to make sure ssc move in ecm and necrosis only
 		GridPoint myPoint = grid.getLocation(this);
 		if ((pt.getY() - myPoint.getY()) >= 1) {
-			grid.moveTo(this, myPoint.getX(), myPoint.getY() + 1);
+			try{
+				grid.moveTo(this, myPoint.getX(), myPoint.getY() + 1);
+			} catch (Exception e) {}
 		} else if ((pt.getY() - myPoint.getY()) < 1) {
-			grid.moveTo(this, myPoint.getX(), myPoint.getY() - 1);
+			try {
+				grid.moveTo(this, myPoint.getX(), myPoint.getY() - 1);
+			} catch (Exception e) {}
 		}
 		GridPoint myPointNew = grid.getLocation(this); // update location
 		if ((pt.getX() - myPointNew.getX()) >= 1) {
-			grid.moveTo(this, myPointNew.getX() + 1, myPointNew.getY());
+			try {
+				grid.moveTo(this, myPointNew.getX() + 1, myPointNew.getY());
+			} catch (Exception e) {}
 		} else if ((pt.getX() - myPointNew.getX()) < 1) {
-			grid.moveTo(this, myPointNew.getX() - 1, myPointNew.getY());
+			try {
+				grid.moveTo(this, myPointNew.getX() - 1, myPointNew.getY());
+			} catch (Exception e) {}
 		}
 	}
 

@@ -34,6 +34,7 @@ public class Fiber {
 	// FIBER PARAMETERS:
 	private Grid<Object> grid;
 	private  BufferedGridValueLayer mcpSpatial;
+	public static int tick; // keep track of tick count for the active tgf
 	private int mfProtein; // amount of protein
 	public int fiberNumber;	// fiber number-- all fiber agents in same fiber have same fiber number
 	private int border; // 1 == border of fiber/ecm, 0 == not a border fiber elem
@@ -109,10 +110,11 @@ public class Fiber {
 		origFiberNumber = getTotalFiberNumber(context); // get total number of fibers at start
 		necrosisChronic = 1; // chronic damage only
 		fiberCount = 0;
+		tick = 0;
 		
 		// DISEASE PARAMETER SET:// Set disease state parameters
 		// HEALTHY
-		double necrosisInitial = 10;
+		double necrosisInitial = 35;
 		mdxChronicInflam = 1;
 		// VERY YOUNG MDX
 		if (diseaseState == 4){
