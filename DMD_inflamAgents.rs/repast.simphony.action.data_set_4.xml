@@ -1,5 +1,5 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>InflamCells</name>
+  <name>Fibroblasts and SSCs</name>
   <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
@@ -11,70 +11,79 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1203818637</hashCode>
+    <hashCode>-1698440859</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map">
     <entry>
-      <string>neutrophil</string>
+      <string>active fibroblast</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>neutrophil</id>
+        <id>active fibroblast</id>
         <className>muscle.InflamCell</className>
-        <methodName>getN</methodName>
+        <methodName>getActiveFibroblast4Plot</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>apop neutrophil</string>
+      <string>fibroblast</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>apop neutrophil</id>
+        <id>fibroblast</id>
         <className>muscle.InflamCell</className>
-        <methodName>getNa</methodName>
+        <methodName>getFibroblastNumber4Plot</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>m1 mac</string>
+      <string>myoblast</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>m1 mac</id>
+        <id>myoblast</id>
         <className>muscle.InflamCell</className>
-        <methodName>getM1</methodName>
+        <methodName>getMyoblastNumber4Plot</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>m1 ae</string>
+      <string>myofibroblast</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>m1 ae</id>
+        <id>myofibroblast</id>
         <className>muscle.InflamCell</className>
-        <methodName>getM1ae</methodName>
+        <methodName>getMyofibroblastNumber4Plot</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>m1 de</string>
+      <string>pax7 SSC</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>m1 de</id>
+        <id>pax7 SSC</id>
         <className>muscle.InflamCell</className>
-        <methodName>getM1de</methodName>
+        <methodName>getPax7Number4Plot</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>res mac</string>
+      <string>senescent SSC</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>res mac</id>
+        <id>senescent SSC</id>
         <className>muscle.InflamCell</className>
-        <methodName>getRM</methodName>
+        <methodName>getSenescentSSC4Plot</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>m2 mac</string>
+      <string>total collagen</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>m2 mac</id>
+        <id>total collagen</id>
         <className>muscle.InflamCell</className>
-        <methodName>getM2</methodName>
+        <methodName>getTotalCollagen</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>collagen density</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>collagen density</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getCollagenDensity</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>

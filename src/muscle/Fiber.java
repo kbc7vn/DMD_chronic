@@ -101,6 +101,7 @@ public class Fiber {
 			checkFiberTouching(context, i); // check if any fibers are touching and resolve it
 		}
 		getNumFiberNeedRepair(context); // Get the total number of fibers that need repair
+		//System.out.println(tick);
 	}
 	
 	// Initialization

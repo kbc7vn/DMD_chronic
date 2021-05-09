@@ -228,7 +228,7 @@ public class SSC {
 		// SSC NICHE- function of fibronectin
 		sscNiche = growthFactors[6];
 		// SSC ACTIVATION- function of damage
-		double sscActivation = 2*hgf + fgf + igf; // 2*hgf + fgf + igf
+		double sscActivation = 2*hgf*Fiber.getTotalFiberNumber(context) + fgf + igf; // 2*hgf + fgf + igf, hgf is scaled by fiber number
 		
 		//sscActivation = InflamCell.inflamCells[9]; // already scaled by fiber number
 		// SSC DIVISION/PROLIFERATION:
@@ -581,12 +581,14 @@ public class SSC {
 					if (neighbors3 instanceof ECM || neighbors3 instanceof Necrosis) {
 						openNeighbors3.add(neighbors3);
 					}
+				} 
+				if (openNeighbors3.size() > 0) {
+					int int2 = RandomHelper.nextIntFromTo(0, openNeighbors3.size() - 1);
+					Object ecmNearDam3 = openNeighbors3.get(int2); // get the ecm near the damaged fiber
+					GridPoint ptECM3 = grid.getLocation(ecmNearDam3); // Get the ecm location
+					grid.moveTo(sscNew, ptECM3.getX(), ptECM3.getY()); // add the new ssc to that location
+					sscNew.setMigrated(1);
 				}
-				int int2 = RandomHelper.nextIntFromTo(0, openNeighbors3.size() - 1);
-				Object ecmNearDam3 = openNeighbors3.get(int2); // get the ecm near the damaged fiber
-				GridPoint ptECM3 = grid.getLocation(ecmNearDam3); // Get the ecm location
-				grid.moveTo(sscNew, ptECM3.getX(), ptECM3.getY()); // add the new ssc to that location
-				sscNew.setMigrated(1);
 			}
 		}
 	}

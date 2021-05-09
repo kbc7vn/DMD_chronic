@@ -1,5 +1,5 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Regeneration</name>
+  <name>MCP</name>
   <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
@@ -11,43 +11,25 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-1492368765</hashCode>
+    <hashCode>435331287</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map">
     <entry>
-      <string>total size</string>
+      <string>MCP spatial</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>total size</id>
-        <className>muscle.InflamCell</className>
-        <methodName>getTotalSize</methodName>
+        <id>MCP spatial</id>
+        <className>muscle.GrowthFactors</className>
+        <methodName>getTotalMCP</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>fiber</string>
+      <string>MCP ratio</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>fiber</id>
-        <className>muscle.InflamCell</className>
-        <methodName>getFiberTotal</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>ECM</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ECM</id>
-        <className>muscle.InflamCell</className>
-        <methodName>getECMTotal</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>necrosis</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>necrosis</id>
-        <className>muscle.InflamCell</className>
-        <methodName>getNecrosisTotal</methodName>
+        <id>MCP ratio</id>
+        <className>muscle.GrowthFactors</className>
+        <methodName>mcpRatio</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>

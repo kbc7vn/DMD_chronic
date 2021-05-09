@@ -1,9 +1,9 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>GrowthFactors</name>
+  <name>Regeneration</name>
   <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
-  <inclRandomSeed>true</inclRandomSeed>
+  <inclRandomSeed>false</inclRandomSeed>
   <scheduleParams>
     <start>1.0</start>
     <interval>1.0</interval>
@@ -11,286 +11,43 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-624469066</hashCode>
+    <hashCode>-1492368765</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map">
     <entry>
-      <string>ccl17</string>
+      <string>total size</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ccl17</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getCcl17</methodName>
+        <id>total size</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getTotalSize</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>ccl22</string>
+      <string>fiber</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ccl22</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getCcl22</methodName>
+        <id>fiber</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getFiberTotal</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>ccl3</string>
+      <string>ECM</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ccl3</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getCcl3</methodName>
+        <id>ECM</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getECMTotal</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>ccl4</string>
+      <string>necrosis</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ccl4</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getCcl4</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>collagen4</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>collagen4</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getCollagen4</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>collagenX</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>collagenX</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getCollagenX</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>cxcl1</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>cxcl1</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getCxcl1</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>cxcl2</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>cxcl2</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getCxcl2</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>ECMprot</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ECMprot</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getEcmprot</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>fgf</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>fgf</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getFgf</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>gcsf</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>gcsf</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getGcsf</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>hgf</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>hgf</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getHgf</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>ifn</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ifn</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getIfn</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>igf1</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>igf1</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getIgf1</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>il1</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>il1</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getIl1</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>il10</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>il10</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getIl10</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>il4</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>il4</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getIl4</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>il6</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>il6</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getIl6</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>il8</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>il8</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getIl8</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>lactoferins</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>lactoferins</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getLactoferins</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>lipoxins</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>lipoxins</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getLipoxins</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>mcp</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>mcp</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getMcp</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>mmp12</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>mmp12</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getMmp12</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>mmpx</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>mmpx</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getMmpx</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>pdgf</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>pdgf</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getPdgf</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>pge2</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>pge2</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getPge2</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>resolvins</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>resolvins</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getResolvins</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>ros</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ros</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getRos</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>tgf</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>tgf</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getTgf</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>tnf</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>tnf</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getTnf</methodName>
-        <aggType>SUM</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>vegf</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>vegf</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getVegf</methodName>
+        <id>necrosis</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getNecrosisTotal</methodName>
         <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>

@@ -1,5 +1,5 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>MCP</name>
+  <name>InflamCells</name>
   <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
@@ -11,26 +11,71 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>435331287</hashCode>
+    <hashCode>1203818637</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map">
     <entry>
-      <string>MCP spatial</string>
+      <string>neutrophil</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>MCP spatial</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>getTotalMCP</methodName>
-        <aggType>SUM</aggType>
+        <id>neutrophil</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getN</methodName>
+        <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>MCP ratio</string>
+      <string>apop neutrophil</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>MCP ratio</id>
-        <className>muscle.GrowthFactors</className>
-        <methodName>mcpRatio</methodName>
-        <aggType>SUM</aggType>
+        <id>apop neutrophil</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getNa</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>m1 mac</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>m1 mac</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getM1</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>m1 ae</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>m1 ae</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getM1ae</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>m1 de</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>m1 de</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getM1de</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>res mac</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>res mac</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getRM</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>m2 mac</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>m2 mac</id>
+        <className>muscle.InflamCell</className>
+        <methodName>getM2</methodName>
+        <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
   </methodDataSources>

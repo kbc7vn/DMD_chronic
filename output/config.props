@@ -5,5 +5,5 @@ poll.frequency = 60.0
 model.output = C:/Users/kbc7vn/workspace/DMD_inflamAgents/output
 
 vm.arguments = 
-local.0.instances = 2
+local.0.instances = 10
 local.0.working_directory = C:/Users/kbc7vn/AppData/Local/Temp/
